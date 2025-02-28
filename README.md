@@ -1,29 +1,8 @@
-# a
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+# PROJECT2-SEC-2-MhooJuum
+## 🧑‍🧑‍🧒‍🧒 Members
+| Student No. | Name | Task | Resposensibility |
+| - | - | -| -|
+| 66130500068 | ภรพล จงสกุล 🐭 |  |  |
+| 66130500076 | วรินภร กิรติภัทรธนากร 🎁 |  |  |
+| 66130500104 | ภีมวัศ ช่วยดู 🐷 |  |  |
+| 66130500123 | ภูรินท์ สุวรรณรัตน์ 🥘 |  |  |
