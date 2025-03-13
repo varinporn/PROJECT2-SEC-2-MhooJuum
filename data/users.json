@@ -1,0 +1,11 @@
+[
+    {
+        "userId": 1,
+        "username": "Nuu",
+        "email": "nuuza@gmail.com",
+        "DOB": "2005-06-09",
+        "password": "giftinw",
+        "tickets": [1],
+        "bookmarks": [1]
+    }
+]
