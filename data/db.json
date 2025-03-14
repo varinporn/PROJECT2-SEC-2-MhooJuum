@@ -1,0 +1,206 @@
+{
+    "concerts" : [
+        {
+          "id": 1,
+          "name": "Synthwave Night",
+          "description": "Immerse yourself in retro-futuristic beats and neon vibes with top synthwave artists.",
+          "location": "Cyber Arena",
+          "date": "2025-12-10",
+          "time": "20:00:00",
+          "price": 150,
+          "available": 300,
+          "isAvailable": true
+        },
+      
+        {
+          "id": 2,
+          "name": "Rock Night",
+          "description": "A night full of rock music",
+          "location": "City Hall",
+          "date": "2024-05-20",
+          "time": "20:00:00",
+          "price": 150,
+          "available": 150,
+          "isAvailable": true
+        },
+        {
+          "id": 3,
+          "name": "Jazz Evening",
+          "description": "Smooth jazz with top artists",
+          "location": "River Park",
+          "date": "2024-06-15",
+          "time": "18:30:00",
+          "price": 120,
+          "available": 100,
+          "isAvailable": true
+        },
+        {
+          "id": 4,
+          "name": "Pop Fiesta",
+          "description": "Enjoy the latest pop hits",
+          "location": "Downtown Arena",
+          "date": "2024-07-10",
+          "time": "19:30:00",
+          "price": 200,
+          "available": 250,
+          "isAvailable": true
+        },
+        {
+          "id": 5,
+          "name": "Indie Vibes",
+          "description": "The best indie bands in town",
+          "location": "Indie Cafe",
+          "date": "2024-08-05",
+          "time": "17:00:00",
+          "price": 80,
+          "available": 80,
+          "isAvailable": true
+        },
+        {
+          "id": 6,
+          "name": "Metal Madness",
+          "description": "Heavy metal festival",
+          "location": "Stadium X",
+          "date": "2024-09-12",
+          "time": "21:00:00",
+          "price": 250,
+          "available": 500,
+          "isAvailable": true
+        },
+        {
+          "id": 7,
+          "name": "Classical Night",
+          "description": "Orchestra and classical pieces",
+          "location": "Opera House",
+          "date": "2024-10-01",
+          "time": "19:00:00",
+          "price": 300,
+          "available": 120,
+          "isAvailable": true
+        },
+        {
+          "id": 8,
+          "name": "EDM Party",
+          "description": "Top DJs from around the world",
+          "location": "Beach Club",
+          "date": "2024-11-20",
+          "time": "22:00:00",
+          "price": 180,
+          "available": 400,
+          "isAvailable": true
+        },
+        {
+          "id": 9,
+          "name": "Reggae Sunset",
+          "description": "Relax with reggae vibes",
+          "location": "Island Resort",
+          "date": "2024-12-05",
+          "time": "16:00:00",
+          "price": 130,
+          "available": 300,
+          "isAvailable": true
+        },
+        {
+          "id": 10,
+          "name": "Hip-Hop Battle",
+          "description": "Rap battles and live performances",
+          "location": "Underground Club",
+          "date": "2025-01-15",
+          "time": "20:00:00",
+          "price": 160,
+          "available": 150,
+          "isAvailable": true
+        },
+        {
+          "id": 11,
+          "name": "Country Road",
+          "description": "Country music under the stars",
+          "location": "Farm Festival",
+          "date": "2025-02-10",
+          "time": "18:00:00",
+          "price": 140,
+          "available": 200,
+          "isAvailable": true
+        },
+        {
+          "id": 12,
+          "name": "Soul & Blues",
+          "description": "Smooth soul and blues music",
+          "location": "Jazz Lounge",
+          "date": "2025-03-08",
+          "time": "19:30:00",
+          "price": 150,
+          "available": 100,
+          "isAvailable": true
+        },
+        {
+          "id": 13,
+          "name": "K-Pop Extravaganza",
+          "description": "Top K-Pop groups performing live",
+          "location": "Mega Arena",
+          "date": "2025-04-20",
+          "time": "18:00:00",
+          "price": 350,
+          "available": 1000,
+          "isAvailable": true
+        },
+        {
+          "id": 14,
+          "name": "Acoustic Sessions",
+          "descripton": "Chill acoustic music night",
+          "location": "Cozy Cafe",
+          "date": "2025-05-10",
+          "time": "17:00:00",
+          "price": 90,
+          "available": 50,
+          "isAvailable": true
+        },
+        {
+          "id": 15,
+          "name": "Alternative Rock Fest",
+          "description": "Alternative rock bands unite",
+          "location": "Music Hall",
+          "date": "2025-06-25",
+          "time": "19:00:00",
+          "price": 170,
+          "available": 250,
+          "isAvailable": true
+        }
+      ],
+    "tickets" : [
+        {
+            "id": 1,
+            "concertId": 1,
+            "userId": 1
+        }
+    ],
+    "users" : [
+        {
+            "userId": 1,
+            "username": "Nuu",
+            "email": "nuuza@gmail.com",
+            "DOB": "2005-06-09",
+            "password": "giftinw",
+            "tickets": [1],
+            "bookmarks": [1]
+        },
+        {
+            "userId": 2,
+            "username": "Mek",
+            "email": "nuuza@gmail.com",
+            "DOB": "2005-06-09",
+            "password": "giftinw",
+            "tickets": [1],
+            "bookmarks": [1]
+        },
+        {
+            "userId": 3,
+            "username": "Moo",
+            "email": "nuuza@gmail.com",
+            "DOB": "2005-06-09",
+            "password": "giftinw",
+            "tickets": [1],
+            "bookmarks": [1]
+        }
+    ]
+}

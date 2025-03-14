@@ -7,5 +7,23 @@
         "password": "giftinw",
         "tickets": [1],
         "bookmarks": [1]
+    },
+    {
+        "userId": 2,
+        "username": "Mek",
+        "email": "nuuza@gmail.com",
+        "DOB": "2005-06-09",
+        "password": "giftinw",
+        "tickets": [1],
+        "bookmarks": [1]
+    },
+    {
+        "userId": 3,
+        "username": "Moo",
+        "email": "nuuza@gmail.com",
+        "DOB": "2005-06-09",
+        "password": "giftinw",
+        "tickets": [1],
+        "bookmarks": [1]
     }
 ]

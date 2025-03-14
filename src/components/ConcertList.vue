@@ -1,14 +1,21 @@
 <script setup>
 import ListModel from './ListModel.vue'
-import concerts from '../../data/concerts.json'
+
+defineProps({
+  concerts: {
+    type: Array,
+    require: true,
+  },
+
+})
 </script>
 
 <template>
-  <div>
+  <div class="px-8">
+    <div class="text-3xl font-bold my-2">
+        <slot name="header"></slot>
+    </div>
     <ListModel :items="concerts">
-      <slot name="header">
-
-      </slot>
       <template #yourItem="slotProps">
         <img src="../../concert/image.png" />
         <p class="font-semibold text-xl">

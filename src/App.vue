@@ -1,10 +1,15 @@
 <script setup>
-import ConcertList from './components/ConcertList.vue'
+import ConcertManager from './components/ConcertManager.vue'
+import TicketList from './components/TicketList.vue'
+import UserManager from './components/UserManager.vue'
+import Header from './components/Header.vue'
 </script>
 
 <template>
   <div>
-    <ConcertList />
+    <Header />
+    <UserManager />
+    <ConcertManager />
   </div>
 </template>
 

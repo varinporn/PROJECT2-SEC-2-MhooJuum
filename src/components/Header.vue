@@ -1,0 +1,24 @@
+<script setup></script>
+
+<template>
+  <div class="fixed top-0 w-full bg-[#ffffff] py-5 px-8 flex justify-between border-b-2 border-gray-200">
+    <div class="flex space-x-20">
+      <div>
+        <img src="/logo.png" alt="logo" class="h-8" />
+      </div>
+      <div class="flex space-x-10">
+        <p class="font-semibold cursor-pointer">HOME</p>
+        <p class="font-semibold cursor-pointer">CONCERTS</p>
+      </div>
+    </div>
+    <div>
+      <img
+        src="/icons/profile.png"
+        alt="profile"
+        class="w-8 h-8 rounded-full"
+      />
+    </div>
+  </div>
+</template>
+
+<style scoped></style>
