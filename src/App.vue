@@ -1,13 +1,11 @@
 <script setup>
-
+import ConcertList from './components/ConcertList.vue'
 </script>
- 
-<template>
-<div>
-  <h1 class="text-5xl">Hey!!</h1>
-</div>
-</template>
- 
-<style scoped>
 
-</style>
+<template>
+  <div>
+    <ConcertList />
+  </div>
+</template>
+
+<style scoped></style>
