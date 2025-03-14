@@ -1,0 +1,51 @@
+{
+    "concerts" : [
+        {
+            "concertId": 1,
+            "concertName": "Juum",
+            "descripton": "JuumJuumJuumJuumJuum",
+            "location": "Ban Juum",
+            "date": "2024-04-13",
+            "time": "19:00:00",
+            "price": 100,
+            "available": 200,
+            "isAvailable": true
+        }
+    ],
+    "tickets" : [
+        {
+            "id": 1,
+            "concertId": 1,
+            "userId": 1
+        }
+    ],
+    "users" : [
+        {
+            "userId": 1,
+            "username": "Nuu",
+            "email": "nuuza@gmail.com",
+            "DOB": "2005-06-09",
+            "password": "giftinw",
+            "tickets": [1],
+            "bookmarks": [1]
+        },
+        {
+            "userId": 2,
+            "username": "Mek",
+            "email": "nuuza@gmail.com",
+            "DOB": "2005-06-09",
+            "password": "giftinw",
+            "tickets": [1],
+            "bookmarks": [1]
+        },
+        {
+            "userId": 3,
+            "username": "Moo",
+            "email": "nuuza@gmail.com",
+            "DOB": "2005-06-09",
+            "password": "giftinw",
+            "tickets": [1],
+            "bookmarks": [1]
+        }
+    ]
+}

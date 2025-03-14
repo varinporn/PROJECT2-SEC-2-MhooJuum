@@ -1,10 +1,13 @@
 <script setup>
+import TicketList from './components/TicketList.vue';
+import UserManager from './components/UserManager.vue';
+
 
 </script>
  
 <template>
 <div>
-  <h1 class="text-5xl">Hey!!</h1>
+  <UserManager/>    
 </div>
 </template>
  
