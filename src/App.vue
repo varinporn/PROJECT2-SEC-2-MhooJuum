@@ -1,13 +1,24 @@
 <script setup>
-import TicketList from './components/TicketList.vue';
-import UserManager from './components/UserManager.vue';
+import {ref} from 'vue'
+import PopupModel from './components/PopupModel.vue';
 
-
+const showModal = ref(false)
+const toggleModal = () => {
+    showModal.value = !showModal.value
+}
 </script>
  
 <template>
-<div>
-  <UserManager/>    
+<div> 
+  <button @click="toggleModal">hey</button>
+  <PopupModel v-if="showModal" @close="toggleModal">
+    <template #header>
+      Your Ticket
+    </template>
+    <template #content>
+      fdsfa
+    </template>
+  </PopupModel> 
 </div>
 </template>
  
