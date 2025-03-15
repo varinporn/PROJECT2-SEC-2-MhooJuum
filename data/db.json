@@ -1,7 +1,7 @@
 {
     "concerts" : [
         {
-            "concertId": 1,
+            "id": 1,
             "concertName": "Juum",
             "descripton": "JuumJuumJuumJuumJuum",
             "location": "Ban Juum",
@@ -17,11 +17,36 @@
             "id": 1,
             "concertId": 1,
             "userId": 1
+        },
+        {
+            "id": 2,
+            "concertId": 1,
+            "userId": 1
+        },
+        {
+            "id": 3,
+            "concertId": 1,
+            "userId": 1
+        },
+        {
+            "id": 4,
+            "concertId": 1,
+            "userId": 1
+        },
+        {
+            "id": 5,
+            "concertId": 1,
+            "userId": 1
+        },
+        {
+            "id": 6,
+            "concertId": 1,
+            "userId": 1
         }
     ],
     "users" : [
         {
-            "userId": 1,
+            "id": 1,
             "username": "Nuu",
             "email": "nuuza@gmail.com",
             "DOB": "2005-06-09",
@@ -30,7 +55,7 @@
             "bookmarks": [1]
         },
         {
-            "userId": 2,
+            "id": 2,
             "username": "Mek",
             "email": "nuuza@gmail.com",
             "DOB": "2005-06-09",
@@ -39,7 +64,7 @@
             "bookmarks": [1]
         },
         {
-            "userId": 3,
+            "id": 3,
             "username": "Moo",
             "email": "nuuza@gmail.com",
             "DOB": "2005-06-09",

@@ -9,10 +9,16 @@ defineProps({
 </script>
 
 <template>
-  <ListModel :items="ticket">
+  <ListModel :items="ticket" class="mx-20 py-5">
     <template #yourItem="listTicket">
-        <p>ID : {{ listTicket.itemInList.id }}</p>
-        <p>Name : {{ listTicket.itemInList }}</p>
+        <div class="">
+          <div class=" bg-red-500 w-full h-[250px] rounded-2xl">
+          </div>
+          <div class=" text-center">
+            <p>Id : {{ listTicket.itemInList.id }}</p>
+            <p>concertName : {{ listTicket.itemInList.concertName }}</p>
+          </div>
+        </div>
     </template>
   </ListModel>
 </template>
