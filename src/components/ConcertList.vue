@@ -8,6 +8,7 @@ defineProps({
   },
 
 })
+
 </script>
 
 <template>
@@ -18,10 +19,14 @@ defineProps({
     <ListModel :items="concerts">
       <template #yourItem="slotProps">
         <img src="../../concert/image.png" />
-        <p class="font-semibold text-xl">
+        <p class="mt-2 font-semibold text-lg">
           {{ slotProps.itemInList.name }}
         </p>
-        <p class="text-gray-400">{{ slotProps.itemInList.location }}</p>
+        <div class="flex space-x-2">
+          <img src="../../icons/location.png" class="w-4 h-full">
+          <p class="text-gray-400 text-md"> 
+            {{ slotProps.itemInList.location }}</p>
+        </div>
       </template>
     </ListModel>
   </div>

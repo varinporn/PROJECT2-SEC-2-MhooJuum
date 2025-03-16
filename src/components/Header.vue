@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="fixed top-0 w-full bg-[#ffffff] py-5 px-8 flex justify-between border-b-2 border-gray-200">
+  <div class="fixed top-0 w-full bg-[#ffffff] py-5 px-8 flex justify-between border-b-2 border-gray-200 ">
     <div class="flex space-x-20">
       <div>
         <img src="/logo.png" alt="logo" class="h-8" />
@@ -15,7 +15,7 @@
       <img
         src="/icons/profile.png"
         alt="profile"
-        class="w-8 h-8 rounded-full"
+        class="w-8 h-8 rounded-full cursor-pointer"
       />
     </div>
   </div>

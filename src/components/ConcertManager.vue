@@ -1,10 +1,11 @@
 <script setup>
 import { getItems } from '../../libs/fetchUtils'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import ConcertList from './ConcertList.vue'
 
 const concerts = ref([])
-
+const kpopConcerts = computed(() => concerts.value.filter(concert => concert.genre === 'kpop'))
+const tpopConcerts = computed(() => concerts.value.filter(concert => concert.genre === 'tpop'))
 
 onMounted(async () => {
   try {
@@ -25,12 +26,12 @@ onMounted(async () => {
             <h1>All Concerts</h1>
         </template>
     </ConcertList>
-    <ConcertList :concerts="concerts">
+    <ConcertList :concerts="kpopConcerts">
         <template #header>
             <h1>KPOP</h1>
         </template>
     </ConcertList>
-    <ConcertList :concerts="concerts">
+    <ConcertList :concerts="tpopConcerts">
         <template #header>
             <h1>TPOP</h1>
         </template>
