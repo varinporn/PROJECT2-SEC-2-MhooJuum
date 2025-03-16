@@ -2,7 +2,7 @@
 ## 🧑‍🧑‍🧒‍🧒 Members
 | Student No. | Name | Week1 | Week2 | Week3 | Resposensibility |
 | - | - | -| -| -| -|
-| 66130500068 | ภรพล จงสกุล 🐭 | Planning | UI Design |  | |
+| 66130500068 | ภรพล จงสกุล 🐭 | Planning | UI Design | Login.vue | |
 | 66130500076 | วรินภร กิรติภัทรธนากร 🎁 | Planning | UI Design | ConcertList.vue, ConcertManager.vue, ConcertDetail.vue, Header.vue | |
 | 66130500104 | ภีมวัศ ช่วยดู 🐷 | Planning | UI Design |  | |
 | 66130500123 | ภูรินท์ สุวรรณรัตน์ 🥘 | Planning | UI Design | TicketList.vue, UserManager.vue | |
