@@ -19,8 +19,15 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class=" bg-gray-200">
-    <TicketList :ticket="concerts"></TicketList>
+  <div>
+    <div class=" flex ml-20 gap-20 mb-5 font-bold">
+      <button class=" border-b-2 pb-1">Upcoming</button>
+      <button>History</button>
+      <button>follow</button>
+    </div>
+    <div class=" bg-gray-200">
+      <TicketList :ticket="concerts"></TicketList>
+    </div>
   </div>
 </template>
 
