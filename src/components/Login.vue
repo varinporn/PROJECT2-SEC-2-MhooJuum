@@ -1,4 +1,5 @@
 <script setup>
+import PopupModel from "./PopupModel.vue"
     import { ref, defineEmits } from "vue"
 
     const emit = defineEmits(['closeLogin', 'login', 'addAccout'])
@@ -20,14 +21,13 @@
             tickets: [],
             bookmarks: []
         }
-        document.getElementById("DOB").value = ""
         showPageSignUp.value = !showPageSignUp.value
     }
 </script>
  
 <template>
-    <div class="fixed inset-0 flex items-center justify-center z-1000">
-        <div class="flex shadow-xl items-center rounded-lg h-[40rem] w-[50rem] bg-white">
+    <PopupModel @close="$emit('closeLogin')">
+        <div @click.stop class="flex shadow-xl items-center rounded-lg h-[40rem] w-[50rem] bg-white">
             <!-- Login -->
             <div class="p-10 w-[25rem]">
                 <button @click="$emit('closeLogin')" class=" relative bottom-[7rem] font-black cursor-pointer">X</button>
@@ -95,7 +95,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </PopupModel>
 </template>
  
 <style scoped>
