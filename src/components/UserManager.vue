@@ -3,7 +3,7 @@ import TicketList from "./TicketList.vue";
 import Login from "./Login.vue";
 import { CookieUtil } from "@/libs/cookieUtil";
 import { onMounted, ref } from "vue";
-import { getItems, getItemById, addItem, deleteItemById } from "@/libs/fetchUtils";
+import { getItems, getItemById, getItemByKey, addItem, deleteItemById } from "@/libs/fetchUtils";
 
 const statusLogin = ref(CookieUtil.get('juumId'))
 const showLogin = ref(false)
@@ -61,7 +61,7 @@ const addAccout = async (data) => {
     return
   }
   try {
-    const checkEmail = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, data.email, "email")
+    const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
     
     // Check email already registered
     if (checkEmail.length === 0) {
@@ -84,7 +84,7 @@ const login = async (data) => {
   }
   try {
     // Check username real
-    const dataSelect = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, data.username, "username");
+    const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username);
     if (dataSelect.length === 0) {
       alert("User not found.")
       return
