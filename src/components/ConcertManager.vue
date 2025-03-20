@@ -9,7 +9,6 @@ const tpopConcerts = computed(() => concerts.value.filter(concert => concert.gen
 
 onMounted(async () => {
   try {
-    console.log(`${import.meta.env.VITE_APP_URL}/concerts`)
     concerts.value = await getItems(
       `${import.meta.env.VITE_APP_URL}/concerts`
     )

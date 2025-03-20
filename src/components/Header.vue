@@ -1,14 +1,26 @@
 <script setup></script>
 
 <template>
-  <div class="sticky top-0 w-full bg-[#ffffff] py-5 px-8 flex justify-between border-b-2 border-gray-200 ">
+  <div
+    class="sticky top-0 w-full bg-[#ffffff] py-5 px-8 flex justify-between border-b-2 border-gray-200"
+  >
     <div class="flex space-x-20">
       <div>
         <img src="/logo.png" alt="logo" class="h-8" />
       </div>
       <div class="flex space-x-10">
-        <p class="font-semibold cursor-pointer">HOME</p>
-        <p class="font-semibold cursor-pointer">CONCERTS</p>
+        <router-link
+          active-class="underline"
+          class="font-semibold cursor-pointer"
+          :to="{ name: 'ConcertView' }"
+          >HOME</router-link
+        >
+        <!-- <router-link
+          active-class="underline"
+          class="font-semibold cursor-pointer"
+          :to="{ name: 'ConcertView' }"
+          >CONCERTS</router-link
+        > -->
       </div>
     </div>
     <div>
