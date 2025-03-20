@@ -9,7 +9,6 @@ import Login from './components/Login.vue';
 
 import { ref } from 'vue';
 
-const showLogin = ref(false)
 const showModal = ref(false)
 
 const toggleModal = () => {
@@ -24,12 +23,6 @@ const toggleModal = () => {
     <UserManager />
     <ConcertManager />
     <ConcertDetail/>
-  </div>
-  <div>
-    <button @click="showLogin = !showLogin">
-    Login
-    </button>
-    <Login v-show="showLogin" />  
   </div>
   <button @click="toggleModal">hey</button>
   <PopupModel v-if="showModal" @close="toggleModal">

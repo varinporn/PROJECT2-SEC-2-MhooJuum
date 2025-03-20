@@ -1,5 +1,5 @@
 <script setup>
-import { getItems } from '../../libs/fetchUtils'
+import { getItems } from "@/libs/fetchUtils"
 import { computed, onMounted, ref } from 'vue'
 import ConcertList from './ConcertList.vue'
 
