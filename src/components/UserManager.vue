@@ -9,27 +9,27 @@ const statusLogin = ref(CookieUtil.get('juumId'))
 const showLogin = ref(false)
 
 const tickets = ref([])
-const concerts = ref([])
-const concert = ref({})
-const all = ref([])
+const mergeData = ref([])
 
 onMounted(async () => {
   try {
     dataAccout.value = (await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value))[0]
+
+    tickets.value = await getItems(`${import.meta.env.VITE_APP_URL}/tickets`)
+    const concertData = tickets.value.map(async (ticket) => {
+      const concert = await getItemById(`${import.meta.env.VITE_APP_URL}/concerts`,ticket.concertId)
+      return { ...ticket, concert }
+    })
+    
+    mergeData.value = await Promise.all(concertData)
+
   } catch (error) {
     console.log(error);
   }
 
 
 
-  tickets.value = await getItems(`${import.meta.env.VITE_APP_URL}/tickets`)
-  tickets.value.forEach(async (ticket) => {
-    concert.value = await getItemById(
-      `${import.meta.env.VITE_APP_URL}/concerts`,
-      ticket.concertId
-    )
-    concerts.value.push(concert.value)
-  })
+  
 })
 
 // Data user
@@ -185,7 +185,7 @@ const editProfile = async () => {
       <button>follow</button>
     </div>
     <div class="bg-gray-200">
-      <TicketList :ticket="concerts"></TicketList>
+      <TicketList :ticket="mergeData"></TicketList>
     </div>
   </div>
 </template>
