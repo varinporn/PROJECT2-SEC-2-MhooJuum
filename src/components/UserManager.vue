@@ -1,141 +1,175 @@
 <script setup>
-import TicketList from "./TicketList.vue";
-import Login from "./Login.vue";
-import { CookieUtil } from "@/libs/cookieUtil";
-import { onMounted, ref } from "vue";
-import { getItems, getItemById, getItemByKey, addItem, deleteItemById } from "@/libs/fetchUtils";
+  import TicketList from "./TicketList.vue";
+  import Login from "./Login.vue";
+  import EditProfile from "./EditProfile.vue";
+  import { CookieUtil } from "@/libs/cookieUtil";
+  import { onMounted, ref } from "vue";
+  import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
 
-const statusLogin = ref(CookieUtil.get('juumId'))
-const showLogin = ref(false)
+  const statusLogin = ref(CookieUtil.get('juumId'))
+  const showLogin = ref(false)
+  const showEditProfile = ref(false)
 
-const tickets = ref([])
-const concerts = ref([])
-const concert = ref({})
-const all = ref([])
+  const tickets = ref([])
+  const concerts = ref([])
+  const concert = ref({})
+  const all = ref([])
 
-onMounted(async () => {
-  try {
-    dataAccout.value = (await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value))[0]
-  } catch (error) {
-    console.log(error);
-  }
-
+  onMounted(async () => {
+    try {
+      dataAccout.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
 
 
-  tickets.value = await getItems(`${import.meta.env.VITE_APP_URL}/tickets`)
-  tickets.value.forEach(async (ticket) => {
-    concert.value = await getItemById(
-      `${import.meta.env.VITE_APP_URL}/concerts`,
-      ticket.concertId
-    )
-    concerts.value.push(concert.value)
+      tickets.value = await getItems(`${import.meta.env.VITE_APP_URL}/tickets`)
+      tickets.value.forEach(async (ticket) => {
+        concert.value = await getItemById(
+          `${import.meta.env.VITE_APP_URL}/concerts`,
+          ticket.concertId
+        )
+        concerts.value.push(concert.value)
+      })
+    } catch (error) {
+      clearDataAccout()
+      
+      console.log(error);
+    }
   })
-})
 
-// Data user
-const dataAccout = ref({
-  username: "",
-  email: "",
-  DOB: "",
-  password: "",
-  tickets: [],
-  bookmarks: [],
-})
-const clearDataAccout = () => {
-  dataAccout.value = {
+
+  // Data user
+  const dataAccout = ref({
     username: "",
     email: "",
     DOB: "",
     password: "",
     tickets: [],
     bookmarks: [],
+  })
+  const clearDataAccout = () => {
+    dataAccout.value = {
+      username: "",
+      email: "",
+      DOB: "",
+      password: "",
+      tickets: [],
+      bookmarks: [],
+    }
+    showLogin.value = false
   }
-  showLogin.value = false
-}
 
-// Function sign up
-const addAccout = async (data) => {
-  // Check null data
-  if (!data.username || !data.email || !data.DOB || !data.password) {
-    alert("Fill all information.")
-    return
-  }
-  try {
-    const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
-    
-    // Check email already registered
-    if (checkEmail.length === 0) {
-      const addedUser = await addItem(`${import.meta.env.VITE_APP_URL}/users`,data)
-    } else {
-      alert(`This email \"${data.email}\" is already registered.`)
+  // Function sign up
+  const addAccout = async (data) => {
+    // Check null data
+    if (!data.username || !data.email || !data.DOB || !data.password) {
+      alert("Fill all information.")
       return
     }
-  } catch (error) {
-    console.log(error);
+    try {
+      const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
+      
+      // Check email already registered
+      if (checkEmail.length === 0) {
+        const addAccout = await addItem(`${import.meta.env.VITE_APP_URL}/users`,data)
+      } else {
+        alert(`This email \"${data.email}\" is already registered.`)
+        return
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
 
-// Function Login
-const login = async (data) => {
-  // Check null data
-  if (!data.username || !data.password) {
-    alert("Fill all information.")
-    return
-  }
-  try {
-    // Check username real
-    const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username);
-    if (dataSelect.length === 0) {
-      alert("User not found.")
+  // Function Login
+  const login = async (data) => {
+    // Check null data
+    if (!data.username || !data.password) {
+      alert("Fill all information.")
       return
     }
+    try {
+      // Check username real
+      const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
 
-    // Check password match
-    const matchedUser = dataSelect.find(
-      (user) => user.password === data.password
-    )
-    if (!matchedUser) {
-      alert("Incorrect password.")
-      return
+      if (dataSelect.length === 0) {
+        alert("User not found.")
+        return
+      }
+
+      // Check password match
+      const matchedUser = dataSelect.find(
+        (user) => user.password === data.password
+      )
+      if (!matchedUser) {
+        alert("Incorrect password.")
+        return
+      }
+
+      CookieUtil.set("juumId", matchedUser.id)
+      statusLogin.value = CookieUtil.get('juumId')
+
+      dataAccout.value = matchedUser
+      showLogin.value = false;
+    } catch (error) {
+      console.log(error)
     }
+  }
 
-    CookieUtil.set("juumId", matchedUser.id);
+  // Function logout
+  const logout = () => {
+    clearDataAccout()
+    CookieUtil.unset('juumId')
     statusLogin.value = CookieUtil.get('juumId')
-
-    dataAccout.value = matchedUser
-    showLogin.value = false;
-  } catch (error) {
-    console.log(error)
   }
-}
 
-// Function logout
-const logout = () => {
-  clearDataAccout()
-  CookieUtil.unset('juumId')
-  statusLogin.value = CookieUtil.get('juumId')
-}
-
-// Function delete accout
-const deleteAccout = async () => {
-  try {
-    const statusCode = await deleteItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
-    if (statusCode === 200) {
-      logout()
+  // Function delete accout
+  const deleteAccout = async () => {
+    try {
+      const statusCode = await deleteItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
+      if (statusCode === 200) {
+        logout()
+      }
+    } catch (error) {
+      console.log(error)
     }
-  } catch (error) {
-    console.log(error)
   }
-}
 
-// Function edit profile
-const editProfile = async () => {
-  try {
-    
-  } catch (error) {
-    console.log(error);
+  // Function edit profile
+  const saveProfile = async (data) => {
+    // Check null data
+    if (!data.username || !data.password) {
+      alert("Fill all information.")
+      return
+    }
+    try {
+      const saveAccout = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data)
+      dataAccout.value = saveAccout
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
+
+  // Function reset password
+  const savePassword = async (data) => {
+    console.log(data);
+    // Check null data
+    if (!data.email || !data.password) {
+      alert("Fill all information.")
+      return
+    }
+    try {
+      const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
+      
+      // Check email is registered
+      if (checkEmail.length !== 0) {
+        const saveAccout = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
+      } else {
+        alert(`This email \"${data.email}\" is not found.`)
+        return
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 </script>
 
 <template>
@@ -151,7 +185,14 @@ const editProfile = async () => {
       :showPageSignUp="showPageSignUp"
       @close-login="clearDataAccout" 
       @login="login"
+      @forget-password="showEditProfile = true"
       @add-accout="addAccout" />
+
+    <EditProfile v-show="showEditProfile"
+      :dataAccout="dataAccout" 
+      :statusLogin="false"
+      @close-edit-profile="showEditProfile = false"
+      @save-new-password="savePassword" />
   </div>
   <div v-else>
     <!-- Profile -->
@@ -166,17 +207,25 @@ const editProfile = async () => {
         </div>
       </div>
       <div class="flex gap-[2rem] mb-[2rem]">
-        <button @click="editProfile"
+        <button @click="showEditProfile = true"
           class="bg-purple-600 rounded-xl text-white text-x font-bold p-[1rem] w-[9rem] cursor-pointer 
           duration-300 hover:scale-110 transition-transform hover:bg-purple-400">Edit profile</button>
+
         <button @click="logout"
           class="bg-yellow-400 rounded-xl text-white text-x font-bold p-[1rem] w-[9rem] cursor-pointer 
           duration-300 hover:scale-110 transition-transform hover:bg-yellow-300">Logout</button>
+
         <button @click="deleteAccout"
           class="bg-red-600 rounded-xl text-white text-x font-bold p-[1rem] w-[9rem] cursor-pointer 
           duration-300 hover:scale-110 transition-transform hover:bg-red-400">Delete profile</button>
       </div>
     </div>
+
+    <EditProfile v-if="dataAccout.id" v-show="showEditProfile"
+            :dataAccout="dataAccout" 
+            :statusLogin="true"
+            @close-edit-profile="showEditProfile = false"
+            @save-profile="saveProfile" />
 
 
     <div class="flex ml-20 gap-20 mb-5 font-bold">
