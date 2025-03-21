@@ -6,6 +6,10 @@ defineProps({
     type: Array,
     required: true,
   },
+  isWrap: {
+        type: Boolean,
+        default: false
+    }
 })
 </script>
 
@@ -14,7 +18,7 @@ defineProps({
     <div class="text-3xl font-bold my-2">
       <slot name="header"></slot>
     </div>
-    <ListModel :items="concerts">
+    <ListModel :items="concerts" :isWrap="isWrap">
       <template #yourItem="{ itemInList }">
         <router-link
           :to="{
