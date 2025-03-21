@@ -19,7 +19,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+  <div class="pt-4">
     <ConcertList :concerts="kpopConcerts">
         <template #header>
             <h1>KPOP</h1>
