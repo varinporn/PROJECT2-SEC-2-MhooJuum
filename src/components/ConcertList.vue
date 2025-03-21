@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="px-18">
+  <div class="px-18 py-8">
     <div class="text-3xl font-bold my-2">
       <slot name="header"></slot>
     </div>

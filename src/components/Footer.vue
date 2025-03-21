@@ -3,13 +3,11 @@
 <template>
   <div>
     <hr class="w-1/2 border-t-2 border-gray-200 mx-auto">
-    <div class="pt-16 pb-12 px-18 flex justify-between">
+    <div class="pt-12 pb-12 px-18 flex justify-between">
       <div>
         <img src="/logo.png" class="h-8" />
-        <p class="text-md font-bold py-4">MhooJuum Co., Ltd.</p>
-        <p class="text-md font-semibold pb-4 text-gray-400">
-          © 2025 MhooJuum Co., Ltd.
-        </p>
+        <p class="text-md font-bold py-4">BestPheamMekPierce Co., Ltd.</p>
+       
       </div>
       <div>
         <ul class="flex font-semibold text-sm space-x-32 pr-20">
@@ -34,7 +32,7 @@
       </div>
     </div>
     <div class="bg-[#333333] text-center text-white text-md py-3">
-      <p>© BestPheamMekPierce Co., Ltd.</p>
+      <p>© 2025 BestPheamMekPierce Co., Ltd.</p>
     </div>
   </div>
 </template>
