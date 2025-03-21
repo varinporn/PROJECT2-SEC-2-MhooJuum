@@ -17,6 +17,7 @@ async function getItemById(url, id) {
     throw new Error('can not get your item')
   }
 }
+
 async function getItemByKey(url, key, value) {
   try {
     const data = await fetch(`${url}/?${key}=${value}`)

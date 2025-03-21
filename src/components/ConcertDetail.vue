@@ -29,12 +29,12 @@ const formattedDescription = computed(() => {
   <Header />
   <div>
     <img
-            src="../../icons/arrow.png"
+            src="../../icons/back.png"
             @click="$router.go(-1)"
-            class="cursor-pointer absolute w-15 mt-6 ml-8"
+            class="cursor-pointer absolute w-10 mt-6 ml-8"
           />
     <div v-if="selectConcert" class="bg-[#333333] text-white px-20 py-10">
-      <div class="flex flex-row">
+      <div class="flex flex-row items-start">
         <div class="basis-1/3 flex">
           <img
             :src="`../../concert/${selectConcert.genre}Poster.png`"
@@ -42,10 +42,10 @@ const formattedDescription = computed(() => {
           />
         </div>
         <div class="basis-2/3 p-4 flex flex-col justify-center">
-          <h2 class="text-3xl font-bold border-b pb-2 text-center">
+          <h2 class="text-3xl font-bold border-b-2 pb-2 text-center">
             {{ selectConcert.name }}
           </h2>
-          <div class="mt-4 space-y-2">
+          <div class="mt-8 space-y-4">
             <div class="flex items-center space-x-2">
               <img
                 src="../../icons/calendar.png"
@@ -80,7 +80,7 @@ const formattedDescription = computed(() => {
             </div>
           </div>
           <button
-            class="mt-4 px-5 py-2 border border-white rounded-3xl flex items-center space-x-2 w-fit cursor-pointer active:bg-white/10"
+            class="mt-10 px-5 py-2 border border-white rounded-3xl flex items-center space-x-2 w-fit cursor-pointer active:bg-white/10"
           >
             <img src="../../icons/follow.png" alt="Bell Icon" class="w-5 h-5" />
             <span>Follow</span>
@@ -123,7 +123,7 @@ const formattedDescription = computed(() => {
         v-if="selectConcert && selectedTab === 'details'"
         class="py-8 px-12 text-center flex flex-col"
       >
-        <h3 v-if="selectConcert" class="font-bold text-3xl py-6">
+        <h3 v-if="selectConcert" class="font-bold text-4xl py-6">
           {{ selectConcert.name }}
         </h3>
         <div>

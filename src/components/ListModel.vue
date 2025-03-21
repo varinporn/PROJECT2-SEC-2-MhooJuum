@@ -3,6 +3,10 @@ defineProps({
     items:{
         type: Array,
         require: true
+    },
+    isWrap: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -10,7 +14,9 @@ defineProps({
  
 <template>
 <div>
-    <div class="flex space-x-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+    <div 
+        class="flex space-x-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+        :class="isWrap ? 'flex-wrap' : 'flex-nowrap'">
         <div v-for="(item, index) in items" :key="index" class="flex-shrink-0 w-[170px]">
             <slot name="yourItem" :itemInList="item"></slot>
         </div>

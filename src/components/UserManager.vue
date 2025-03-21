@@ -5,9 +5,11 @@
   import { CookieUtil } from "@/libs/cookieUtil";
   import { onMounted, ref } from "vue";
   import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
+  import { useRouter } from "vue-router";
 
   const statusLogin = ref(CookieUtil.get('juumId'))
-  const showLogin = ref(false)
+  const showLogin = ref(true)
+  const router = useRouter() 
   const showEditProfile = ref(false)
 
 const tickets = ref([])
@@ -15,7 +17,7 @@ const mergeData = ref([])
 
 onMounted(async () => {
   try {
-    dataAccout.value = (await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value))[0]
+    dataAccout.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
 
     tickets.value = await getItems(`${import.meta.env.VITE_APP_URL}/tickets`)
     const concertData = tickets.value.map(async (ticket) => {
@@ -26,6 +28,7 @@ onMounted(async () => {
     mergeData.value = await Promise.all(concertData)
 
   } catch (error) {
+    clearDataAccout()
     console.log(error);
   }
 
@@ -56,68 +59,69 @@ onMounted(async () => {
     showLogin.value = false
   }
 
-  // Function sign up
-  const addAccout = async (data) => {
-    // Check null data
-    if (!data.username || !data.email || !data.DOB || !data.password) {
-      alert("Fill all information.")
-      return
-    }
-    try {
-      const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
+  // // Function sign up
+  // const addAccout = async (data) => {
+  //   // Check null data
+  //   if (!data.username || !data.email || !data.DOB || !data.password) {
+  //     alert("Fill all information.")
+  //     return
+  //   }
+  //   try {
+  //     const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
       
-      // Check email already registered
-      if (checkEmail.length === 0) {
-        const addAccout = await addItem(`${import.meta.env.VITE_APP_URL}/users`,data)
-      } else {
-        alert(`This email \"${data.email}\" is already registered.`)
-        return
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //     // Check email already registered
+  //     if (checkEmail.length === 0) {
+  //       const addAccout = await addItem(`${import.meta.env.VITE_APP_URL}/users`,data)
+  //     } else {
+  //       alert(`This email \"${data.email}\" is already registered.`)
+  //       return
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
-  // Function Login
-  const login = async (data) => {
-    // Check null data
-    if (!data.username || !data.password) {
-      alert("Fill all information.")
-      return
-    }
-    try {
-      // Check username real
-      const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
+  // // Function Login
+  // const login = async (data) => {
+  //   // Check null data
+  //   if (!data.username || !data.password) {
+  //     alert("Fill all information.")
+  //     return
+  //   }
+  //   try {
+  //     // Check username real
+  //     const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
 
-      if (dataSelect.length === 0) {
-        alert("User not found.")
-        return
-      }
+  //     if (dataSelect.length === 0) {
+  //       alert("User not found.")
+  //       return
+  //     }
 
-      // Check password match
-      const matchedUser = dataSelect.find(
-        (user) => user.password === data.password
-      )
-      if (!matchedUser) {
-        alert("Incorrect password.")
-        return
-      }
+  //     // Check password match
+  //     const matchedUser = dataSelect.find(
+  //       (user) => user.password === data.password
+  //     )
+  //     if (!matchedUser) {
+  //       alert("Incorrect password.")
+  //       return
+  //     }
 
-      CookieUtil.set("juumId", matchedUser.id)
-      statusLogin.value = CookieUtil.get('juumId')
+  //     CookieUtil.set("juumId", matchedUser.id)
+  //     statusLogin.value = CookieUtil.get('juumId')
 
-      dataAccout.value = matchedUser
-      showLogin.value = false;
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  //     dataAccout.value = matchedUser
+  //     showLogin.value = false;
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   // Function logout
   const logout = () => {
     clearDataAccout()
     CookieUtil.unset('juumId')
     statusLogin.value = CookieUtil.get('juumId')
+    router.push({name: 'Home'})
   }
 
   // Function delete accout
@@ -148,40 +152,34 @@ onMounted(async () => {
   }
 
   // Function reset password
-  const savePassword = async (data) => {
-    console.log(data);
-    // Check null data
-    if (!data.email || !data.password) {
-      alert("Fill all information.")
-      return
-    }
-    try {
-      const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
+  // const savePassword = async (data) => {
+  //   console.log(data);
+  //   // Check null data
+  //   if (!data.email || !data.password) {
+  //     alert("Fill all information.")
+  //     return
+  //   }
+  //   try {
+  //     const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
       
-      // Check email is registered
-      if (checkEmail.length !== 0) {
-        const saveAccout = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
-      } else {
-        alert(`This email \"${data.email}\" is not found.`)
-        return
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //     // Check email is registered
+  //     if (checkEmail.length !== 0) {
+  //       const saveAccout = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
+  //     } else {
+  //       alert(`This email \"${data.email}\" is not found.`)
+  //       return
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 </script>
 
 <template>
   <div v-if="statusLogin === null">
     <!-- Login -->
-    <div class="flex justify-center">
-      <button @click="showLogin = true" 
-        class="bg-green-600 rounded-xl text-white text-5xl p-[1rem] my-[1rem] cursor-pointer 
-        duration-300 hover:scale-110 transition-transform hover:bg-green-400">Login</button>
-    </div>
-    <Login v-show="showLogin" 
+    <!-- <Login v-show="showLogin" 
       :dataAccout="dataAccout"
-      :showPageSignUp="showPageSignUp"
       @close-login="clearDataAccout" 
       @login="login"
       @forget-password="showEditProfile = true"
@@ -191,7 +189,7 @@ onMounted(async () => {
       :dataAccout="dataAccout" 
       :statusLogin="false"
       @close-edit-profile="showEditProfile = false"
-      @save-new-password="savePassword" />
+      @save-new-password="savePassword" /> -->
   </div>
   <div v-else>
     <!-- Profile -->
