@@ -5,10 +5,12 @@
   import { CookieUtil } from "@/libs/cookieUtil";
   import { onMounted, ref } from "vue";
   import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
+  import { useRouter } from "vue-router";
 
   const statusLogin = ref(CookieUtil.get('juumId'))
   const showLogin = ref(true)
-  // const showEditProfile = ref(false)
+  const router = useRouter() 
+  const showEditProfile = ref(false)
 
   const tickets = ref([])
   const concerts = ref([])
@@ -118,6 +120,7 @@
     clearDataAccout()
     CookieUtil.unset('juumId')
     statusLogin.value = CookieUtil.get('juumId')
+    router.push({name: 'Home'})
   }
 
   // Function delete accout
@@ -148,27 +151,27 @@
   }
 
   // Function reset password
-  const savePassword = async (data) => {
-    console.log(data);
-    // Check null data
-    if (!data.email || !data.password) {
-      alert("Fill all information.")
-      return
-    }
-    try {
-      const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
+  // const savePassword = async (data) => {
+  //   console.log(data);
+  //   // Check null data
+  //   if (!data.email || !data.password) {
+  //     alert("Fill all information.")
+  //     return
+  //   }
+  //   try {
+  //     const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
       
-      // Check email is registered
-      if (checkEmail.length !== 0) {
-        const saveAccout = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
-      } else {
-        alert(`This email \"${data.email}\" is not found.`)
-        return
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //     // Check email is registered
+  //     if (checkEmail.length !== 0) {
+  //       const saveAccout = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
+  //     } else {
+  //       alert(`This email \"${data.email}\" is not found.`)
+  //       return
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 </script>
 
 <template>

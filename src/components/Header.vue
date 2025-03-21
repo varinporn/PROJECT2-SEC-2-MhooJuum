@@ -1,11 +1,17 @@
 <script setup>
 import { CookieUtil } from '@/libs/cookieUtil';
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import LoginManager from './LoginManager.vue';
+import { useRouter } from 'vue-router';
 
 const statusLogin = ref(CookieUtil.get('juumId'))
 
-const openLogin = ref(false)
+const isLogin = ref(false)
+const toggleLogin = (boolean) => {
+  isLogin.value = boolean
+  console.log(isLogin.value)
+  statusLogin.value = CookieUtil.get('juumId')
+}
 </script>
 
 <template>
@@ -32,21 +38,24 @@ const openLogin = ref(false)
       </div>
     </div>
     <div>
-      <img
+      <router-link 
         v-if="statusLogin"
-        src="/icons/profile.png"
-        alt="profile"
-        class="w-8 h-8 rounded-full cursor-pointer"
-      />
+        :to="{ name: 'UserManager' }">
+        <img
+          src="/icons/profile.png"
+          alt="profile"
+          class="w-8 h-8 rounded-full cursor-pointer"
+        />
+      </router-link>
       <button
         v-else
-        @click="openLogin=true"
+        @click="toggleLogin(true)"
         >
         Log In | Sign Up
       </button>
     </div>
   </div>
-  <LoginManager v-if="openLogin"/>
+  <LoginManager @close="toggleLogin(false)" v-if="isLogin" @submit="toggleLogin(false)"/>
 
 </template>
 

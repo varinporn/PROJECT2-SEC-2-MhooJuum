@@ -37,11 +37,11 @@
 </script>
  
 <template>
-    <PopupModel @click="() => { emit('closeLogin'); switchFeture(true); }">
+    <PopupModel @close="() => {switchFeture(true); }, $emit('closeLogin')">
       <div class="flex shadow-xl items-center rounded-lg h-[40rem] w-[50rem] bg-white relative">
         <!-- Login -->
         <div class="p-10 w-[25rem]">
-          <button @click="() => { emit('closeLogin'); switchFeture(true); }" class="relative bottom-[7rem] font-black cursor-pointer">X</button>
+          <button @click="() => {switchFeture(true); }, $emit('closeLogin')" class="relative bottom-[7rem] font-black cursor-pointer">X</button>
           <p class="text-center font-bold text-3xl mb-6">Login</p>
           <div class="flex flex-col space-y-7">
             <div>
@@ -89,7 +89,7 @@
               </button>
             </div>
   
-            <p @click="() => { emit('closeLogin'); emit('forgetPassword'); switchFeture(true); }" 
+            <p @click="() => { emit('forgetPassword'); switchFeture(true); }" 
                 class="font-bold text-gray-400 text-xs ml-auto cursor-pointer hover:text-blue-600">Forget Password?</p>
             <input type="submit" value="Log in" @click="$emit('login', trimData())"
               class="w-3/5 mx-auto text-white bg-blue-900 hover:bg-blue-700 hover:scale-110 transition-transform duration-200 py-3 rounded-full font-bold cursor-pointer">
@@ -98,7 +98,7 @@
   
         <!-- Sign Up -->
         <div class="p-10 w-[25rem]">
-          <button @click="() => { emit('closeLogin'); switchFeture(true); }"
+          <button @click="() => {switchFeture(true); }, $emit('closeLogin')"
             class="relative bottom-[3rem] font-black left-[19rem] cursor-pointer">X</button>
           <p class="text-center font-bold text-3xl mb-6">Sign up</p>
           <div class="flex flex-col space-y-7">
@@ -159,7 +159,7 @@
               </button>
             </div>
   
-            <input type="submit" value="Sign up" @click="() => { emit('addAccout', trimData()); switchFeture(); }"
+            <input type="submit" value="Sign up" @click="() => { emit('addAccout', trimData()); switchFeture(true); }"
               class="w-3/5 mx-auto text-white bg-blue-900 hover:bg-blue-700 hover:scale-110 transition-transform duration-200 py-3 rounded-full font-bold cursor-pointer">
           </div>
         </div>

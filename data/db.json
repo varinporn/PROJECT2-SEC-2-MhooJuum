@@ -235,8 +235,12 @@
       "email": "nuuza@gmail.com",
       "DOB": "2005-06-09",
       "password": "giftinw",
-      "tickets": [1],
-      "bookmarks": [1]
+      "tickets": [
+        1
+      ],
+      "bookmarks": [
+        1
+      ]
     },
     {
       "id": "2",
@@ -244,8 +248,12 @@
       "email": "nuuza@gmail.com",
       "DOB": "2005-06-09",
       "password": "giftinw",
-      "tickets": [1],
-      "bookmarks": [1]
+      "tickets": [
+        1
+      ],
+      "bookmarks": [
+        1
+      ]
     },
     {
       "id": "3",
@@ -253,8 +261,12 @@
       "email": "nuuza@gmail.com",
       "DOB": "2005-06-09",
       "password": "giftinw",
-      "tickets": [1],
-      "bookmarks": [1]
+      "tickets": [
+        1
+      ],
+      "bookmarks": [
+        1
+      ]
     },
     {
       "id": "eed8",
@@ -271,6 +283,15 @@
       "email": "aaa",
       "DOB": "2025-03-21",
       "password": "noi",
+      "tickets": [],
+      "bookmarks": []
+    },
+    {
+      "id": "0323",
+      "username": "gift",
+      "email": "bass@gmail.com",
+      "DOB": "2005-06-09",
+      "password": "gift",
       "tickets": [],
       "bookmarks": []
     }
