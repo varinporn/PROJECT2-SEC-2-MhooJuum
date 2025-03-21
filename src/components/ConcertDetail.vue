@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getItemById } from '../libs/fetchUtils'
+import Header from './Header.vue'
 const { concertId } = useRoute().params
 console.log(concertId)
 const selectConcert = ref(null)
@@ -21,6 +22,7 @@ getConcert()
 </script>
 
 <template>
+  <Header/>
   <div>
     <div v-if="selectConcert" class="bg-[#333333] text-white p-4">
       <div class="grid grid-cols-2 gap-4">

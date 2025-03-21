@@ -18,7 +18,6 @@ const toggleModal = () => {
 <template>
   <div>
     <div>
-      <Header />
       <!-- <ConcertView /> -->
       <!-- <UserManager /> -->
     </div>

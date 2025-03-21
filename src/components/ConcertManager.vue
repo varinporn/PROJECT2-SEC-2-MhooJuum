@@ -20,11 +20,6 @@ onMounted(async () => {
 
 <template>
   <div>
-    <ConcertList :concerts="concerts">
-        <template #header>
-            <h1>All Concerts</h1>
-        </template>
-    </ConcertList>
     <ConcertList :concerts="kpopConcerts">
         <template #header>
             <h1>KPOP</h1>

@@ -12,15 +12,15 @@
         <router-link
           active-class="underline"
           class="font-semibold cursor-pointer"
-          :to="{ name: 'ConcertView' }"
+          :to="{ name: 'Home' }"
           >HOME</router-link
         >
-        <!-- <router-link
+        <router-link
           active-class="underline"
           class="font-semibold cursor-pointer"
           :to="{ name: 'ConcertView' }"
           >CONCERTS</router-link
-        > -->
+        >
       </div>
     </div>
     <div>
