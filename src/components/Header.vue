@@ -6,7 +6,9 @@
   >
     <div class="flex space-x-20">
       <div>
-        <img src="/logo.png" alt="logo" class="h-8" />
+        <router-link :to="{ name: 'Home' }"
+          ><img src="/logo.png" alt="logo" class="h-8"
+        /></router-link>
       </div>
       <div class="flex space-x-10">
         <router-link
