@@ -16,11 +16,11 @@ console.log(props.ticket);
     <template #yourItem="listTicket">
         <div class="">
           <div>
-            <img src="../../concert/image.png" />
+            <img src="../../concert/kpopPoster.png" />
           </div>
           <div class="">
             <p>Id : {{ listTicket.itemInList.id }}</p>
-            <p>concertName : {{ listTicket.itemInList.concert[0].name }}</p>
+            <p>Name : {{ listTicket.itemInList.concert.name }}</p>
           </div>
         </div>
     </template>

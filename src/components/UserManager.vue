@@ -3,43 +3,56 @@
   import Login from "./Login.vue";
   import EditProfile from "./EditProfile.vue";
   import { CookieUtil } from "@/libs/cookieUtil";
-  import { onMounted, ref } from "vue";
+  import { onMounted, ref, computed} from "vue";
   import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
   import { useRouter } from "vue-router";
+  
 
   const statusLogin = ref(CookieUtil.get('juumId'))
   const showLogin = ref(true)
   const router = useRouter() 
   const showEditProfile = ref(false)
 
+const tab = ref('upcoming')
+
 const tickets = ref([])
 const mergeData = ref([])
 
 onMounted(async () => {
   try {
-    dataAccout.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
+    dataAccount.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
 
-    tickets.value = await getItems(`${import.meta.env.VITE_APP_URL}/tickets`)
-    const concertData = tickets.value.map(async (ticket) => {
-      const concert = await getItemById(`${import.meta.env.VITE_APP_URL}/concerts`,ticket.concertId)
-      return { ...ticket, concert }
-    })
     
-    mergeData.value = await Promise.all(concertData)
+    tickets.value = await getItems(`${import.meta.env.VITE_APP_URL}/tickets`)
+
+    mergeData.value = await Promise.all(
+      tickets.value.map(async (ticket) => {
+        const concert = await getItemById(`${import.meta.env.VITE_APP_URL}/concerts`, ticket.concertId);
+        return { ...ticket, concert }
+      })
+    )
 
   } catch (error) {
-    clearDataAccout()
-    console.log(error);
+    clearDataAccount()
+    console.log(error)
   }
 
-
-
-  
 })
+
+const today = new Date()
+
+const upcomingTickets = computed(() => {
+  return mergeData.value.filter(ticket => new Date(ticket.concert.date) >= today);
+});
+
+const historyTickets = computed(() => {
+  return mergeData.value.filter(ticket => new Date(ticket.concert.date) < today);
+});
+
 
 
   // Data user
-  const dataAccout = ref({
+  const dataAccount = ref({
     username: "",
     email: "",
     DOB: "",
@@ -47,8 +60,8 @@ onMounted(async () => {
     tickets: [],
     bookmarks: [],
   })
-  const clearDataAccout = () => {
-    dataAccout.value = {
+  const clearDataAccount = () => {
+    dataAccount.value = {
       username: "",
       email: "",
       DOB: "",
@@ -118,7 +131,7 @@ onMounted(async () => {
 
   // Function logout
   const logout = () => {
-    clearDataAccout()
+    clearDataAccount()
     CookieUtil.unset('juumId')
     statusLogin.value = CookieUtil.get('juumId')
     router.push({name: 'Home'})
@@ -145,7 +158,7 @@ onMounted(async () => {
     }
     try {
       const saveAccout = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data)
-      dataAccout.value = saveAccout
+      dataAccount.value = saveAccout
     } catch (error) {
       console.log(error);
     }
@@ -199,8 +212,8 @@ onMounted(async () => {
           <img src="/icons/profile.png" alt="profile" class="w-[14rem] rounded-full">
         </div>
         <div>
-          <p class="text-8xl font-bold mb-[1rem]">{{ dataAccout.username }}</p>
-          <p class="text-4xl font-light">{{ dataAccout.email }}</p>
+          <p class="text-8xl font-bold mb-[1rem]">{{ dataAccount.username }}</p>
+          <p class="text-4xl font-light">{{ dataAccount.email }}</p>
         </div>
       </div>
       <div class="flex gap-[2rem] mb-[2rem]">
@@ -218,20 +231,21 @@ onMounted(async () => {
       </div>
     </div>
 
-    <EditProfile v-if="dataAccout.id" v-show="showEditProfile"
-            :dataAccout="dataAccout" 
+    <EditProfile v-if="dataAccount.id" v-show="showEditProfile"
+            :dataAccount="dataAccount" 
             :statusLogin="true"
             @close-edit-profile="showEditProfile = false"
             @save-profile="saveProfile" />
 
 
     <div class="flex ml-20 gap-20 mb-5 font-bold">
-      <button class="border-b-2 pb-1">Upcoming</button>
-      <button>History</button>
-      <button>follow</button>
+      <button :class="tab === 'upcoming' ? 'border-b-2 pb-2' : ''" @click="tab = 'upcoming'">Upcoming</button>
+      <button :class="tab === 'history' ? 'border-b-2 pb-2' : ''" @click="tab = 'history'">History</button>
+      <button :class="tab === 'follow' ? 'border-b-2 pb-2' : ''" @click="tab = 'follow'">follow</button>
     </div>
     <div class="bg-gray-200">
-      <TicketList :ticket="mergeData"></TicketList>
+      <TicketList v-show="tab === 'upcoming'" :ticket="upcomingTickets"></TicketList>
+      <TicketList v-show="tab === 'history'" :ticket="historyTickets"></TicketList>
     </div>
   </div>
 </template>
