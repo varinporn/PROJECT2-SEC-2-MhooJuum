@@ -7,9 +7,19 @@ async function getItems(url) {
     throw new Error('can not get your items')
   }
 }
-async function getItemById(url, id, key = 'id') {
+async function getItemById(url, id) {
   try {
-    const data = await fetch(`${url}/?${key}=${id}`)
+    const data = await fetch(`${url}/${id}`)
+    const item = await data.json()
+    return item
+  } catch (error) {
+    if (data.status === 404) return undefined
+    throw new Error('can not get your item')
+  }
+}
+async function getItemByKey(url, key, value) {
+  try {
+    const data = await fetch(`${url}/?${key}=${value}`)
     const item = await data.json()
     return item
   } catch (error) {
@@ -64,4 +74,4 @@ async function editItem(url, id, editItem) {
     throw new Error('can not edit your item')
   }
 }
-export { getItems, getItemById, deleteItemById, addItem, editItem }
+export { getItems, getItemById, getItemByKey, deleteItemById, addItem, editItem }
