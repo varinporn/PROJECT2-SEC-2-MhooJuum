@@ -1,8 +1,9 @@
 <script setup>
-import { onMounted, ref, computed} from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { getItemById } from '../libs/fetchUtils'
 import Header from './Header.vue'
+import Footer from './Footer.vue'
 const { concertId } = useRoute().params
 console.log(concertId)
 const selectConcert = ref(null)
@@ -27,11 +28,21 @@ const formattedDescription = computed(() => {
 <template>
   <Header />
   <div>
-    <div v-if="selectConcert" class="bg-[#333333] text-white p-4">
-      <div class="grid grid-cols-2 gap-4">
-        <img src="../../concert/image.png" class="w-1/2 px-16" />
-        <div class="p-4 flex flex-col justify-center">
-          <h2 class="text-2xl font-bold border-b pb-2 text-center">
+    <img
+            src="../../icons/arrow.png"
+            @click="$router.go(-1)"
+            class="cursor-pointer absolute w-15 mt-6 ml-8"
+          />
+    <div v-if="selectConcert" class="bg-[#333333] text-white px-20 py-10">
+      <div class="flex flex-row">
+        <div class="basis-1/3 flex">
+          <img
+            :src="`../../concert/${selectConcert.genre}Poster.png`"
+            class="w-full px-16"
+          />
+        </div>
+        <div class="basis-2/3 p-4 flex flex-col justify-center">
+          <h2 class="text-3xl font-bold border-b pb-2 text-center">
             {{ selectConcert.name }}
           </h2>
           <div class="mt-4 space-y-2">
@@ -76,12 +87,6 @@ const formattedDescription = computed(() => {
           </button>
         </div>
       </div>
-      <button
-        @click="$router.go(-1)"
-        class="pt-5 underline text-purple-500 cursor-pointer"
-      >
-        Back
-      </button>
     </div>
     <div
       class="flex justify-between items-center py-4 px-12 border-gray-200 border-b-2"
@@ -116,18 +121,28 @@ const formattedDescription = computed(() => {
     <div>
       <div
         v-if="selectConcert && selectedTab === 'details'"
-        class="py-8 px-12 text-center"
+        class="py-8 px-12 text-center flex flex-col"
       >
-        <h3 v-if="selectConcert" class="font-bold text-2xl text-[#894f06] py-4">
+        <h3 v-if="selectConcert" class="font-bold text-3xl py-6">
           {{ selectConcert.name }}
         </h3>
-        <p v-if="selectConcert" v-html="formattedDescription"></p>
+        <div>
+          <img
+            :src="`../../concert/${selectConcert.genre}Poster.png`"
+            class="w-1/2 px-16 mx-auto"
+          />
+        </div>
+        <p v-if="selectConcert" v-html="formattedDescription" class="py-8"></p>
       </div>
-      <div v-if="selectConcert && selectedTab === 'howToBuy'" class="py-8 px-12">
+      <div
+        v-if="selectConcert && selectedTab === 'howToBuy'"
+        class="py-8 px-12"
+      >
         <p>select concert</p>
       </div>
     </div>
   </div>
+  <Footer />
 </template>
 
 <style scoped></style>
