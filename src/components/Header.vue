@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="sticky top-0 w-full bg-[#ffffff] py-5 px-8 flex justify-between border-b-2 border-gray-200"
+    class="sticky top-0 w-full bg-[#ffffff] py-5 px-8 flex justify-between border-b-2 border-gray-200 z-50"
   >
     <div class="flex space-x-20">
       <div>

@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <hr class="w-1/2 border-t-2 border-gray-200 mx-auto">
+    <hr class="w-3/4 border-t-2 border-gray-200 mx-auto">
     <div class="pt-12 pb-12 px-18 flex justify-between">
       <div>
         <img src="/logo.png" class="h-8" />
