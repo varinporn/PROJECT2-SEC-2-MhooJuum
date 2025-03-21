@@ -1,28 +1,31 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref, computed} from 'vue'
 import { useRoute } from 'vue-router'
 import { getItemById } from '../libs/fetchUtils'
 import Header from './Header.vue'
 const { concertId } = useRoute().params
 console.log(concertId)
 const selectConcert = ref(null)
-async function getConcert() {
+
+onMounted(async () => {
   try {
-    const response = await getItemById(
+    selectConcert.value = await getItemById(
       `${import.meta.env.VITE_APP_URL}/concerts`,
       concertId
-    );
-    selectConcert.value = response.length > 0 ? response[0] : null;
+    )
   } catch (error) {
     console.log(error)
   }
-}
+})
 
-getConcert()
+const selectedTab = ref('details')
+const formattedDescription = computed(() => {
+  return selectConcert.value?.description.replace(/\n/g, '<br>') || ''
+})
 </script>
 
 <template>
-  <Header/>
+  <Header />
   <div>
     <div v-if="selectConcert" class="bg-[#333333] text-white p-4">
       <div class="grid grid-cols-2 gap-4">
@@ -80,9 +83,50 @@ getConcert()
         Back
       </button>
     </div>
-    <!-- <div v-else class="flex justify-center items-center h-40">
-      <p class="text-white">Loading...</p>
-    </div> -->
+    <div
+      class="flex justify-between items-center py-4 px-12 border-gray-200 border-b-2"
+    >
+      <div class="flex space-x-8">
+        <p
+          class="font-semibold cursor-pointer"
+          :class="{ underline: selectedTab === 'details' }"
+          @click="selectedTab = 'details'"
+        >
+          Details
+        </p>
+        <p
+          class="font-semibold cursor-pointer"
+          :class="{ underline: selectedTab === 'howToBuy' }"
+          @click="selectedTab = 'howToBuy'"
+        >
+          How to buy tickets
+        </p>
+      </div>
+      <div class="space-x-8">
+        <span v-if="selectConcert" class="text-lg font-bold"
+          >Price: {{ selectConcert.price }}
+        </span>
+        <button
+          class="bg-[#03abef] text-white font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-[#5fd1ff]"
+        >
+          GET TICKET
+        </button>
+      </div>
+    </div>
+    <div>
+      <div
+        v-if="selectConcert && selectedTab === 'details'"
+        class="py-8 px-12 text-center"
+      >
+        <h3 v-if="selectConcert" class="font-bold text-2xl text-[#894f06] py-4">
+          {{ selectConcert.name }}
+        </h3>
+        <p v-if="selectConcert" v-html="formattedDescription"></p>
+      </div>
+      <div v-if="selectConcert && selectedTab === 'howToBuy'" class="py-8 px-12">
+        <p>select concert</p>
+      </div>
+    </div>
   </div>
 </template>
 

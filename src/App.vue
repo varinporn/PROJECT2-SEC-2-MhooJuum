@@ -2,11 +2,9 @@
 import TicketList from './components/TicketList.vue'
 import UserManager from './components/UserManager.vue'
 import Header from './components/Header.vue'
-import ConcertDetail from './components/ConcertDetail.vue'
 import PopupModel from './components/PopupModel.vue'
 import Login from './components/Login.vue'
 import { ref } from 'vue'
-import ConcertView from './views/ConcertView.vue'
 
 const showModal = ref(false)
 
@@ -18,7 +16,6 @@ const toggleModal = () => {
 <template>
   <div>
     <div>
-      <!-- <ConcertView /> -->
       <!-- <UserManager /> -->
     </div>
     <div>

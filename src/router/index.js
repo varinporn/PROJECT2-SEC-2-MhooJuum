@@ -7,6 +7,10 @@ const history = createWebHistory()
 
 const routes = [
   {
+    path: '/',
+    redirect: '/home',
+  },
+  {
     path: '/home',
     name: 'Home',
     component: Home,

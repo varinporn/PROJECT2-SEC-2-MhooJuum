@@ -2,37 +2,40 @@
   "concerts": [
     {
       "id": "1",
-      "name": "Synthwave Night",
+      "name": "Aqua Music Fest @ Asiatique",
       "description": "Immerse yourself in retro-futuristic beats and neon vibes with top synthwave artists.",
       "genre": "tpop",
-      "location": "Cyber Arena",
-      "date": "2025-12-10",
-      "time": "20:00:00",
-      "price": 150,
+      "location": "Asiatique The Riverfront ",
+      "date": "2025-04-05",
+      "time": "15:00:00",
+      "price": 650,
+      "ageRestriction": true,
       "available": 300,
       "isAvailable": true
     },
     {
       "id": "2",
-      "name": "Rock Night",
+      "name": "Rock on The Beach 2025",
       "description": "A night full of rock music",
       "genre": "tpop",
       "location": "City Hall",
       "date": "2024-05-20",
-      "time": "20:00:00",
-      "price": 150,
+      "time": "22:00:00",
+      "price": 2000,
+      "ageRestriction": true,
       "available": 150,
       "isAvailable": true
     },
     {
       "id": "3",
       "name": "'NCT 127 2nd Tour' - 'Neo City: The Link'",
-      "description": "....",
+      "description": "\"NCT 127 2nd Tour: Neo City – The Link\" is the second concert tour by NCT 127, the subunit of the popular South Korean boy group NCT. This tour follows their previous successful concerts, continuing their global expansion with an immersive and dynamic performance.\n\n The concert theme \"Neo City – The Link\" represents the group's connection with their fans, known as \"NCTzens\", and their journey through music. The show features a blend of powerful performances, intricate choreography, and visually stunning stage designs. Audiences can expect to hear a mix of songs from their various albums, including hits like \"Cherry Bomb\", \"Kick It\", and \"Sticker.",
       "genre": "kpop",
       "location": "River Park",
       "date": "2024-06-15",
       "time": "18:30:00",
       "price": 6500,
+      "ageRestriction": false,
       "available": 100,
       "isAvailable": true
     },
@@ -45,18 +48,20 @@
       "date": "2024-07-10",
       "time": "19:30:00",
       "price": 200,
+      "ageRestriction": false,
       "available": 250,
       "isAvailable": true
     },
     {
       "id": "5",
       "name": "SEVENTEEN WORLD TOUR 'Be the Sun'",
-      "description": "The best indie bands in town",
+      "description": "SEVENTEEN WORLD TOUR 'Be the Sun' is a global tour by SEVENTEEN, showcasing their vibrant energy and connection with fans. Named after their album 'Face the Sun,' the tour features high-energy performances, emotional ballads, and stunning visuals. Fans can enjoy hits like 'Don't Wanna Cry,' 'Left & Right,' and 'HOT,' with grand stage designs and powerful choreography. 'Be the Sun' celebrates SEVENTEEN’s growth and their bond with CARAT fans.\n\nExpect an unforgettable show filled with excitement and passion.",
       "genre": "kpop",
       "location": "Indie Cafe",
       "date": "2024-08-05",
       "time": "17:00:00",
       "price": 80,
+      "ageRestriction": false,
       "available": 80,
       "isAvailable": true
     },
@@ -69,30 +74,33 @@
       "date": "2024-09-12",
       "time": "21:00:00",
       "price": 250,
+      "ageRestriction": true,
       "available": 500,
       "isAvailable": true
     },
     {
       "id": "7",
       "name": "'Red Velvet 2nd Concert' - 'Redmare'",
-      "description": "Orchestra and classical pieces",
+      "description": "Thai Fans, don't tell me you've never had a sweet NIGHTMARE.....? \n\n SM True is leading you to experience the mystery and sweetness of nightmare this September with the popular girl group “Red Velvet” in their first concert in Thailand.\n\n The only chance to meet the unparalleled charms and unique colors of “Red Velvet” through their mega hit songs and dazzling performances. Be ready to discover the mysterious and thrilling experience together! More information will be announced soon, please stay tuned on SM True Facebook page. #RedVelVet_REDMAREinBKK",
       "genre": "kpop",
       "location": "Opera House",
       "date": "2024-10-01",
       "time": "19:00:00",
       "price": 300,
+      "ageRestriction": false,
       "available": 120,
       "isAvailable": true
     },
     {
       "id": "8",
       "name": "'TWICE 5th World Tour' - 'Ready to Be'",
-      "description": "Top DJs from around the world",
+      "description": "TWICE's 5th World Tour 'Ready to Be' is a celebration of their incredible journey as a global K-pop sensation. The tour features energetic performances, stunning visuals, and fan-favorite hits from their extensive discography. With the theme 'Ready to Be,' TWICE embraces their growth, showcasing their music, choreography, and unique charm. Fans can expect a high-energy show filled with excitement, powerful performances, and heartwarming moments with ONCE fans around the world.\n\nIt's an unforgettable experience of music, dance, and connection.",
       "genre": "kpop",
       "location": "Beach Club",
       "date": "2024-11-20",
       "time": "22:00:00",
       "price": 180,
+      "ageRestriction": false,
       "available": 400,
       "isAvailable": true
     },
@@ -105,6 +113,7 @@
       "date": "2024-12-05",
       "time": "16:00:00",
       "price": 130,
+      "ageRestriction": false,
       "available": 300,
       "isAvailable": true
     },
@@ -117,30 +126,33 @@
       "date": "2025-01-15",
       "time": "20:00:00",
       "price": 160,
+      "ageRestriction": true,
       "available": 150,
       "isAvailable": true
     },
     {
       "id": "11",
       "name": "'NEO CITY' The Origin Tour",
-      "description": "Country music under the stars",
+      "description": "'NEO CITY: The Origin Tour' is NCT 127's special tour, celebrating the roots and evolution of the group. The tour features iconic performances, showcasing their growth and musical journey. With a mix of powerful songs, dynamic choreography, and stunning stage production, this tour offers fans an unforgettable experience as NCT 127 connects with NCTzens around the world. The tour highlights their signature style and energy, making it a must-see event for fans.\n\nExpect a night filled with electrifying performances and fan interactions.",
       "genre": "kpop",
       "location": "Farm Festival",
       "date": "2025-02-10",
       "time": "18:00:00",
       "price": 140,
+      "ageRestriction": false,
       "available": 200,
       "isAvailable": true
     },
     {
       "id": "12",
       "name": "'Born Pink' World Tour",
-      "description": "Smooth soul and blues music",
+      "description": "'Born Pink' World Tour is BLACKPINK's global concert tour, celebrating the release of their album *Born Pink*. The tour features high-energy performances of their chart-topping hits like 'How You Like That,' 'Lovesick Girls,' and 'Pink Venom.' With dazzling stage designs, powerful choreography, and unforgettable fan interactions, BLACKPINK delivers an immersive experience for Blinks worldwide. The tour highlights their global influence and musical evolution, promising an unforgettable night of music and excitement.\n\nGet ready for a spectacular showcase of talent, style, and energy.",
       "genre": "kpop",
       "location": "Jazz Lounge",
       "date": "2025-03-08",
       "time": "19:30:00",
       "price": 150,
+      "ageRestriction": false,
       "available": 100,
       "isAvailable": true
     },
@@ -153,6 +165,7 @@
       "date": "2025-04-20",
       "time": "18:00:00",
       "price": 350,
+      "ageRestriction": true,
       "available": 1000,
       "isAvailable": true
     },
@@ -165,18 +178,20 @@
       "date": "2025-05-10",
       "time": "17:00:00",
       "price": 90,
+      "ageRestriction": false,
       "available": 50,
       "isAvailable": true
     },
     {
       "id": "15",
       "name": "TOMORROW X TOGETHER WORLD TOUR 'ACT: LOVE SICK'",
-      "description": "Alternative rock bands unite",
+      "description": "TOMORROW X TOGETHER's 'ACT: LOVE SICK' World Tour is a captivating global concert series that showcases their growth as artists. With powerful performances of hits like 'Blue Hour,' 'LO$ER=LO♡ER,' and 'Anti-Romantic,' the tour delivers an unforgettable experience filled with high-energy choreography and deep emotional connection. The 'ACT: LOVE SICK' theme reflects the group's exploration of love, youth, and inner struggles, offering fans a visually stunning and immersive show. Expect a night of passion, music, and unforgettable moments with MOA.\n\nA thrilling experience for every fan.",
       "genre": "kpop",
       "location": "Music Hall",
       "date": "2025-06-25",
       "time": "19:00:00",
       "price": 170,
+      "ageRestriction": true,
       "available": 250,
       "isAvailable": true
     }
@@ -220,12 +235,8 @@
       "email": "nuuza@gmail.com",
       "DOB": "2005-06-09",
       "password": "giftinw",
-      "tickets": [
-        1
-      ],
-      "bookmarks": [
-        1
-      ]
+      "tickets": [1],
+      "bookmarks": [1]
     },
     {
       "id": "2",
@@ -233,12 +244,8 @@
       "email": "nuuza@gmail.com",
       "DOB": "2005-06-09",
       "password": "giftinw",
-      "tickets": [
-        1
-      ],
-      "bookmarks": [
-        1
-      ]
+      "tickets": [1],
+      "bookmarks": [1]
     },
     {
       "id": "3",
@@ -246,12 +253,8 @@
       "email": "nuuza@gmail.com",
       "DOB": "2005-06-09",
       "password": "giftinw",
-      "tickets": [
-        1
-      ],
-      "bookmarks": [
-        1
-      ]
+      "tickets": [1],
+      "bookmarks": [1]
     },
     {
       "id": "eed8",
