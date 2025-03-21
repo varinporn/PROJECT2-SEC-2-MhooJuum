@@ -1,4 +1,12 @@
-<script setup></script>
+<script setup>
+import { CookieUtil } from '@/libs/cookieUtil';
+import { ref } from 'vue';
+import LoginManager from './LoginManager.vue';
+
+const statusLogin = ref(CookieUtil.get('juumId'))
+
+const openLogin = ref(false)
+</script>
 
 <template>
   <div
@@ -25,12 +33,21 @@
     </div>
     <div>
       <img
+        v-if="statusLogin"
         src="/icons/profile.png"
         alt="profile"
         class="w-8 h-8 rounded-full cursor-pointer"
       />
+      <button
+        v-else
+        @click="openLogin=true"
+        >
+        Log In | Sign Up
+      </button>
     </div>
   </div>
+  <LoginManager v-if="openLogin"/>
+
 </template>
 
 <style scoped></style>
