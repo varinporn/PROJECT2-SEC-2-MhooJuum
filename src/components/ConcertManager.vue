@@ -9,7 +9,6 @@ const tpopConcerts = computed(() => concerts.value.filter(concert => concert.gen
 
 onMounted(async () => {
   try {
-    console.log(`${import.meta.env.VITE_APP_URL}/concerts`)
     concerts.value = await getItems(
       `${import.meta.env.VITE_APP_URL}/concerts`
     )
@@ -21,11 +20,6 @@ onMounted(async () => {
 
 <template>
   <div>
-    <ConcertList :concerts="concerts">
-        <template #header>
-            <h1>All Concerts</h1>
-        </template>
-    </ConcertList>
     <ConcertList :concerts="kpopConcerts">
         <template #header>
             <h1>KPOP</h1>

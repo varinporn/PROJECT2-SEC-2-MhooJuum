@@ -1,0 +1,15 @@
+<script setup>
+import ConcertManager from '@/components/ConcertManager.vue';
+import Header from '@/components/Header.vue';
+</script>
+ 
+<template>
+<div>
+    <Header />
+    <!-- <ConcertManager /> -->
+</div>
+</template>
+ 
+<style scoped>
+
+</style>
