@@ -17,13 +17,24 @@ const tab = ref('upcoming')
 
 const tickets = ref([])
 const mergeData = ref([])
+const bookmarkTickets = ref([])
+const mergeDataBookmark = ref([])
 
 onMounted(async () => {
   try {
     dataAccount.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
 
+
+    tickets.value = await Promise.all(
+      dataAccount.value.tickets.map(async (ticketId) => {
+      return await getItemById(`${import.meta.env.VITE_APP_URL}/tickets`, ticketId);
+    }));
+
+    bookmarkTickets.value = await Promise.all(
+      dataAccount.value.bookmarks.map(async (bookId) => {
+      return await getItemById(`${import.meta.env.VITE_APP_URL}/tickets`, bookId);
+    }));
     
-    tickets.value = await getItems(`${import.meta.env.VITE_APP_URL}/tickets`)
 
     mergeData.value = await Promise.all(
       tickets.value.map(async (ticket) => {
@@ -32,6 +43,13 @@ onMounted(async () => {
       })
     )
 
+    mergeDataBookmark.value = await Promise.all(
+      bookmarkTickets.value.map(async (ticketBook) => {
+        const concert = await getItemById(`${import.meta.env.VITE_APP_URL}/concerts`, ticketBook.concertId);
+        return { ...ticketBook, concert }
+      })
+    )
+    
   } catch (error) {
     clearDataAccount()
     console.log(error)
@@ -246,6 +264,7 @@ const historyTickets = computed(() => {
     <div class="bg-gray-200">
       <TicketList v-show="tab === 'upcoming'" :ticket="upcomingTickets"></TicketList>
       <TicketList v-show="tab === 'history'" :ticket="historyTickets"></TicketList>
+      <TicketList v-show="tab === 'follow'" :ticket="mergeDataBookmark"></TicketList>
     </div>
   </div>
 </template>
