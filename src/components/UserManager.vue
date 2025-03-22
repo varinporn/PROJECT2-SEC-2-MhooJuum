@@ -3,38 +3,70 @@
   import Login from "./Login.vue";
   import EditProfile from "./EditProfile.vue";
   import { CookieUtil } from "@/libs/cookieUtil";
-  import { onMounted, ref } from "vue";
+  import { onMounted, ref, computed} from "vue";
   import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
   import { useRouter } from "vue-router";
+  
 
   const statusLogin = ref(CookieUtil.get('juumId'))
   const showLogin = ref(true)
   const router = useRouter() 
   const showEditProfile = ref(false)
 
-  const tickets = ref([])
-  const concerts = ref([])
-  const concert = ref({})
-  const all = ref([])
+const tab = ref('upcoming')
 
-  
-  onMounted(async () => {
-    try {
-      dataAccount.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
-      tickets.value = await getItems(`${import.meta.env.VITE_APP_URL}/tickets`)
-      tickets.value.forEach(async (ticket) => {
-        concert.value = await getItemById(
-          `${import.meta.env.VITE_APP_URL}/concerts`,
-          ticket.concertId
-        )
-        concerts.value.push(concert.value)
+const tickets = ref([])
+const mergeData = ref([])
+const bookmarkTickets = ref([])
+const mergeDataBookmark = ref([])
+
+onMounted(async () => {
+  try {
+    dataAccount.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
+
+
+    tickets.value = await Promise.all(
+      dataAccount.value.tickets.map(async (ticketId) => {
+      return await getItemById(`${import.meta.env.VITE_APP_URL}/tickets`, ticketId);
+    }));
+
+    bookmarkTickets.value = await Promise.all(
+      dataAccount.value.bookmarks.map(async (bookId) => {
+      return await getItemById(`${import.meta.env.VITE_APP_URL}/tickets`, bookId);
+    }));
+    
+
+    mergeData.value = await Promise.all(
+      tickets.value.map(async (ticket) => {
+        const concert = await getItemById(`${import.meta.env.VITE_APP_URL}/concerts`, ticket.concertId);
+        return { ...ticket, concert }
       })
-    } catch (error) {
-      clearDataAccount()
-      
-      console.log(error);
-    }
-  })
+    )
+
+    mergeDataBookmark.value = await Promise.all(
+      bookmarkTickets.value.map(async (ticketBook) => {
+        const concert = await getItemById(`${import.meta.env.VITE_APP_URL}/concerts`, ticketBook.concertId);
+        return { ...ticketBook, concert }
+      })
+    )
+    
+  } catch (error) {
+    clearDataAccount()
+    console.log(error)
+  }
+
+})
+
+const today = new Date()
+
+const upcomingTickets = computed(() => {
+  return mergeData.value.filter(ticket => new Date(ticket.concert.date) >= today);
+});
+
+const historyTickets = computed(() => {
+  return mergeData.value.filter(ticket => new Date(ticket.concert.date) < today);
+});
+
 
 
   // Data user
@@ -220,12 +252,14 @@
 
 
     <div class="flex ml-20 gap-20 mb-5 font-bold">
-      <button class="border-b-2 pb-1">Upcoming</button>
-      <button>History</button>
-      <button>follow</button>
+      <button :class="tab === 'upcoming' ? 'border-b-2 pb-2' : ''" @click="tab = 'upcoming'">Upcoming</button>
+      <button :class="tab === 'history' ? 'border-b-2 pb-2' : ''" @click="tab = 'history'">History</button>
+      <button :class="tab === 'follow' ? 'border-b-2 pb-2' : ''" @click="tab = 'follow'">follow</button>
     </div>
     <div class="bg-gray-200">
-      <TicketList :ticket="concerts"></TicketList>
+      <TicketList v-show="tab === 'upcoming'" :ticket="upcomingTickets"></TicketList>
+      <TicketList v-show="tab === 'history'" :ticket="historyTickets"></TicketList>
+      <TicketList v-show="tab === 'follow'" :ticket="mergeDataBookmark"></TicketList>
     </div>
   </div>
 </template>

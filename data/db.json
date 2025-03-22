@@ -269,17 +269,17 @@
     },
     {
       "id": "2",
-      "concertId": 1,
+      "concertId": 2,
       "userId": 1
     },
     {
       "id": "3",
-      "concertId": 1,
+      "concertId": 3,
       "userId": 1
     },
     {
       "id": "4",
-      "concertId": 1,
+      "concertId": 4,
       "userId": 1
     },
     {
@@ -348,17 +348,8 @@
       "email": "test@example",
       "DOB": "2005-02-22",
       "password": "test",
-      "tickets": [],
-      "bookmarks": []
-    },
-    {
-      "id": "390d",
-      "username": "a",
-      "email": "a@a.a",
-      "DOB": "2025-03-22",
-      "password": "a",
-      "tickets": [],
-      "bookmarks": []
+      "tickets": [1,2,4,6],
+      "bookmarks": [1,2,4,6]
     }
   ]
 }
