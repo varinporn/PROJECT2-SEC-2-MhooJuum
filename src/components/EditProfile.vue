@@ -4,38 +4,44 @@
 
     const emit = defineEmits(['closeEditProfile', 'saveProfile', 'saveNewPassword'])
     const props = defineProps({
-        dataAccout: {
+        dataAccount: {
             type: Object
         },
         statusLogin: {
             type: Boolean
         }
     })
-    const data = ref({ ...props.dataAccout })
+    const data = ref({ ...props.dataAccount })
     const status = ref(props.statusLogin)
 
     const showPassword = ref(false)
     const closePopup = () => {
-        data.value = { ...props.dataAccout }
+        data.value = { ...props.dataAccount }
         showPassword.value = false
+        alertStatus.value = false
         emit('closeEditProfile')
     }
 
-    const trimData = () => {
+    const alertStatus = ref(false)
+    const submit = () => {
         for (const key in data.value) {
             if (typeof data.value[key] === "string") {
                 data.value[key] = data.value[key].trim();
             }
         }
-        return data.value
-    }
-
-    const submit = () => {
         if (status.value) {
-            emit('saveProfile', trimData())
+            if (!data.value.username || !data.value.password) {
+                alertStatus.value = true
+                return
+            }
+            emit('saveProfile', data.value)
             closePopup()
         } else {
-            emit('saveNewPassword', trimData())
+            if (!data.value.email || !data.value.password) {
+                alertStatus.value = true
+                return
+            }
+            emit('saveNewPassword', data.value)
             closePopup()
         }
     }
@@ -51,20 +57,32 @@
                 
                 <div class="w-full">
                     <div class="mb-4" v-if="status">
-                        <label class="block text-gray-700 font-semibold mb-2">User name:</label>
+                        <p class="flex justify-between items-center mb-2">
+                            <span class="font-semibold" :class="alertStatus && !data.username ? 'text-red-600' : 'text-gray-700'">Username:</span>
+                            <span v-show="alertStatus && !data.username" class="text-xs font-medium text-red-400">* Enter Username</span>
+                        </p>
                         <input type="text" v-model="data.username" 
-                            class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            :class="alertStatus && !data.username ? 'border-red-500 bg-red-100 focus:outline-none' : 'border-gray-400 focus:ring-blue-500'"
+                            class="w-full p-2 border rounded-md">
                     </div>
                     <div class="mb-4" v-else>
-                        <label class="block text-gray-700 font-semibold mb-2">Email:</label>
+                        <p class="flex justify-between items-center mb-2">
+                            <span class="font-semibold" :class="alertStatus && !data.email ? 'text-red-600' : 'text-gray-700'">Email:</span>
+                            <span v-show="alertStatus && !data.email" class="text-xs font-medium text-red-400">* Enter email</span>
+                        </p>
                         <input type="text" v-model="data.email" 
-                            class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            :class="alertStatus && !data.email ? 'border-red-500 bg-red-100 focus:outline-none' : 'border-gray-400 focus:ring-blue-500'"
+                            class="w-full p-2 border rounded-md">
                     </div>
 
                     <div class="mb-6 relative">
-                        <label class="block text-gray-700 font-semibold mb-2">{{ status ? 'Password:' : 'New password:' }}</label>
-                        <input :type="showPassword ? 'text' : 'password'" v-model="data.password"
-                            class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <p class="flex justify-between items-center mb-2">
+                            <span class="font-semibold" :class="alertStatus && !data.password ? 'text-red-600' : 'text-gray-700'">{{ status ? 'Password:' : 'New password:' }}</span>
+                            <span v-show="alertStatus && !data.password" class="text-xs font-medium text-red-400">* Enter password</span>
+                        </p>
+                        <input :type="showPassword ? 'text' : 'password'" v-model="data.password" 
+                            :class="alertStatus && !data.password ? 'border-red-500 bg-red-100 focus:outline-none' : 'border-gray-400 focus:ring-blue-500'"
+                            class="w-full p-2 border rounded-md">
                         
                         <!-- Show password -->
                         <button type="button" @click="showPassword = !showPassword"

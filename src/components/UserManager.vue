@@ -20,7 +20,7 @@
   
   onMounted(async () => {
     try {
-      dataAccout.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
+      dataAccount.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
       tickets.value = await getItems(`${import.meta.env.VITE_APP_URL}/tickets`)
       tickets.value.forEach(async (ticket) => {
         concert.value = await getItemById(
@@ -30,7 +30,7 @@
         concerts.value.push(concert.value)
       })
     } catch (error) {
-      clearDataAccout()
+      clearDataAccount()
       
       console.log(error);
     }
@@ -38,7 +38,7 @@
 
 
   // Data user
-  const dataAccout = ref({
+  const dataAccount = ref({
     username: "",
     email: "",
     DOB: "",
@@ -46,8 +46,8 @@
     tickets: [],
     bookmarks: [],
   })
-  const clearDataAccout = () => {
-    dataAccout.value = {
+  const clearDataAccount = () => {
+    dataAccount.value = {
       username: "",
       email: "",
       DOB: "",
@@ -59,7 +59,7 @@
   }
 
   // // Function sign up
-  // const addAccout = async (data) => {
+  // const addAccount = async (data) => {
   //   // Check null data
   //   if (!data.username || !data.email || !data.DOB || !data.password) {
   //     alert("Fill all information.")
@@ -70,7 +70,7 @@
       
   //     // Check email already registered
   //     if (checkEmail.length === 0) {
-  //       const addAccout = await addItem(`${import.meta.env.VITE_APP_URL}/users`,data)
+  //       const addAccount = await addItem(`${import.meta.env.VITE_APP_URL}/users`,data)
   //     } else {
   //       alert(`This email \"${data.email}\" is already registered.`)
   //       return
@@ -108,7 +108,7 @@
   //     CookieUtil.set("juumId", matchedUser.id)
   //     statusLogin.value = CookieUtil.get('juumId')
 
-  //     dataAccout.value = matchedUser
+  //     dataAccount.value = matchedUser
   //     showLogin.value = false;
   //   } catch (error) {
   //     console.log(error)
@@ -117,14 +117,14 @@
 
   // Function logout
   const logout = () => {
-    clearDataAccout()
+    clearDataAccount()
     CookieUtil.unset('juumId')
     statusLogin.value = CookieUtil.get('juumId')
     router.push({name: 'Home'})
   }
 
-  // Function delete accout
-  const deleteAccout = async () => {
+  // Function delete account
+  const deleteAccount = async () => {
     try {
       const statusCode = await deleteItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
       if (statusCode === 200) {
@@ -137,14 +137,9 @@
 
   // Function edit profile
   const saveProfile = async (data) => {
-    // Check null data
-    if (!data.username || !data.password) {
-      alert("Fill all information.")
-      return
-    }
     try {
-      const saveAccout = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data)
-      dataAccout.value = saveAccout
+      const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data)
+      dataAccount.value = saveAccount
     } catch (error) {
       console.log(error);
     }
@@ -163,7 +158,7 @@
       
   //     // Check email is registered
   //     if (checkEmail.length !== 0) {
-  //       const saveAccout = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
+  //       const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
   //     } else {
   //       alert(`This email \"${data.email}\" is not found.`)
   //       return
@@ -178,14 +173,14 @@
   <div v-if="statusLogin === null">
     <!-- Login -->
     <!-- <Login v-show="showLogin" 
-      :dataAccout="dataAccout"
-      @close-login="clearDataAccout" 
+      :dataAccount="dataAccount"
+      @close-login="clearDataAccount" 
       @login="login"
       @forget-password="showEditProfile = true"
-      @add-accout="addAccout" />
+      @add-account="addAccount" />
 
     <EditProfile v-show="showEditProfile"
-      :dataAccout="dataAccout" 
+      :dataAccount="dataAccount" 
       :statusLogin="false"
       @close-edit-profile="showEditProfile = false"
       @save-new-password="savePassword" /> -->
@@ -198,8 +193,8 @@
           <img src="/icons/profile.png" alt="profile" class="w-[14rem] rounded-full">
         </div>
         <div>
-          <p class="text-8xl font-bold mb-[1rem]">{{ dataAccout.username }}</p>
-          <p class="text-4xl font-light">{{ dataAccout.email }}</p>
+          <p class="text-8xl font-bold mb-[1rem]">{{ dataAccount.username }}</p>
+          <p class="text-4xl font-light">{{ dataAccount.email }}</p>
         </div>
       </div>
       <div class="flex gap-[2rem] mb-[2rem]">
@@ -211,14 +206,14 @@
           class="bg-yellow-400 rounded-xl text-white text-x font-bold p-[1rem] w-[9rem] cursor-pointer 
           duration-300 hover:scale-110 transition-transform hover:bg-yellow-300">Logout</button>
 
-        <button @click="deleteAccout"
+        <button @click="deleteAccount"
           class="bg-red-600 rounded-xl text-white text-x font-bold p-[1rem] w-[9rem] cursor-pointer 
           duration-300 hover:scale-110 transition-transform hover:bg-red-400">Delete profile</button>
       </div>
     </div>
 
-    <EditProfile v-if="dataAccout.id" v-show="showEditProfile"
-            :dataAccout="dataAccout" 
+    <EditProfile v-if="dataAccount.id" v-show="showEditProfile"
+            :dataAccount="dataAccount" 
             :statusLogin="true"
             @close-edit-profile="showEditProfile = false"
             @save-profile="saveProfile" />

@@ -9,7 +9,7 @@ import Login from './Login.vue';
 const statusLogin = ref(CookieUtil.get('juumId'));
 
 const showEditProfile = ref(false)
-const dataAccout = ref({
+const dataAccount = ref({
     username: "",
     email: "",
     DOB: "",
@@ -19,21 +19,14 @@ const dataAccout = ref({
 })
 
 // Function sign up
-const addAccout = async (data) => {
-    console.log('kuy')
-    
-    // Check null data
-    if (!data.username || !data.email || !data.DOB || !data.password) {
-        alert("Fill all information.")
-        return
-    }
+const addAccount = async (data) => {
     try {
         const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
 
         // Check email already registered
         if (checkEmail.length === 0) {
-            const addAccout = await addItem(`${import.meta.env.VITE_APP_URL}/users`, data)
-            login(addAccout)
+            const addAccount = await addItem(`${import.meta.env.VITE_APP_URL}/users`, data)
+            login(addAccount)
         } else {
             alert(`This email \"${data.email}\" is already registered.`)
             return
@@ -45,32 +38,42 @@ const addAccout = async (data) => {
 
 // Function Login
 const login = async (data) => {
-    // Check null data
-    if (!data.username || !data.password) {
-        alert("Fill all information.")
-        return
-    }
     try {
-        // Check username real
-        const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
+        if (data.email) {
+            const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
+            if (dataSelect.length === 0) {
+                alert("User not found.")
+                return
+            }
+            if (!dataSelect[0].password === data.password) {
+                alert("Incorrect password.")
+                return
+            }
+            
+            CookieUtil.set("juumId", dataSelect[0].id)
+            statusLogin.value = CookieUtil.get('juumId')
+            dataAccount.value = dataSelect[0]
+        } else {
+            const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
 
-        if (dataSelect.length === 0) {
-            alert("User not found.")
-            return
+            if (dataSelect.length === 0) {
+                alert("User not found.")
+                return
+            }
+
+            // Check password match
+            const matchedUser = dataSelect.find(
+                (user) => user.password === data.password
+            )
+            if (!matchedUser) {
+                alert("Incorrect password.")
+                return
+            }
+            
+            CookieUtil.set("juumId", matchedUser.id)
+            statusLogin.value = CookieUtil.get('juumId')
+            dataAccount.value = matchedUser   
         }
-
-        // Check password match
-        const matchedUser = dataSelect.find(
-            (user) => user.password === data.password
-        )
-        if (!matchedUser) {
-            alert("Incorrect password.")
-            return
-        }
-
-        CookieUtil.set("juumId", matchedUser.id)
-        statusLogin.value = CookieUtil.get('juumId')
-        dataAccout.value = matchedUser
         emit('submit')
     } catch (error) {
         console.log(error)
@@ -78,18 +81,13 @@ const login = async (data) => {
 }
 
 const savePassword = async (data) => {
-    console.log(data);
-    // Check null data
-    if (!data.email || !data.password) {
-        alert("Fill all information.")
-        return
-    }
     try {
         const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
 
         // Check email is registered
         if (checkEmail.length !== 0) {
-            const saveAccout = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
+            checkEmail[0].password = data.password
+            const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
         } else {
             alert(`This email \"${data.email}\" is not found.`)
             return
@@ -102,10 +100,18 @@ const savePassword = async (data) => {
 <template>
     <!-- Login -->
     <teleport to="body">
-        <Login :dataAccout="dataAccout" @close-login="$emit('close')" @login="login"
-            @forget-password="showEditProfile = true" @add-accout="addAccout" />
-        <EditProfile v-show="showEditProfile" :dataAccout="dataAccout" :statusLogin="false"
-            @close-edit-profile="showEditProfile = false" @save-new-password="savePassword" />
+        <Login 
+            :dataAccount="dataAccount" 
+            @close-login="$emit('close')" 
+            @login="login"
+            @forget-password="showEditProfile = true" 
+            @add-account="addAccount" />
+
+        <EditProfile v-show="showEditProfile" 
+            :dataAccount="dataAccount" 
+            :statusLogin="false"
+            @close-edit-profile="showEditProfile = false" 
+            @save-new-password="savePassword" />
     </teleport>
 </template>
 <style scoped></style>
