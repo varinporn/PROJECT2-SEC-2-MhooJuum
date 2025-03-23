@@ -112,7 +112,7 @@
       "location": "Island Resort",
       "date": "2025-05-05",
       "time": "16:00:00",
-      "price": 130,
+      "price": 1300,
       "ageRestriction": false,
       "available": 300,
       "isAvailable": true
@@ -244,7 +244,7 @@
       "time": "17:00:00",
       "price": 990,
       "ageRestriction": true,
-      "available": 250,
+      "available": 25,
       "isAvailable": true
     },
     {
