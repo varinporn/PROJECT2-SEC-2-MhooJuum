@@ -6,10 +6,7 @@ defineProps({
     type: Array,
     required: true,
   },
-  isWrap: {
-        type: Boolean,
-        default: false
-    }
+  isWrap: Boolean
 })
 </script>
 
