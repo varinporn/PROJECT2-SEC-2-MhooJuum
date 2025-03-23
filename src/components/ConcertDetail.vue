@@ -23,16 +23,27 @@ const selectedTab = ref('details')
 const formattedDescription = computed(() => {
   return selectConcert.value?.description.replace(/\n/g, '<br>') || ''
 })
+
+// quantity
+const quantity = ref(1)
+
+const increaseQuantity = () => {
+  if(quantity.value < 4) quantity.value++
+}
+
+const decreaseQuantity = () => {
+  if(quantity.value > 1) quantity.value--
+}
 </script>
 
 <template>
   <Header />
   <div>
     <img
-            src="../../icons/back.png"
-            @click="$router.go(-1)"
-            class="cursor-pointer absolute w-10 mt-6 ml-8"
-          />
+      src="../../icons/back.png"
+      @click="$router.go(-1)"
+      class="cursor-pointer absolute w-10 mt-6 ml-8"
+    />
     <div v-if="selectConcert" class="bg-[#333333] text-white px-20 py-10">
       <div class="flex flex-row items-start">
         <div class="basis-1/3 flex">
@@ -118,22 +129,69 @@ const formattedDescription = computed(() => {
         </button>
       </div>
     </div>
+
     <div>
-      <div
-        v-if="selectConcert && selectedTab === 'details'"
-        class="py-8 px-12 text-center flex flex-col"
-      >
-        <h3 v-if="selectConcert" class="font-bold text-4xl py-6">
-          {{ selectConcert.name }}
-        </h3>
-        <div>
-          <img
-            :src="`../../concert/${selectConcert.genre}Poster.png`"
-            class="w-1/2 px-16 mx-auto"
-          />
+          <!-- detail of concert -->
+      <div v-if="selectConcert && selectedTab === 'details'" class="py-8 px-12">
+        <div
+          class="text-center flex flex-col"
+        >
+          <h3 v-if="selectConcert" class="font-bold text-4xl py-6">
+            {{ selectConcert.name }}
+          </h3>
+          <div>
+            <img
+              :src="`../../concert/${selectConcert.genre}Poster.png`"
+              class="w-1/2 px-18 mx-auto"
+            />
+          </div>
+          <p v-if="selectConcert" v-html="formattedDescription" class="py-8"></p>
         </div>
-        <p v-if="selectConcert" v-html="formattedDescription" class="py-8"></p>
+        <!-- booking ticket -->
+<div class="px-12 pb-10 pt-4">
+  <p class="font-bold text-lg text-gray-800">Ticket Information</p>
+  <!-- ticket info -->
+  <div class="bg-[#f4f6fa] px-10 pt-6 pb-8 space-y-4 rounded-xl mt-4 shadow-lg">
+    <p class="py-2 border-b-2 border-gray-200 text-gray-700"><span class="font-semibold">Name </span>{{ selectConcert.name }}</p>
+    <p class="py-2 border-b-2 border-gray-200 text-gray-700"><span class="font-semibold">Date </span>{{ selectConcert.date }}</p>
+    <p class="py-2 border-b-2 border-gray-200 text-gray-700"><span class="font-semibold">Time </span>{{ selectConcert.time }}</p>
+    <p class="flex items-center py-2 border-b-2 border-gray-200 text-gray-700">
+      <span class="font-semibold mr-4">Quantity </span>
+      <div class="space-x-4">
+        <button class="py-1 px-3 border-1 rounded-lg bg-[#e1e6f0] hover:bg-[#c4c9e6]" @click="decreaseQuantity">-</button>
+        <span class="text-lg">{{ quantity }}</span>
+        <button class="py-1 px-3 border-1 rounded-lg bg-[#e1e6f0] hover:bg-[#c4c9e6]" @click="increaseQuantity">+</button>
       </div>
+    </p>
+    <p class="py-2 border-b-2 border-gray-200 text-gray-700">
+      <span class="font-semibold">Unit Price (Baht) </span>{{ selectConcert.price }}
+    </p>
+    <p class="py-2 border-b-2 border-gray-200 text-gray-700">
+      <span class="font-semibold">Total Price (Baht) </span>{{ selectConcert.price * quantity }}
+    </p>
+  </div>
+  <!-- checkbox -->
+  <div class="ml-4 mt-8 flex items-center space-x-4">
+    <input type="checkbox" name="" id="" class="w-5 h-5 border-2 border-gray-300 rounded-md bg-gray-100 checked:bg-[#03abef]">
+    <span class="text-gray-700">Please click to accept <span class="text-[#03abef] cursor-pointer">“Terms and Conditions”</span></span>
+  </div>
+  <!-- button -->
+  <div class="flex flex-row justify-center space-x-6 mt-8">
+    <button
+      class="bg-[#909cb3] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#bbc3d4] transition ease-in-out duration-200" @click="$router.go(-1)"
+    >
+      BACK
+    </button>
+    <button
+      class="bg-[#03abef] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#5fd1ff] transition ease-in-out duration-200"
+    >
+      BOOKING
+    </button>
+  </div>
+</div>
+      </div>
+
+      <!-- how to buy -->
       <div
         v-if="selectConcert && selectedTab === 'howToBuy'"
         class="py-8 px-12"
@@ -141,8 +199,10 @@ const formattedDescription = computed(() => {
         <p>select concert</p>
       </div>
     </div>
-  </div>
-  <Footer />
+
+    
+</div>
+<Footer />
 </template>
 
 <style scoped></style>

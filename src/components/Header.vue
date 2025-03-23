@@ -9,7 +9,6 @@ const statusLogin = ref(CookieUtil.get('juumId'))
 const isLogin = ref(false)
 const toggleLogin = (boolean) => {
   isLogin.value = boolean
-  console.log(isLogin.value)
   statusLogin.value = CookieUtil.get('juumId')
 }
 </script>
