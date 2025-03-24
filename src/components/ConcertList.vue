@@ -4,29 +4,41 @@ import ListModel from './ListModel.vue'
 defineProps({
   concerts: {
     type: Array,
-    require: true,
+    required: true,
   },
-
+  isWrap: {
+        type: Boolean,
+        default: false
+    }
 })
-
 </script>
 
 <template>
-  <div class="px-8">
+  <div class="px-18 py-3">
     <div class="text-3xl font-bold my-2">
-        <slot name="header"></slot>
+      <slot name="header"></slot>
     </div>
-    <ListModel :items="concerts">
-      <template #yourItem="slotProps">
-        <img src="../../concert/image.png" />
-        <p class="mt-2 font-semibold text-lg">
-          {{ slotProps.itemInList.name }}
-        </p>
-        <div class="flex space-x-2">
-          <img src="../../icons/location.png" class="w-4 h-full">
-          <p class="text-gray-400 text-md"> 
-            {{ slotProps.itemInList.location }}</p>
-        </div>
+    <ListModel :items="concerts" :isWrap="isWrap">
+      <template #yourItem="{ itemInList }">
+        <router-link
+          :to="{
+            name: 'ConcertDetail',
+            params: { concertId: itemInList.id },
+          }"
+        >
+          <div>
+            <img :src="`../../concert/${itemInList.genre}Poster.png`" />
+            <p class="mt-2 font-semibold text-lg">
+              {{ itemInList.name }}
+            </p>
+            <div class="flex space-x-2">
+              <img src="../../icons/location.png" class="w-4 h-full" />
+              <p class="text-gray-400 text-md">
+                {{ itemInList.location }}
+              </p>
+            </div>
+          </div>
+        </router-link>
       </template>
     </ListModel>
   </div>
