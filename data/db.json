@@ -284,12 +284,12 @@
     },
     {
       "id": "5",
-      "concertId": 1,
+      "concertId": 7,
       "userId": 1
     },
     {
       "id": "6",
-      "concertId": 1,
+      "concertId": 18,
       "userId": 1
     }
   ],
@@ -348,8 +348,8 @@
       "email": "test@example",
       "DOB": "2005-02-22",
       "password": "test",
-      "tickets": [1,2,4,6],
-      "bookmarks": [1,2,4,6]
+      "tickets": [1,2,3,4,5,6],
+      "bookmarks": [1,2,4,5,6]
     }
   ]
 }
