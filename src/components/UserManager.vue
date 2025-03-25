@@ -252,9 +252,9 @@ const historyTickets = computed(() => {
 
 
     <div class="flex ml-20 gap-20 mb-5 font-bold">
-      <button class=" cursor-pointer" :class="tab === 'upcoming' ? 'border-b-3 pb-2 text-gray-500 transition-all duration-200' : ''" @click="tab = 'upcoming'">Upcoming</button>
-      <button class=" cursor-pointer" :class="tab === 'history' ? 'border-b-3 pb-2 text-gray-500 transition-all duration-200' : ''" @click="tab = 'history'">History</button>
-      <button class=" cursor-pointer" :class="tab === 'follow' ? 'border-b-3 pb-2 text-gray-500 transition-all duration-200' : ''" @click="tab = 'follow'">follow</button>
+      <button class=" cursor-pointer" :class="tab === 'upcoming' ? 'border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'upcoming'">Upcoming</button>
+      <button class=" cursor-pointer" :class="tab === 'history' ? 'border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'history'">History</button>
+      <button class=" cursor-pointer" :class="tab === 'follow' ? 'border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'follow'">follow</button>
     </div>
     <div class="bg-gray-200 h-[388.484px]">
       <TicketList v-show="tab === 'upcoming'" :ticket="upcomingTickets"></TicketList>
