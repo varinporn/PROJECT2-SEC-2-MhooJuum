@@ -5,6 +5,8 @@ import { CookieUtil } from '@/libs/cookieUtil';
 import { ref } from 'vue';
 import EditProfile from './EditProfile.vue';
 import Login from './Login.vue';
+import { useUsers } from '@/store/users';
+
 
 const statusLogin = ref(CookieUtil.get('juumId'));
 
@@ -49,7 +51,6 @@ const login = async (data) => {
                 alert("Incorrect password.")
                 return
             }
-            
             CookieUtil.set("juumId", dataSelect[0].id)
             statusLogin.value = CookieUtil.get('juumId')
             dataAccount.value = dataSelect[0]
@@ -69,10 +70,10 @@ const login = async (data) => {
                 alert("Incorrect password.")
                 return
             }
-            
+
             CookieUtil.set("juumId", matchedUser.id)
             statusLogin.value = CookieUtil.get('juumId')
-            dataAccount.value = matchedUser   
+            dataAccount.value = matchedUser
         }
         emit('submit')
     } catch (error) {
@@ -98,20 +99,10 @@ const savePassword = async (data) => {
 }
 </script>
 <template>
-    <!-- Login -->
-    <teleport to="body">
-        <Login 
-            :dataAccount="dataAccount" 
-            @close-login="$emit('close')" 
-            @login="login"
-            @forget-password="showEditProfile = true" 
-            @add-account="addAccount" />
+    <Login :dataAccount="dataAccount" @close-login="$emit('close')" @login="login"
+        @forget-password="showEditProfile = true" @add-account="addAccount" />
 
-        <EditProfile v-show="showEditProfile" 
-            :dataAccount="dataAccount" 
-            :statusLogin="false"
-            @close-edit-profile="showEditProfile = false" 
-            @save-new-password="savePassword" />
-    </teleport>
+    <EditProfile v-show="showEditProfile" :dataAccount="dataAccount" :statusLogin="false"
+        @close-edit-profile="showEditProfile = false" @save-new-password="savePassword" />
 </template>
 <style scoped></style>

@@ -348,8 +348,18 @@
       "email": "test@example",
       "DOB": "2005-02-22",
       "password": "test",
-      "tickets": [1,2,4,6],
-      "bookmarks": [1,2,4,6]
+      "tickets": [
+        1,
+        2,
+        4,
+        6
+      ],
+      "bookmarks": [
+        1,
+        2,
+        4,
+        6
+      ]
     }
   ]
 }

@@ -1,9 +1,12 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { getItemById } from '../libs/fetchUtils'
+import { addItem, editItem, getItemById, patchItem } from '../libs/fetchUtils'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
+import EventPopup from './EventPopup.vue'
+import { CookieUtil } from '@/libs/cookieUtil'
+
 const { concertId } = useRoute().params
 console.log(concertId)
 const selectConcert = ref(null)
@@ -34,6 +37,46 @@ const increaseQuantity = () => {
 const decreaseQuantity = () => {
   if(quantity.value > 1) quantity.value--
 }
+
+
+// booking
+const statusLogin = ref(CookieUtil.get('juumId'))
+const dataAccount = ref({
+    username: "",
+    email: "",
+    DOB: "",
+    password: "",
+    tickets: [],
+    bookmarks: [],
+  })
+const ticket = ref({
+  concertId,
+  userId: statusLogin
+})
+const agree = ref(false)
+const showModal = ref(false)
+
+const toggleModal = () => {
+  if (!agree.value) return
+  showModal.value = !showModal.value
+}
+
+const concertBooking = async (ticket) => {
+  try{
+    dataAccount.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
+    while(quantity.value > 0) {
+      const addedTicket = await addItem(`${import.meta.env.VITE_APP_URL}/tickets`,ticket)
+      dataAccount.value.tickets[dataAccount.value.tickets.length] = addedTicket.id
+      await patchItem(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value, {
+        tickets: dataAccount.value.tickets,
+      });
+      quantity.value--
+    }
+  } catch (error) {
+    console.log(error)
+    toggleModal()
+  }
+}
 </script>
 
 <template>
@@ -54,7 +97,7 @@ const decreaseQuantity = () => {
         </div>
         <div class="basis-2/3 p-4 flex flex-col justify-center">
           <h2 class="text-3xl font-bold border-b-2 pb-2 text-center">
-            {{ selectConcert.name }}
+            {{ selectConcert.name }} {{ selectConcert.available }}
           </h2>
           <div class="mt-8 space-y-4">
             <div class="flex items-center space-x-2">
@@ -148,47 +191,49 @@ const decreaseQuantity = () => {
           <p v-if="selectConcert" v-html="formattedDescription" class="py-8"></p>
         </div>
         <!-- booking ticket -->
-<div class="px-12 pb-10 pt-4">
-  <p class="font-bold text-lg text-gray-800">Ticket Information</p>
-  <!-- ticket info -->
-  <div class="bg-[#f4f6fa] px-10 pt-6 pb-8 space-y-4 rounded-xl mt-4 shadow-lg">
-    <p class="py-2 border-b-2 border-gray-200 text-gray-700"><span class="font-semibold">Name </span>{{ selectConcert.name }}</p>
-    <p class="py-2 border-b-2 border-gray-200 text-gray-700"><span class="font-semibold">Date </span>{{ selectConcert.date }}</p>
-    <p class="py-2 border-b-2 border-gray-200 text-gray-700"><span class="font-semibold">Time </span>{{ selectConcert.time }}</p>
-    <p class="flex items-center py-2 border-b-2 border-gray-200 text-gray-700">
-      <span class="font-semibold mr-4">Quantity </span>
-      <div class="space-x-4">
-        <button class="py-1 px-3 border-1 rounded-lg bg-[#e1e6f0] hover:bg-[#c4c9e6]" @click="decreaseQuantity">-</button>
-        <span class="text-lg">{{ quantity }}</span>
-        <button class="py-1 px-3 border-1 rounded-lg bg-[#e1e6f0] hover:bg-[#c4c9e6]" @click="increaseQuantity">+</button>
-      </div>
-    </p>
-    <p class="py-2 border-b-2 border-gray-200 text-gray-700">
-      <span class="font-semibold">Unit Price (Baht) </span>{{ selectConcert.price }}
-    </p>
-    <p class="py-2 border-b-2 border-gray-200 text-gray-700">
-      <span class="font-semibold">Total Price (Baht) </span>{{ selectConcert.price * quantity }}
-    </p>
+  <div class="px-12 pb-10 pt-4">
+    <p class="font-bold text-lg text-gray-800">Ticket Information</p>
+    <!-- ticket info -->
+    <div class="bg-[#f4f6fa] px-10 pt-6 pb-8 space-y-4 rounded-xl mt-4 shadow-lg">
+      <p class="py-2 border-b-2 border-gray-200 text-gray-700"><span class="font-semibold">Name </span>{{ selectConcert.name }}</p>
+      <p class="py-2 border-b-2 border-gray-200 text-gray-700"><span class="font-semibold">Date </span>{{ selectConcert.date }}</p>
+      <p class="py-2 border-b-2 border-gray-200 text-gray-700"><span class="font-semibold">Time </span>{{ selectConcert.time }}</p>
+      <p class="flex items-center py-2 border-b-2 border-gray-200 text-gray-700">
+        <span class="font-semibold mr-4">Quantity </span>
+        <div class="space-x-4">
+          <button class="py-1 px-3 border-1 rounded-lg bg-[#e1e6f0] hover:bg-[#c4c9e6]" @click="decreaseQuantity">-</button>
+          <span class="text-lg">{{ quantity }}</span>
+          <button class="py-1 px-3 border-1 rounded-lg bg-[#e1e6f0] hover:bg-[#c4c9e6]" @click="increaseQuantity">+</button>
+        </div>
+      </p>
+      <p class="py-2 border-b-2 border-gray-200 text-gray-700">
+        <span class="font-semibold">Unit Price (Baht) </span>{{ selectConcert.price }}
+      </p>
+      <p class="py-2 border-b-2 border-gray-200 text-gray-700">
+        <span class="font-semibold">Total Price (Baht) </span>{{ selectConcert.price * quantity }}
+      </p>
+    </div>
+    <!-- checkbox -->
+    <div class="ml-4 mt-8 flex items-center space-x-4">
+      <input v-model="agree" type="checkbox" name="" id="" class="w-5 h-5 border-2 border-gray-300 rounded-md bg-gray-100 checked:bg-[#03abef]">
+      <span class="text-gray-700">{{ agree }} Please click to accept <span class="text-[#03abef] cursor-pointer">“Terms and Conditions”</span></span>
+    </div>
+    <!-- button -->
+    <div class="flex flex-row justify-center space-x-6 mt-8">
+      <button
+        class="bg-[#909cb3] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#bbc3d4] transition ease-in-out duration-200" @click="$router.go(-1)"
+      >
+        BACK
+      </button>
+      <button
+        @click="toggleModal"
+        class="bg-[#03abef] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#5fd1ff] transition ease-in-out duration-200"
+      >
+        BOOKING
+      </button>
+    </div>
   </div>
-  <!-- checkbox -->
-  <div class="ml-4 mt-8 flex items-center space-x-4">
-    <input type="checkbox" name="" id="" class="w-5 h-5 border-2 border-gray-300 rounded-md bg-gray-100 checked:bg-[#03abef]">
-    <span class="text-gray-700">Please click to accept <span class="text-[#03abef] cursor-pointer">“Terms and Conditions”</span></span>
-  </div>
-  <!-- button -->
-  <div class="flex flex-row justify-center space-x-6 mt-8">
-    <button
-      class="bg-[#909cb3] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#bbc3d4] transition ease-in-out duration-200" @click="$router.go(-1)"
-    >
-      BACK
-    </button>
-    <button
-      class="bg-[#03abef] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#5fd1ff] transition ease-in-out duration-200"
-    >
-      BOOKING
-    </button>
-  </div>
-</div>
+  <EventPopup v-if="showModal" @accept="concertBooking(ticket)" @close="showModal=false"></EventPopup>
       </div>
 
       <!-- how to buy -->
@@ -199,8 +244,6 @@ const decreaseQuantity = () => {
         <p>select concert</p>
       </div>
     </div>
-
-    
 </div>
 <Footer />
 </template>
