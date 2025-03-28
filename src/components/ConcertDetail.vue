@@ -47,6 +47,8 @@ const showBookingTicket = ref(false)
 const toggleGetTicket = () => {
   showBookingTicket.value = true
 }
+
+
 </script>
 
 <template>
@@ -230,10 +232,9 @@ const toggleGetTicket = () => {
           <div class="ml-4 mt-8 flex items-center space-x-4">
             <input
               type="checkbox"
-              name=""
-              id=""
               class="w-5 h-5 border-2 border-gray-300 rounded-md bg-gray-100 checked:bg-[#03abef]"
             />
+
             <span class="text-gray-700"
               >Please click to accept
               <span class="text-[#03abef] cursor-pointer"

@@ -46,12 +46,13 @@ const toggleLogin = (boolean) => {
         <img
           src="/icons/profile.png"
           alt="profile"
-          class="w-8 h-8 rounded-full cursor-pointer"
+          class="w-8 h-8 rounded-full border-2 border-gray-300 shadow-sm hover:border-gray-400 transition"
+
         />
       </router-link>
       <button
         v-else
-        @click="toggleLogin(true)"
+        @click="toggleLogin(true)" class="cursor-pointer"
         >
         Log In | Sign Up
       </button>
