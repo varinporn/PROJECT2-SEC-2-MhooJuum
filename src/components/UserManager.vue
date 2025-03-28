@@ -9,7 +9,6 @@
   import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
   import { useRouter } from "vue-router";
 import EventPopup from "./EventPopup.vue";
-import Header from "./Header.vue";
   
 
   const statusLogin = ref(CookieUtil.get('juumId'))
@@ -89,25 +88,25 @@ const historyTickets = computed(() => {
   const accept = ref(false)
   const showModal = ref(false)
   const confirmAction = ref(null)
-  const modalMessages = ({
-    header: 'ldaksf',
-    content: 'afs',
+  const modalMessage = {
+    header: '',
+    content: '',
     accept: '',
     deny: '',
-  })
+  }
   const toggleModal = (action = null) => {
     showModal.value = !showModal.value
     accept.value = false
     if (action === logout) {
-      modalMessages.header = 'Are you sure you want to log out?'
-      modalMessages.content = 'You will need to log in again to access your account.'
-      modalMessages.accept = 'LOG OUT'
-      modalMessages.deny = 'CANCEL'
+      modalMessage.header = 'Are you sure you want to log out?'
+      modalMessage.content = 'You will need to log in again to access your account.'
+      modalMessage.accept = 'LOG OUT'
+      modalMessage.deny = 'CANCEL'
     } else if (action === deleteAccount) {
-      modalMessages.header = 'Are you sure you want to delete your accout?'
-      modalMessages.content = 'This action is permanent and cannot be undone. You will lose all your data.'
-      modalMessages.accept = 'DELETE ACCOUNT'
-      modalMessages.deny = 'KEEP ACCOUNT'
+      modalMessage.header = 'Are you sure you want to delete your accout?'
+      modalMessage.content = 'This action is permanent and cannot be undone. You will lose all your data.'
+      modalMessage.accept = 'DELETE ACCOUNT'
+      modalMessage.deny = 'KEEP ACCOUNT'
     }
     confirmAction.value = action
   }
@@ -181,7 +180,7 @@ const historyTickets = computed(() => {
       </div>
     </div>
 
-    <EventPopup v-if="showModal" @close="toggleModal" @accept="confirm" :message="modalMessages">
+    <EventPopup v-if="showModal" @close="toggleModal" @accept="confirm" :message="modalMessage">
     </EventPopup>
 
     <EditProfile v-if="dataAccount.id" v-show="showEditProfile"

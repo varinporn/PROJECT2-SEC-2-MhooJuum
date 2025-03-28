@@ -36,7 +36,7 @@
       "time": "18:30:00",
       "price": 6500,
       "ageRestriction": false,
-      "available": 0,
+      "available": -8,
       "isAvailable": false
     },
     {
@@ -62,7 +62,7 @@
       "time": "17:00:00",
       "price": 5000,
       "ageRestriction": false,
-      "available": 170,
+      "available": 165,
       "isAvailable": true
     },
     {
@@ -75,7 +75,7 @@
       "time": "21:00:00",
       "price": 250,
       "ageRestriction": true,
-      "available": 500,
+      "available": 499,
       "isAvailable": true
     },
     {
@@ -101,7 +101,7 @@
       "time": "22:00:00",
       "price": 4800,
       "ageRestriction": false,
-      "available": 311,
+      "available": 307,
       "isAvailable": true
     },
     {
@@ -244,7 +244,7 @@
       "time": "17:00:00",
       "price": 990,
       "ageRestriction": true,
-      "available": 250,
+      "available": 249,
       "isAvailable": true
     },
     {
@@ -291,6 +291,101 @@
       "id": "6",
       "concertId": 18,
       "userId": 1
+    },
+    {
+      "id": "7db7",
+      "concertId": "5",
+      "userId": "7c1e"
+    },
+    {
+      "id": "c14e",
+      "concertId": "5",
+      "userId": "7c1e"
+    },
+    {
+      "id": "3c9a",
+      "concertId": "5",
+      "userId": "7c1e"
+    },
+    {
+      "id": "24dd",
+      "concertId": "5",
+      "userId": "7c1e"
+    },
+    {
+      "id": "cf41",
+      "concertId": "19",
+      "userId": "7c1e"
+    },
+    {
+      "id": "c58f",
+      "concertId": "5",
+      "userId": "7c1e"
+    },
+    {
+      "id": "5e1c",
+      "concertId": "6",
+      "userId": "7c1e"
+    },
+    {
+      "id": "430d",
+      "concertId": "3",
+      "userId": "7c1e"
+    },
+    {
+      "id": "5cd0",
+      "concertId": "3",
+      "userId": "7c1e"
+    },
+    {
+      "id": "09d2",
+      "concertId": "3",
+      "userId": "7c1e"
+    },
+    {
+      "id": "97ea",
+      "concertId": "3",
+      "userId": "7c1e"
+    },
+    {
+      "id": "e632",
+      "concertId": "3",
+      "userId": "7c1e"
+    },
+    {
+      "id": "ac05",
+      "concertId": "3",
+      "userId": "7c1e"
+    },
+    {
+      "id": "b7f5",
+      "concertId": "3",
+      "userId": "7c1e"
+    },
+    {
+      "id": "067c",
+      "concertId": "3",
+      "userId": "7c1e"
+    },
+    {
+      "id": "6d13",
+      "concertId": "8",
+      "userId": "7c1e"
+    },
+    {
+      "id": "4d5a",
+      "concertId": "8",
+      "userId": "7c1e"
+    },
+    {
+      "id": "f847",
+      "concertId": "8",
+      "userId": "7c1e"
+    },
+    {
+      "id": "2cce",
+      "concertId": "8",
+      "userId": "7c1e"
     }
   ],
   "users": [
@@ -348,8 +443,40 @@
       "email": "test@example",
       "DOB": "2005-02-22",
       "password": "test",
-      "tickets": [1,2,3,4,5,6],
-      "bookmarks": [1,2,4,5,6]
+      "tickets": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        "7db7",
+        "c14e",
+        "3c9a",
+        "24dd",
+        "cf41",
+        "c58f",
+        "5e1c",
+        "430d",
+        "5cd0",
+        "09d2",
+        "97ea",
+        "e632",
+        "ac05",
+        "b7f5",
+        "067c",
+        "6d13",
+        "4d5a",
+        "f847",
+        "2cce"
+      ],
+      "bookmarks": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
     }
   ]
 }

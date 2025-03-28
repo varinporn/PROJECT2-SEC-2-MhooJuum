@@ -16,7 +16,7 @@ console.log(props.ticket);
     <template #yourItem="listTicket">
         <div class=" group relative flex rounded-3xl bg-white hover:shadow-lg">
           <div class=" w-1/2" >
-            <img src="../../concert/kpopPoster.png" />
+            <img src="/concert/kpopPoster.png" />
           </div>
           <div class=" w-1/2 p-3 space-y-2">
             <p class=" font-black">#{{ listTicket.itemInList.id }}</p>

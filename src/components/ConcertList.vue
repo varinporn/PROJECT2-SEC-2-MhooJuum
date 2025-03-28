@@ -27,12 +27,12 @@ defineProps({
           }"
         >
           <div>
-            <img :src="`../../concert/${itemInList.genre}Poster.png`" />
+            <img :src="`/concert/${itemInList.genre}Poster.png`" />
             <p class="mt-2 font-semibold text-lg">
               {{ itemInList.name }}
             </p>
             <div class="flex space-x-2">
-              <img src="../../icons/location.png" class="w-4 h-full" />
+              <img src="/icons/location.png" class="w-4 h-full" />
               <p class="text-gray-400 text-md">
                 {{ itemInList.location }}
               </p>
