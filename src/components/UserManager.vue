@@ -4,11 +4,13 @@
   import EditProfile from "./EditProfile.vue";
   import Header from "./Header.vue";
   import ConcertList from "./ConcertList.vue";
+  import Footer from "./Footer.vue";
   import { CookieUtil } from "@/libs/cookieUtil";
   import { onMounted, ref, computed} from "vue";
   import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
   import { useRouter } from "vue-router";
 import EventPopup from "./EventPopup.vue";
+import TicketPopup from "./TicketPopup.vue";
   
 
   const statusLogin = ref(CookieUtil.get('juumId'))
@@ -196,10 +198,11 @@ const historyTickets = computed(() => {
       <button class=" cursor-pointer" :class="tab === 'follow' ? 'border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'follow'">follow</button>
     </div>
     <div class="bg-gray-200 h-[388.484px]">
-      <TicketList v-show="tab === 'upcoming'" :ticket="upcomingTickets"></TicketList>
-      <TicketList v-show="tab === 'history'" :ticket="historyTickets"></TicketList>
-      <ConcertList v-show="tab === 'follow'" :concerts="bookmarkConcerts"></ConcertList>
+      <TicketList v-if="tab === 'upcoming'" :ticket="upcomingTickets"></TicketList>
+      <TicketList v-if="tab === 'history'" :ticket="historyTickets"></TicketList>
+      <ConcertList v-if="tab === 'follow'" :concerts="bookmarkConcerts"></ConcertList>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 

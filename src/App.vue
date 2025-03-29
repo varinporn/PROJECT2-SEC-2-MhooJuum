@@ -14,7 +14,7 @@ const toggleModal = () => {
 </script>
 
 <template>
-  <div>
+  <div class="font-poppins">
     <div>
       <!-- <UserManager /> -->
     </div>
