@@ -4,11 +4,21 @@ import { computed, onMounted, ref } from 'vue'
 import ConcertList from './ConcertList.vue'
 
 const concerts = ref([])
+const today = new Date()
+
+const allConcerts = computed(() => {
+  return concerts.value.filter((concert) => new Date(concert.date) >= today)
+})
+
 const kpopConcerts = computed(() =>
-  concerts.value.filter((concert) => concert.genre === 'kpop')
+  concerts.value.filter(
+    (concert) => concert.genre === 'kpop' && new Date(concert.date) >= today
+  )
 )
 const tpopConcerts = computed(() =>
-  concerts.value.filter((concert) => concert.genre === 'tpop')
+  concerts.value.filter(
+    (concert) => concert.genre === 'tpop' && new Date(concert.date) >= today
+  )
 )
 
 onMounted(async () => {
@@ -34,7 +44,7 @@ defineProps({
 <template>
   <div class="pt-4">
     <template v-if="showAll">
-      <ConcertList :concerts="concerts" :isWrap="isWrap">
+      <ConcertList :concerts="allConcerts" :isWrap="isWrap">
         <template #header>
           <h1>All Concerts</h1>
         </template>

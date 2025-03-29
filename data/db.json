@@ -49,7 +49,7 @@
       "time": "19:30:00",
       "price": 1200,
       "ageRestriction": false,
-      "available": 0,
+      "available": -6,
       "isAvailable": false
     },
     {
@@ -101,7 +101,7 @@
       "time": "22:00:00",
       "price": 4800,
       "ageRestriction": false,
-      "available": 307,
+      "available": 306,
       "isAvailable": true
     },
     {
@@ -127,7 +127,7 @@
       "time": "13:00:00",
       "price": 1200,
       "ageRestriction": true,
-      "available": 150,
+      "available": 149,
       "isAvailable": true
     },
     {
