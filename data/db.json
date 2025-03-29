@@ -47,7 +47,7 @@
       "location": "IMPACT Arena",
       "date": "2024-07-10",
       "time": "19:30:00",
-      "price": 200,
+      "price": 1200,
       "ageRestriction": false,
       "available": 0,
       "isAvailable": false
@@ -73,7 +73,7 @@
       "location": "IMPACT Arena",
       "date": "2025-05-12",
       "time": "21:00:00",
-      "price": 250,
+      "price": 1250,
       "ageRestriction": true,
       "available": 499,
       "isAvailable": true
@@ -112,7 +112,7 @@
       "location": "Island Resort",
       "date": "2025-05-05",
       "time": "16:00:00",
-      "price": 130,
+      "price": 1300,
       "ageRestriction": false,
       "available": 300,
       "isAvailable": true
@@ -164,7 +164,7 @@
       "location": "Mega Arena",
       "date": "2025-04-20",
       "time": "18:00:00",
-      "price": 350,
+      "price": 2500,
       "ageRestriction": true,
       "available": 1000,
       "isAvailable": true
@@ -177,7 +177,7 @@
       "location": "Cozy Cafe",
       "date": "2025-06-10",
       "time": "17:00:00",
-      "price": 90,
+      "price": 1800,
       "ageRestriction": false,
       "available": 50,
       "isAvailable": true
@@ -244,7 +244,7 @@
       "time": "17:00:00",
       "price": 990,
       "ageRestriction": true,
-      "available": 249,
+      "available": 25,
       "isAvailable": true
     },
     {

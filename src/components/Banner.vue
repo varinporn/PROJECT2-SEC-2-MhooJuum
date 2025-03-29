@@ -33,12 +33,12 @@ const setBanner = (index) => {
   <div class="relative w-full h-[480px] overflow-hidden">
     <!-- Blurred Background Image -->
     <div class="absolute inset-0 w-full h-full">
-      <img :src="selectedBanner" class="w-full h-full object-cover filter blur-lg scale-110 opacity-80 transition-all duration-800">
+      <img :src="selectedBanner" class="w-full h-full object-cover filter blur-lg scale-110 opacity-80">
     </div>
 
     <!-- Foreground Image -->
     <div class="absolute inset-0 flex items-center justify-center">
-      <img :src="selectedBanner" class="w-1/2 transition-opacity duration-800">
+      <img :src="selectedBanner" class="w-1/2">
     </div>
 
     <!-- Navigation Arrows -->
@@ -56,14 +56,11 @@ const setBanner = (index) => {
         :key="index"
         @click="setBanner(index)"
         class="h-1 cursor-pointer transition-all duration-300 rounded-full"
-        :class="selectedIndex === index ? 'bg-white w-8' : 'bg-gray-400 w-5'"
+        :class="selectedIndex === index ? 'bg-white w-8' : 'bg-gray-500 w-5'"
       ></span>
     </div>
   </div>
 </template>
 
 <style scoped>
-img {
-  transition: opacity 0.7s ease-in-out;
-}
 </style>
