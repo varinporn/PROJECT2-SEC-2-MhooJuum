@@ -18,6 +18,12 @@ onMounted(async () => {
       `${import.meta.env.VITE_APP_URL}/concerts`,
       concertId
     )
+    dataAccount.value = await getItemById(
+      `${import.meta.env.VITE_APP_URL}/users`,
+      statusLogin.value
+    )
+
+    isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
   } catch (error) {
     console.log(error)
   }
@@ -28,12 +34,6 @@ const selectedTab = ref('details')
 const formattedDescription = computed(() => {
   return selectConcert.value?.description.replace(/\n/g, '<br>') || ''
 })
-
-// follow
-const isFollowed = ref(false)
-const toggleFollow = () => {
-  isFollowed.value = !isFollowed.value
-}
 
 // show booking ticket
 const showBookingTicket = ref(false)
@@ -54,16 +54,16 @@ const decreaseQuantity = () => {
 // booking
 const statusLogin = ref(CookieUtil.get('juumId'))
 const dataAccount = ref({
-  username: "",
-  email: "",
-  DOB: "",
-  password: "",
+  username: '',
+  email: '',
+  DOB: '',
+  password: '',
   tickets: [],
   bookmarks: [],
 })
 const ticket = ref({
   concertId,
-  userId: statusLogin
+  userId: statusLogin,
 })
 const modalMessage = {
   header: '',
@@ -106,31 +106,37 @@ const clearBooking = () => {
 
 const concertBooking = async (ticket) => {
   try {
-    dataAccount.value = await getItemById(
-      `${import.meta.env.VITE_APP_URL}/users`,
-      statusLogin.value
-    )
-
     const updatedTickets = [...dataAccount.value.tickets]
     while (quantity.value > 0) {
-      const addedTicket = await addItem(`${import.meta.env.VITE_APP_URL}/tickets`, ticket)
+      const addedTicket = await addItem(
+        `${import.meta.env.VITE_APP_URL}/tickets`,
+        ticket
+      )
       updatedTickets.push(addedTicket.id)
 
       selectConcert.value.available--
 
-      await patchItem(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value, {
-        tickets: updatedTickets,
-      })
+      await patchItem(
+        `${import.meta.env.VITE_APP_URL}/users`,
+        statusLogin.value,
+        {
+          tickets: updatedTickets,
+        }
+      )
 
-      await patchItem(`${import.meta.env.VITE_APP_URL}/concerts`, selectConcert.value.id, {
-        available: selectConcert.value.available,
-      })
-
+      await patchItem(
+        `${import.meta.env.VITE_APP_URL}/concerts`,
+        selectConcert.value.id,
+        {
+          available: selectConcert.value.available,
+        }
+      )
       quantity.value--
     }
 
     modalMessage.header = 'Booking Successful!'
-    modalMessage.content = 'Thank you for booking, your booking has been placed successfully.'
+    modalMessage.content =
+      'Thank you for booking, your booking has been placed successfully.'
     modalMessage.accept = 'OK'
     showModal.value = false
     showSuccess.value = true
@@ -140,7 +146,60 @@ const concertBooking = async (ticket) => {
   }
 }
 
+// follow
+const isFollowed = ref(false)
+const showUnfollowConfirm = ref(false)
 
+const toggleFollow = async () => {
+  try {
+    if (!isFollowed.value) {
+      dataAccount.value.bookmarks.push(concertId)
+    } else {
+      showUnfollowConfirm.value = true
+      confirmUnfollow()
+      return
+    }
+
+    await patchItem(
+      `${import.meta.env.VITE_APP_URL}/users`,
+      statusLogin.value,
+      { bookmarks: dataAccount.value.bookmarks }
+    )
+
+    isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+// confirm unfollow popup
+const confirmUnfollow = () => {
+  modalMessage.header = 'Are you sure you want to unfollow this concert?'
+  modalMessage.content =
+    'You will not get any updates from this event if you tap "Unfollow".'
+  modalMessage.deny = 'KEEP FOLLOWING'
+  modalMessage.accept = 'UNFOLLOW'
+}
+
+// delete concert bookmark whern unfollow
+const concertUnfollow = async () => {
+  try {
+    dataAccount.value.bookmarks = dataAccount.value.bookmarks.filter(
+      (id) => id !== concertId
+    )
+    await patchItem(
+      `${import.meta.env.VITE_APP_URL}/users`,
+      statusLogin.value,
+      {
+        bookmarks: dataAccount.value.bookmarks,
+      }
+    )
+    isFollowed.value = false
+    showUnfollowConfirm.value = false
+  } catch (error) {
+    console.error(error)
+  }
+}
 </script>
 
 <template>
@@ -154,7 +213,10 @@ const concertBooking = async (ticket) => {
     <div v-if="selectConcert" class="bg-[#333333] text-white px-20 py-10">
       <div class="flex flex-row items-start">
         <div class="basis-1/3 flex">
-          <img :src="`/concert/${selectConcert.genre}Poster.png`" class="w-full px-16" />
+          <img
+            :src="`/concert/${selectConcert.genre}Poster.png`"
+            class="w-full px-16"
+          />
         </div>
         <div class="basis-2/3 p-4 flex flex-col justify-center">
           <h2 class="text-3xl font-bold border-b-2 pb-2 text-center">
@@ -162,7 +224,11 @@ const concertBooking = async (ticket) => {
           </h2>
           <div class="mt-8 space-y-4">
             <div class="flex items-center space-x-2">
-              <img src="/icons/calendar.png" alt="Calendar Icon" class="w-5 h-5" />
+              <img
+                src="/icons/calendar.png"
+                alt="Calendar Icon"
+                class="w-5 h-5"
+              />
               <span>{{ selectConcert.date }}</span>
             </div>
             <div class="flex items-center space-x-2">
@@ -170,7 +236,11 @@ const concertBooking = async (ticket) => {
               <span>{{ selectConcert.time }}</span>
             </div>
             <div class="flex items-center space-x-2">
-              <img src="/icons/map-pin.png" alt="Map Pin Icon" class="w-5 h-5" />
+              <img
+                src="/icons/map-pin.png"
+                alt="Map Pin Icon"
+                class="w-5 h-5"
+              />
               <span>{{ selectConcert.location }}</span>
             </div>
             <div class="flex items-center space-x-2">
@@ -185,11 +255,7 @@ const concertBooking = async (ticket) => {
             @click="toggleFollow"
           >
             <img
-              :src="
-                isFollowed
-                  ? '/icons/following.png'
-                  : '/icons/follow.png'
-              "
+              :src="isFollowed ? '/icons/following.png' : '/icons/follow.png'"
               alt="Bell Icon"
               class="w-5 h-5"
             />
@@ -199,12 +265,22 @@ const concertBooking = async (ticket) => {
       </div>
     </div>
 
+    <EventPopup
+      v-if="showUnfollowConfirm"
+      @accept="concertUnfollow"
+      @close="showUnfollowConfirm = false"
+      :message="modalMessage"
+    />
+
     <div
       class="flex justify-between items-center py-4 px-12 border-gray-200 border-b-2"
     >
       <div class="flex space-x-8">
-        <p class="font-semibold cursor-pointer" :class="{ underline: selectedTab === 'details' }"
-          @click="selectedTab = 'details'">
+        <p
+          class="font-semibold cursor-pointer"
+          :class="{ underline: selectedTab === 'details' }"
+          @click="selectedTab = 'details'"
+        >
           Details
         </p>
         <p
@@ -238,7 +314,10 @@ const concertBooking = async (ticket) => {
             {{ selectConcert.name }}
           </h3>
           <div>
-            <img :src="`../../concert/${selectConcert.genre}Poster.png`" class="w-1/2 px-18 mx-auto" />
+            <img
+              :src="`../../concert/${selectConcert.genre}Poster.png`"
+              class="w-1/2 px-18 mx-auto"
+            />
           </div>
           <p
             v-if="selectConcert"
@@ -308,24 +387,33 @@ const concertBooking = async (ticket) => {
               <span class="text-[#03abef] cursor-pointer"
                 >“Terms and Conditions”</span
               ></span
-            ><span class="text-[#ff3131]" v-if="agreeText && !agree">* You must accept the
-              terms and conditions to continue</span>
+            ><span class="text-[#ff3131]" v-if="agreeText && !agree"
+              >* You must accept the terms and conditions to continue</span
+            >
           </div>
 
           <!-- button -->
           <div class="flex flex-row justify-center space-x-6 mt-8">
             <button
               class="bg-[#909cb3] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#bbc3d4] transition ease-in-out duration-200"
-              @click="$router.go(-1)">
+              @click="$router.go(-1)"
+            >
               BACK
             </button>
-            <button @click="toggleBooking"
-              class="bg-[#03abef] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#5fd1ff] transition ease-in-out duration-200">
+            <button
+              @click="toggleBooking"
+              class="bg-[#03abef] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#5fd1ff] transition ease-in-out duration-200"
+            >
               BOOKING
             </button>
           </div>
         </div>
-        <EventPopup v-if="showModal" @accept="concertBooking(ticket)" @close="confirmCancel" :message="modalMessage">
+        <EventPopup
+          v-if="showModal"
+          @accept="concertBooking(ticket)"
+          @close="confirmCancel"
+          :message="modalMessage"
+        >
           <template #content>
             <div class="grid grid-cols-2 gap-y-4 w-[650px]">
               <div class="col-span-2">{{ selectConcert.name }}</div>
@@ -338,8 +426,18 @@ const concertBooking = async (ticket) => {
             </div>
           </template>
         </EventPopup>
-        <EventPopup v-if="showCancelConfirm" @accept="clearBooking" @close="toggleBooking" :message="modalMessage" />
-        <EventPopup v-if="showSuccess" :type="'success'" @accept="clearBooking" :message="modalMessage" />
+        <EventPopup
+          v-if="showCancelConfirm"
+          @accept="clearBooking"
+          @close="toggleBooking"
+          :message="modalMessage"
+        />
+        <EventPopup
+          v-if="showSuccess"
+          :type="'success'"
+          @accept="clearBooking"
+          :message="modalMessage"
+        />
       </div>
 
       <!-- how to buy -->

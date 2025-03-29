@@ -64,8 +64,6 @@ const historyTickets = computed(() => {
   return mergeData.value.filter(ticket => new Date(ticket.concert.date) < today);
 });
 
-
-
   // Data user
   const dataAccount = ref({
     username: "",

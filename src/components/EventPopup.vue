@@ -13,14 +13,14 @@ defineProps({
 </script>
 <template>
     <PopupModel @close="$emit('close')">
-        <div class="bg-white w-250 min-h-60 flex flex-col p-8 rounded-2xl ">
+        <div class="bg-white w-200 min-h-60 flex flex-col p-8 rounded-2xl ">
             <div class="self-end">
-                <button @click="$emit('close')">X</button>
+                <button class="cursor-pointer" @click="$emit('close')"><img src="/icons/close.png" class="w-[20px]"></button>
             </div>
             <div class="self-center mb-4">
                 <slot name="icon"></slot>
             </div>
-            <div class="self-center text-4xl font-bold mb-8">
+            <div class="self-center text-3xl font-bold mb-8">
                 {{ message.header }}
             </div>
             <div class="self-center text-xl flex-grow">
