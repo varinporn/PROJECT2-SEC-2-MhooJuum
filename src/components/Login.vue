@@ -91,7 +91,7 @@
       <div class="flex shadow-xl items-center rounded-4xl h-[40rem] w-[50rem] bg-white relative">
         <!-- Login -->
         <div class="p-10 w-[25rem]">
-          <button @click="() => {switchFeature(true); }, $emit('closeLogin')" class="relative bottom-[7rem] font-black cursor-pointer">X</button>
+          <button @click="() => {switchFeature(true); }, $emit('closeLogin')" class="relative bottom-[6.5rem] font-black cursor-pointer"><img src="/icons/close.png" class="w-[20px]"></button>
           <p class="text-center font-bold text-3xl mb-6">Login</p>
           <div class="flex flex-col space-y-7">
             <div>
@@ -157,7 +157,7 @@
         <!-- Sign Up -->
         <div class="p-10 w-[25rem]">
           <button @click="() => {switchFeature(true); }, $emit('closeLogin')"
-            class="relative bottom-[3rem] font-black left-[19rem] cursor-pointer">X</button>
+            class="relative bottom-[2rem] font-black left-[19rem] cursor-pointer"><img src="/icons/close.png" class="w-[20px]"></button>
           <p class="text-center font-bold text-3xl mb-6">Sign up</p>
           <div class="flex flex-col space-y-7">
             <div>

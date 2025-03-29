@@ -278,14 +278,22 @@ const concertUnfollow = async () => {
       <div class="flex space-x-8">
         <p
           class="font-semibold cursor-pointer"
-          :class="{ underline: selectedTab === 'details' }"
+          :class="
+            selectedTab === 'details'
+              ? 'border-b-3 pb-2 text-black transition-all duration-200'
+              : 'text-gray-500'
+          "
           @click="selectedTab = 'details'"
         >
           Details
         </p>
         <p
           class="font-semibold cursor-pointer"
-          :class="{ underline: selectedTab === 'howToBuy' }"
+          :class="
+            selectedTab === 'howToBuy'
+              ? 'border-b-3 pb-2 text-black transition-all duration-200'
+              : 'text-gray-500'
+          "
           @click="selectedTab = 'howToBuy'"
         >
           How to Buy Tickets
@@ -445,7 +453,7 @@ const concertUnfollow = async () => {
         v-if="selectConcert && selectedTab === 'howToBuy'"
         class="py-8 px-12"
       >
-        <h2 class="text-xl font-semibold mb-4">How to Buy Tickets</h2>
+        <h2 class="text-xl font-semibold mb-6">How to Buy Tickets</h2>
 
         <div class="space-y-6">
           <div class="bg-gray-100 p-4 rounded-lg shadow">

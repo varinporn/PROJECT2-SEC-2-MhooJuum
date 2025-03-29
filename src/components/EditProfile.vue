@@ -51,7 +51,7 @@
     <PopupModel @close="closePopup">
         <div>
             <div class="flex flex-col items-center p-8 bg-white shadow-xl rounded-lg w-[25rem]">
-                <button @click="closePopup" class="font-black cursor-pointer self-end">X</button>
+                <button @click="closePopup" class="font-black cursor-pointer self-end"><img src="/icons/close.png" class="w-[20px]"></button>
                 <h2 class="text-2xl font-bold mb-4">{{ status ? 'Edit Profile' : 'Reset Password' }}</h2>
                 <p class="text-gray-500 mb-6">{{ status ? data.email : 'Enter the email associated with your account' }}</p>
                 
