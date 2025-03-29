@@ -19,8 +19,8 @@ defineProps({
 <template>
 <div>
     <div 
-        class="flex space-x-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
-        :class="isWrap ? 'flex-wrap' : 'flex-nowrap'">
+        class="mt-4 flex space-x-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+        :class="isWrap ? 'flex-wrap justify-start' : 'flex-nowrap'">
         <div v-for="(item, index) in items" :key="index" class="flex-shrink-0" :style="{ width: `${itemWidth}px` }">
             <slot name="yourItem" :itemInList="item"></slot>
         </div>

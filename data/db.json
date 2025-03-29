@@ -49,7 +49,7 @@
       "time": "19:30:00",
       "price": 1200,
       "ageRestriction": false,
-      "available": 0,
+      "available": -6,
       "isAvailable": false
     },
     {
@@ -101,7 +101,7 @@
       "time": "22:00:00",
       "price": 4800,
       "ageRestriction": false,
-      "available": 307,
+      "available": 306,
       "isAvailable": true
     },
     {
@@ -127,7 +127,7 @@
       "time": "13:00:00",
       "price": 1200,
       "ageRestriction": true,
-      "available": 150,
+      "available": 149,
       "isAvailable": true
     },
     {
@@ -386,6 +386,46 @@
       "id": "2cce",
       "concertId": "8",
       "userId": "7c1e"
+    },
+    {
+      "id": "0d5e",
+      "concertId": "4",
+      "userId": "7c1e"
+    },
+    {
+      "id": "a9e9",
+      "concertId": "4",
+      "userId": "7c1e"
+    },
+    {
+      "id": "41d7",
+      "concertId": "4",
+      "userId": "7c1e"
+    },
+    {
+      "id": "6f28",
+      "concertId": "4",
+      "userId": "7c1e"
+    },
+    {
+      "id": "ba64",
+      "concertId": "4",
+      "userId": "7c1e"
+    },
+    {
+      "id": "200a",
+      "concertId": "4",
+      "userId": "7c1e"
+    },
+    {
+      "id": "7beb",
+      "concertId": "10",
+      "userId": "7c1e"
+    },
+    {
+      "id": "70e9",
+      "concertId": "8",
+      "userId": "7c1e"
     }
   ],
   "users": [
@@ -468,7 +508,15 @@
         "6d13",
         "4d5a",
         "f847",
-        "2cce"
+        "2cce",
+        "0d5e",
+        "a9e9",
+        "41d7",
+        "6f28",
+        "ba64",
+        "200a",
+        "7beb",
+        "70e9"
       ],
       "bookmarks": [
         1,
