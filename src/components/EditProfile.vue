@@ -19,7 +19,14 @@
         data.value = { ...props.dataAccount }
         showPassword.value = false
         alertStatus.value = false
+        alertTypePassword.value = false
         emit('closeEditProfile')
+    }
+
+    const alertTypePassword = ref(false)
+    const isEasyPassword = (password) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/
+        return passwordRegex.test(password)
     }
 
     const alertStatus = ref(false)
@@ -29,11 +36,18 @@
                 data.value[key] = data.value[key].trim();
             }
         }
+        
         if (status.value) {
             if (!data.value.username || !data.value.password) {
                 alertStatus.value = true
                 return
             }
+
+            if (!isEasyPassword(data.value.password)) {
+                alertTypePassword.value = true
+                return
+            }
+
             emit('saveProfile', data.value)
             closePopup()
         } else {
@@ -41,6 +55,12 @@
                 alertStatus.value = true
                 return
             }
+
+            if (!isEasyPassword(data.value.password)) {
+                alertTypePassword.value = true
+                return
+            }
+
             emit('saveNewPassword', data.value)
             closePopup()
         }
@@ -117,6 +137,8 @@
                             </svg>
                         </button>
                     </div>
+                    <p v-show="alertTypePassword" class="text-xs font-medium text-red-400 -mt-[1rem] mb-6">
+                        Password must be at least 8 characters long and include: one uppercase letter, one lowercase letter, one number, and one special character.</p>
 
                     <input type="submit" value="Save" 
                         @click="submit"
