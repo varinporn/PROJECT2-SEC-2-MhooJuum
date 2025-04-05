@@ -3,6 +3,7 @@ import ConcertDetail from '../components/ConcertDetail.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import UserManager from '@/components/UserManager.vue'
+import UserView from '@/views/UserView.vue'
 
 const history = createWebHistory()
 
@@ -29,7 +30,7 @@ const routes = [
   {
     path: '/user-detail',
     name: 'UserManager',
-    component: UserManager,
+    component: UserView,
   }
 ]
 const router = createRouter({

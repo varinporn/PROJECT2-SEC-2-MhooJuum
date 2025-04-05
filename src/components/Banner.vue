@@ -30,33 +30,33 @@ const setBanner = (index) => {
 </script>
 
 <template>
-  <div class="relative w-full h-[480px] overflow-hidden">
+  <div class="relative w-full h-[200px] md:h-[480px] overflow-hidden">
     <!-- Blurred Background Image -->
-    <div class="absolute inset-0 w-full h-full">
+    <div class="absolute inset-0 w-full h-full hidden md:block">
       <img :src="selectedBanner" class="w-full h-full object-cover filter blur-lg scale-110 opacity-80">
     </div>
 
     <!-- Foreground Image -->
-    <div class="absolute inset-0 flex items-center justify-center">
-      <img :src="selectedBanner" class="w-1/2">
+    <div class="absolute inset-0 md:flex md:items-center md:justify-center">
+      <img :src="selectedBanner" class=" w-full md:w-1/2">
     </div>
 
     <!-- Navigation Arrows -->
-    <button class="absolute left-5 top-1/2 transform -translate-y-1/2 cursor-pointer w-10" @click="prevBanner">
+    <button class="absolute left-3 md:left-5 top-1/2 transform -translate-y-1/2 cursor-pointer w-5 md:w-10 " @click="prevBanner">
       <img src="/icons/previous.png">
     </button>
-    <button class="absolute right-5 top-1/2 transform -translate-y-1/2 cursor-pointer w-10" @click="nextBanner">
+    <button class="absolute right-3 md:right-5 top-1/2 transform -translate-y-1/2 cursor-pointer w-5 md:w-10" @click="nextBanner">
       <img src="/icons/next.png">
     </button>
 
     <!-- Line Indicators -->
-    <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
+    <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-1 md:space-x-2">
       <span
         v-for="(image, index) in bannerImage"
         :key="index"
         @click="setBanner(index)"
         class="h-1 cursor-pointer transition-all duration-300 rounded-full"
-        :class="selectedIndex === index ? 'bg-white w-8' : 'bg-gray-500 w-5'"
+        :class="selectedIndex === index ? 'bg-white w-5 md:w-8' : 'bg-gray-500 w-2 md:w-5'"
       ></span>
     </div>
   </div>

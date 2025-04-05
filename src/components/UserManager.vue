@@ -150,7 +150,6 @@ const historyTickets = computed(() => {
 </script>
 
 <template>
-  <Header></Header>
   <div v-if="statusLogin === null">
   </div>
   <div v-else>
@@ -200,7 +199,6 @@ const historyTickets = computed(() => {
       <TicketList v-if="tab === 'history'" :ticket="historyTickets"></TicketList>
       <ConcertList v-if="tab === 'follow'" :concerts="bookmarkConcerts"></ConcertList>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
