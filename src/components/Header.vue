@@ -15,15 +15,15 @@ const toggleLogin = (boolean) => {
 
 <template>
   <div
-    class="sticky top-0 w-full bg-[#ffffff] py-5 px-8 flex justify-between border-b-2 border-gray-200 z-50"
+    class="sticky top-0 w-full bg-[#ffffff] py-5 px-6 md:px-8 flex justify-between border-b-2 border-gray-200 z-50"
   >
     <div class="flex space-x-20">
       <div>
         <router-link :to="{ name: 'Home' }">
-          <img src="/logo.png" alt="logo" class="h-8"/>
+          <img src="/logo.png" alt="logo" class=" h-6 md:h-8"/>
         </router-link>
       </div>
-      <div class="flex space-x-10">
+      <div class="md:flex space-x-10 hidden ">
         <router-link
           active-class="underline"
           class="font-semibold cursor-pointer"
@@ -38,7 +38,7 @@ const toggleLogin = (boolean) => {
         >
       </div>
     </div>
-    <div>
+    <div class=" md:flex hidden">
       <router-link 
         v-if="statusLogin"
         :to="{ name: 'UserManager' }">
@@ -55,6 +55,9 @@ const toggleLogin = (boolean) => {
         >
         Log In | Sign Up
       </button>
+    </div>
+    <div class=" md:hidden self-center">
+      LOGO
     </div>
   </div>
   <LoginManager @close="toggleLogin(false)" v-if="isLogin" @submit="toggleLogin(false)"/>
