@@ -204,13 +204,13 @@ const concertUnfollow = async () => {
 
 <template>
   <Header />
-  <div>
+  <div v-if="selectConcert">
     <img
       src="/icons/back.png"
       @click="$router.push('/')"
       class="cursor-pointer absolute w-10 mt-6 ml-8"
     />
-    <div v-if="selectConcert" class="bg-[#333333] text-white px-20 py-10">
+    <div  class="bg-[#333333] text-white px-20 py-10">
       <div class="flex flex-row items-start">
         <div class="basis-1/3 flex">
           <img
@@ -300,15 +300,23 @@ const concertUnfollow = async () => {
         </p>
       </div>
       <div class="space-x-8">
-        <span v-if="selectConcert" class="text-lg font-bold">
+        <span class="text-lg font-bold">
           Price: {{ selectConcert.price }}
         </span>
         <a href="#bookingTicket">
           <button
             class="bg-[#03abef] text-white font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-[#5fd1ff]"
             @click="toggleGetTicket"
+            v-if="selectConcert.available > 0"
           >
             GET TICKET
+          </button>
+          <button
+            class="bg-gray-400 text-white font-semibold py-2 px-4 rounded-full cursor-not-allowed opacity-70"
+            disabled
+            v-else
+          >
+            SOLD OUT
           </button>
         </a>
       </div>
@@ -318,7 +326,7 @@ const concertUnfollow = async () => {
       <!-- detail of concert -->
       <div v-if="selectConcert && selectedTab === 'details'" class="py-8 px-12">
         <div class="text-center flex flex-col">
-          <h3 v-if="selectConcert" class="font-bold text-4xl py-6">
+          <h3 class="font-bold text-4xl py-6">
             {{ selectConcert.name }}
           </h3>
           <div>
@@ -328,7 +336,6 @@ const concertUnfollow = async () => {
             />
           </div>
           <p
-            v-if="selectConcert"
             v-html="formattedDescription"
             class="pt-10"
           ></p>
