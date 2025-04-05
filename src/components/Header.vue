@@ -19,9 +19,9 @@ const toggleLogin = (boolean) => {
   >
     <div class="flex space-x-20">
       <div>
-        <router-link :to="{ name: 'Home' }"
-          ><img src="/logo.png" alt="logo" class="h-8"
-        /></router-link>
+        <router-link :to="{ name: 'Home' }">
+          <img src="/logo.png" alt="logo" class="h-8"/>
+        </router-link>
       </div>
       <div class="flex space-x-10">
         <router-link
