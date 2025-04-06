@@ -1,6 +1,6 @@
 <script setup>
 import { CookieUtil } from '@/libs/cookieUtil'
-import { computed, ref, watch } from 'vue'
+import { ref } from 'vue'
 import LoginManager from './LoginManager.vue'
 import { useRouter } from 'vue-router'
 
@@ -139,7 +139,7 @@ const showMobileMenu = ref(false)
         </router-link>
       </div>
 
-      <div class="flex justify-end mt-[14rem]">
+      <div class="flex justify-end mt-[14rem]" v-if="statusLogin">
         <img src="/icons/logout.png" alt="log-out" class="w-8 h-8">
       </div>
 
