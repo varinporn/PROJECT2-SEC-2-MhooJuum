@@ -92,7 +92,7 @@ const clearBooking = () => {
 }
 
 const concertBooking = async (ticket) => {
-  if (dataAccount === null) {
+  if (dataAccount.value === null) {
     toggleBooking()
     return
   }
