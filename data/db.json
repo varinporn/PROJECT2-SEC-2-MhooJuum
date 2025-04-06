@@ -456,6 +456,16 @@
       "id": "6034",
       "concertId": "17",
       "userId": "7c1e"
+    },
+    {
+      "id": "011c",
+      "concertId": "20",
+      "userId": null
+    },
+    {
+      "id": "3e74",
+      "concertId": "11",
+      "userId": null
     }
   ],
   "users": [
@@ -558,7 +568,8 @@
         "11",
         "17",
         "18",
-        "8"
+        "8",
+        "20"
       ]
     }
   ]
