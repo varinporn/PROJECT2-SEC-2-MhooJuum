@@ -1,14 +1,13 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { addItem, editItem, getItemById, patchItem } from '../libs/fetchUtils'
+import { addItem, getItemById, patchItem } from '../libs/fetchUtils'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 import EventPopup from './EventPopup.vue'
 import { CookieUtil } from '@/libs/cookieUtil'
 
 const { concertId } = useRoute().params
-console.log(concertId)
 
 const selectConcert = ref(null)
 
@@ -36,10 +35,7 @@ const formattedDescription = computed(() => {
 })
 
 // show booking ticket
-const showBookingTicket = ref(false)
-const toggleGetTicket = () => {
-  showBookingTicket.value = true
-}
+const showBookingTicket = computed(() => useRoute().hash === '#bookingTicket')
 
 // quantity
 const quantity = ref(1)
@@ -306,7 +302,6 @@ const concertUnfollow = async () => {
         <a href="#bookingTicket">
           <button
             class="bg-[#03abef] text-white font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-[#5fd1ff]"
-            @click="toggleGetTicket"
             v-if="selectConcert.available > 0"
           >
             GET TICKET
