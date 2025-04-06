@@ -13,8 +13,8 @@ defineProps({
 </script>
 
 <template>
-  <div class="px-20 py-4">
-    <div class="text-3xl font-bold my-2">
+  <div class="px-6 sm:px-6 md:px-8 lg:px-20 py-4">
+    <div class="text-2xl sm:text-3xl font-bold sm:my-2 md:my-4 lg:my-8">
       <slot name="header"></slot>
     </div>
     <ListModel :items="concerts" :isWrap="isWrap" :item-width="170" >
