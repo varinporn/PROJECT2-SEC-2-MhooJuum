@@ -17,7 +17,7 @@ defineProps({
     <div class="text-3xl font-bold my-2">
       <slot name="header"></slot>
     </div>
-    <ListModel :items="concerts" :isWrap="isWrap" :item-width="170" >
+    <ListModel :items="concerts" :isWrap="isWrap" item-width="w-[170px]" >
       <template #yourItem="{ itemInList }">
         <router-link
           :to="{

@@ -9,7 +9,7 @@ defineProps({
         default: false
     },
     itemWidth: {
-        type: Number,
+        type: String,
         require: true
     }
 })
@@ -21,7 +21,7 @@ defineProps({
     <div 
         class="mt-4 flex space-x-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
         :class="isWrap ? 'flex-wrap justify-start' : 'flex-nowrap'">
-        <div v-for="(item, index) in items" :key="index" class="flex-shrink-0" :style="{ width: `${itemWidth}px` }">
+        <div v-for="(item, index) in items" :key="index" class="flex-shrink-0" :class="itemWidth">
             <slot name="yourItem" :itemInList="item"></slot>
         </div>
     </div>
