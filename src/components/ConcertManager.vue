@@ -42,7 +42,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="pt-4">
+  <div class="pt-2 pb-8">
     <template v-if="showAll">
       <ConcertList :concerts="allConcerts" :isWrap="isWrap">
         <template #header>
