@@ -20,6 +20,7 @@
         showPassword.value = false
         alertStatus.value = false
         alertTypePassword.value = false
+        alertTypeEmail.value = false
         emit('closeEditProfile')
     }
 
@@ -27,6 +28,12 @@
     const isEasyPassword = (password) => {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/
         return passwordRegex.test(password)
+    }
+
+    const alertTypeEmail = ref(false)
+    const isValidEmail = (email) => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/
+        return emailRegex.test(email)
     }
 
     const alertStatus = ref(false)
@@ -56,6 +63,11 @@
                 return
             }
 
+            if (!isValidEmail(data.value.email)) {
+                alertTypeEmail.value = true
+                return
+            } 
+
             if (!isEasyPassword(data.value.password)) {
                 alertTypePassword.value = true
                 return
@@ -70,10 +82,10 @@
 <template>
     <PopupModel @close="closePopup">
         <div>
-            <div class="flex flex-col items-center p-8 bg-white shadow-xl rounded-lg w-[25rem]">
+            <div class="flex flex-col items-center p-8 bg-white shadow-xl rounded-lg w-[20rem] md:w-[25rem]">
                 <button @click="closePopup" class="font-black cursor-pointer self-end"><img src="/icons/close.png" class="w-[20px]"></button>
                 <h2 class="text-2xl font-bold mb-4">{{ status ? 'Edit Profile' : 'Reset Password' }}</h2>
-                <p class="text-gray-500 mb-6">{{ status ? data.email : 'Enter the email associated with your account' }}</p>
+                <p class="text-gray-500 mb-6 text-center">{{ status ? data.email : 'Enter the email associated with your account' }}</p>
                 
                 <div class="w-full">
                     <div class="mb-4" v-if="status">
@@ -87,11 +99,11 @@
                     </div>
                     <div class="mb-4" v-else>
                         <p class="flex justify-between items-center mb-2">
-                            <span class="font-semibold" :class="alertStatus && !data.email ? 'text-red-600' : 'text-gray-700'">Email:</span>
-                            <span v-show="alertStatus && !data.email" class="text-xs font-medium text-red-400">* Enter email</span>
+                            <span class="font-semibold" :class="(alertStatus && !data.email) || alertTypeEmail ? 'text-red-600' : 'text-gray-700'">Email:</span>
+                            <span v-show="(alertStatus && !data.email) || alertTypeEmail" class="text-xs font-medium text-red-400">* Enter email</span>
                         </p>
                         <input type="text" v-model="data.email" 
-                            :class="alertStatus && !data.email ? 'border-red-500 bg-red-100 focus:outline-none' : 'border-gray-400 focus:ring-blue-500'"
+                            :class="(alertStatus && !data.email) || alertTypeEmail ? 'border-red-500 bg-red-100 focus:outline-none' : 'border-gray-400 focus:ring-blue-500'"
                             class="w-full p-2 border rounded-md">
                     </div>
 
