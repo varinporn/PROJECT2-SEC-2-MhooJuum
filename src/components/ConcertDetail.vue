@@ -21,7 +21,6 @@ onMounted(async () => {
       `${import.meta.env.VITE_APP_URL}/users`,
       statusLogin.value
     )
-
     isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
   } catch (error) {
     console.log(error)
@@ -49,14 +48,7 @@ const decreaseQuantity = () => {
 
 // booking
 const statusLogin = ref(CookieUtil.get('juumId'))
-const dataAccount = ref({
-  username: '',
-  email: '',
-  DOB: '',
-  password: '',
-  tickets: [],
-  bookmarks: [],
-})
+const dataAccount = ref(null)
 const ticket = ref({
   concertId,
   userId: statusLogin,
@@ -84,7 +76,6 @@ const toggleBooking = () => {
   modalMessage.content = ''
   modalMessage.deny = 'CANCEL'
   modalMessage.accept = 'CONFIRM'
-  console.log(showModal)
 }
 const confirmCancel = () => {
   showCancelConfirm.value = true
@@ -101,6 +92,10 @@ const clearBooking = () => {
 }
 
 const concertBooking = async (ticket) => {
+  if (dataAccount === null) {
+    toggleBooking()
+    return
+  }
   try {
     const updatedTickets = [...dataAccount.value.tickets]
     while (quantity.value > 0) {
@@ -138,7 +133,6 @@ const concertBooking = async (ticket) => {
     showSuccess.value = true
   } catch (error) {
     console.log(error)
-    toggleBooking()
   }
 }
 
@@ -425,7 +419,7 @@ const concertUnfollow = async () => {
           :message="modalMessage"
         >
           <template #content>
-            <div class="grid grid-cols-2 gap-y-4 w-[650px]">
+            <div class="grid grid-cols-2 gap-y-4 w-[550px] md:w-[600px] lg:w-[650px]">
               <div class="col-span-2">{{ selectConcert.name }}</div>
               <div>Price</div>
               <div class="text-end">{{ selectConcert.price }}</div>

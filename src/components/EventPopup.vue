@@ -13,7 +13,7 @@ defineProps({
 </script>
 <template>
     <PopupModel @close="$emit('close')">
-        <div class="bg-white w-200 min-h-60 flex flex-col p-8 rounded-2xl ">
+        <div class="bg-white w-160 min-h-40 flex flex-col p-8 rounded-2xl md:w-180 lg:w-200">
             <div class="self-end">
                 <button class="cursor-pointer" @click="$emit('close')"><img src="/icons/close.png" class="w-[20px]"></button>
             </div>
@@ -23,7 +23,7 @@ defineProps({
             <div class="self-center text-3xl font-bold mb-8">
                 {{ message.header }}
             </div>
-            <div class="self-center text-xl flex-grow">
+            <div class="self-center text-xl">
                 <slot name="content">
                     {{ message.content }}
                 </slot>

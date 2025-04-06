@@ -62,7 +62,7 @@
       "time": "17:00:00",
       "price": 5000,
       "ageRestriction": false,
-      "available": 165,
+      "available": 163,
       "isAvailable": true
     },
     {
@@ -458,13 +458,8 @@
       "userId": "7c1e"
     },
     {
-      "id": "0a03",
+      "id": "8427",
       "concertId": "8",
-      "userId": null
-    },
-    {
-      "id": "6bc6",
-      "concertId": "5",
       "userId": null
     }
   ],
@@ -561,8 +556,7 @@
         "931c",
         "d663",
         "4c26",
-        "da08",
-        "6034"
+        "da08"
       ],
       "bookmarks": [
         "11",
