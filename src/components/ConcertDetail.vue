@@ -447,7 +447,11 @@ const concertUnfollow = async () => {
           :type="'success'"
           @accept="clearBooking"
           :message="modalMessage"
-        />
+        >
+          <template #icon>
+            <img src="/icons/success.png" alt="" width="100">
+          </template>
+        </EventPopup>
       </div>
 
       <!-- how to buy -->

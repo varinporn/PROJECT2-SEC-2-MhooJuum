@@ -29,10 +29,10 @@ defineProps({
                 </slot>
             </div>
             <div class="mt-16 flex gap-8" :class="type === 'success' ? 'justify-center': 'self-end justify-self-end '">
-                <button v-if="type === 'confirm'" @click="$emit('close')" class="bg-[#03abef] text-white font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-[#5fd1ff] transition ease-in-out duration-200" >
+                <button v-if="type === 'confirm'" @click="$emit('close')" class="border-[#03abef] text-[#03abef] font-semibold py-2 px-4 rounded-full cursor-pointer transition ease-in-out duration-200 border " >
                     {{ message.deny }}
                 </button>
-                <button @click="$emit('accept')" class="font-semibold py-2 px-4 rounded-full cursor-pointer transition ease-in-out duration-200 border" :class="type === 'success' ? 'bg-[#16bc10] text-white':'border-[#03abef] text-[#03abef]'">
+                <button @click="$emit('accept')" class="font-semibold py-2 px-4 rounded-full cursor-pointer transition ease-in-out duration-200" :class="type === 'success' ? 'bg-[#16bc10] text-white':'bg-[#03abef] text-white hover:bg-[#5fd1ff]'">
                     {{ message.accept }} 
                 </button>
             </div>
