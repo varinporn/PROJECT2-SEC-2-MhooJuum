@@ -1,16 +1,16 @@
 <script setup></script>
 
 <template>
-  <div class="mt-8">
+  <div>
     <hr class="border-t-2 border-gray-200 mx-auto" />
-    <div class="pt-8 pb-12 px-6 md:px-20 lg:px-40 flex flex-col md:flex-row md:justify-between space-y-6 md:space-y-0">
+    <div class="pt-8 pb-12 px-6 md:px-18 lg:px-30 flex flex-col md:flex-col lg:flex-row md:justify-between space-y-6 md:space-y-0">
       <div>
-        <img src="/logo.png" class="h-8" />
-        <p class="text-md font-bold py-4 text-[#909cb3]">BestPheamMekPierce Co., Ltd.</p>
+        <img src="/logo.png" class="h-6 lg:h-8" />
+        <p class="text-md font-semibold lg:font-bold py-4 text-[#909cb3]">BestPheamMekPierce Co., Ltd.</p>
       </div>
 
       <div>
-        <div class="flex flex-col md:flex-row font-semibold text-sm md:space-x-30 lg:space-x-32">
+        <div class="flex flex-col sm:flex-col md:flex-row lg:flex-row font-semibold text-sm md:space-x-20 lg:space-x-28 lg:pl-4">
           <ul class="space-y-3 mb-6 md:mb-0">
             <li class="cursor-pointer text-base">About Us</li>
             <li class="font-normal cursor-pointer">Blog</li>
