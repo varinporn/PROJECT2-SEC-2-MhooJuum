@@ -50,7 +50,7 @@ const setBanner = (index) => {
     </button>
 
     <!-- Line Indicators -->
-    <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-1 md:space-x-2">
+    <div class="absolute bottom-6 sm:bottom-2 md:bottom-4 lg:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-1 md:space-x-2">
       <span
         v-for="(image, index) in bannerImage"
         :key="index"

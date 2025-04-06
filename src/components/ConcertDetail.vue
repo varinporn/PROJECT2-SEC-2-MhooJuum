@@ -315,7 +315,7 @@ const concertUnfollow = async () => {
       <!-- detail of concert -->
       <div v-if="selectConcert && selectedTab === 'details'" class="py-8 px-12">
         <div class="text-center flex flex-col">
-          <h3 class="font-bold text-4xl py-6">
+          <h3 class="font-bold text-2xl md:text-3xl lg:text-4xl py-6">
             {{ selectConcert.name }}
           </h3>
           <div>
@@ -457,12 +457,12 @@ const concertUnfollow = async () => {
 
         <div class="space-y-6">
           <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="font-semibold text-lg">Step 1: Select the Concert</h3>
+            <h3 class="font-semibold text-md lg:text-lg">Step 1: Select the Concert</h3>
             <p>Choose the concert you would like to attend.</p>
           </div>
 
           <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="font-semibold text-lg">
+            <h3 class="font-semibold text-md lg:text-lg">
               Step 2: Select the Number of Tickets
             </h3>
             <p>
@@ -472,24 +472,24 @@ const concertUnfollow = async () => {
           </div>
 
           <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="font-semibold text-lg">Step 3: Accept the Terms</h3>
+            <h3 class="font-semibold text-md lg:text-lg">Step 3: Accept the Terms</h3>
             <p>Read and agree to the Terms and Conditions before proceeding.</p>
           </div>
 
           <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="font-semibold text-lg">Step 4: Click "Booking"</h3>
+            <h3 class="font-semibold text-md lg:text-lg">Step 4: Click "Booking"</h3>
             <p>Click the "Booking" button to proceed to payment.</p>
           </div>
 
           <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="font-semibold text-lg">Step 5: Confirm Payment</h3>
+            <h3 class="font-semibold text-md lg:text-lg">Step 5: Confirm Payment</h3>
             <p>
               Review your order and confirm payment to complete your purchase.
             </p>
           </div>
         </div>
 
-        <p class="text-red-600 italic mt-6">
+        <p class="text-red-600 italic mt-6 text-sm lg:text-md">
           * Please ensure all details are correct before confirming your
           payment!
         </p>
