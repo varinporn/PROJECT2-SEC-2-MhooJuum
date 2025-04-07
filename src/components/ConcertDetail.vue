@@ -337,48 +337,48 @@ const concertUnfollow = async () => {
         </div>
 
         <!-- booking ticket -->
-        <div v-show="showBookingTicket" class="px-12 pb-10" id="bookingTicket">
+        <div v-show="showBookingTicket" class="sm:px-12 pb-10" id="bookingTicket">
           <p class="font-bold text-lg text-gray-800 pt-18">
             Ticket Information
           </p>
           <!-- ticket info -->
           <div
-            class="bg-[#f4f6fa] px-10 pt-6 pb-8 space-y-4 rounded-xl mt-4 shadow-lg"
+            class="bg-[#f4f6fa] px-8 sm:px-10 pt-6 pb-8 space-y-4 rounded-xl mt-4 shadow-lg"
           >
-            <p class="py-2 border-b-2 border-gray-200 text-gray-700">
+            <p class="py-2 border-b-2 border-gray-200 text-gray-700 text-[14px] sm:text-[16px]">
               <span class="font-semibold">Name </span>{{ selectConcert.name }}
             </p>
-            <p class="py-2 border-b-2 border-gray-200 text-gray-700">
+            <p class="py-2 border-b-2 border-gray-200 text-gray-700 text-[14px] sm:text-[16px]">
               <span class="font-semibold">Date </span>{{ selectConcert.date }}
             </p>
-            <p class="py-2 border-b-2 border-gray-200 text-gray-700">
+            <p class="py-2 border-b-2 border-gray-200 text-gray-700 text-[14px] sm:text-[16px]">
               <span class="font-semibold">Time </span>{{ selectConcert.time }}
             </p>
             <div
               class="flex items-center py-2 border-b-2 border-gray-200 text-gray-700"
             >
-              <span class="font-semibold mr-4">Quantity </span>
+              <span class="font-semibold mr-4 text-[14px] sm:text-[16px]">Quantity </span>
               <div class="space-x-4">
                 <button
-                  class="py-1 px-3 border-1 rounded-lg bg-[#e1e6f0] hover:bg-[#c4c9e6]"
+                  class=" py-[2px] sm:py-1 px-2 sm:px-3 border-1 rounded-lg bg-[#e1e6f0] hover:bg-[#c4c9e6]"
                   @click="decreaseQuantity"
                 >
                   -
                 </button>
-                <span class="text-lg">{{ quantity }}</span>
+                <span class="text-[14px] sm:text-[18px]">{{ quantity }}</span>
                 <button
-                  class="py-1 px-3 border-1 rounded-lg bg-[#e1e6f0] hover:bg-[#c4c9e6]"
+                  class="py-[2px] sm:py-1 px-2 sm:px-3 border-1 rounded-lg bg-[#e1e6f0] hover:bg-[#c4c9e6]"
                   @click="increaseQuantity"
                 >
                   +
                 </button>
               </div>
             </div>
-            <p class="py-2 border-b-2 border-gray-200 text-gray-700">
+            <p class="py-2 border-b-2 border-gray-200 text-gray-700 text-[14px] sm:text-[16px]">
               <span class="font-semibold">Unit Price (Baht) </span
               >{{ selectConcert.price }}
             </p>
-            <p class="py-2 border-b-2 border-gray-200 text-gray-700">
+            <p class="py-2 border-b-2 border-gray-200 text-gray-700 text-[14px] sm:text-[16px]">
               <span class="font-semibold">Total Price (Baht) </span
               >{{ selectConcert.price * quantity }}
             </p>

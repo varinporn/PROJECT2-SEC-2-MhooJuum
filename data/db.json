@@ -578,6 +578,15 @@
         "20",
         "7"
       ]
+    },
+    {
+      "id": "5fc1",
+      "username": "test4t",
+      "email": "test4@email.com",
+      "DOB": "2025-04-07",
+      "password": "!asczx2123zxcC",
+      "tickets": [],
+      "bookmarks": []
     }
   ]
 }
