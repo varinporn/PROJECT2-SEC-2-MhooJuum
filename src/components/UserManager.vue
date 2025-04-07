@@ -189,12 +189,12 @@ const historyTickets = computed(() => {
             @save-profile="saveProfile" />
 
 
-    <div class="flex ml-6 md:ml-8 gap-15 lg:ml-20 lg:gap-20 mb-5 font-bold">
+    <div class="flex max-md:justify-center md:ml-8 gap-15 lg:ml-20 lg:gap-20 mb-5 font-bold">
       <button class=" cursor-pointer" :class="tab === 'upcoming' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'upcoming'">Upcoming</button>
       <button class=" cursor-pointer" :class="tab === 'history' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'history'">History</button>
-      <button class=" cursor-pointer" :class="tab === 'follow' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'follow'">follow</button>
+      <button class=" cursor-pointer" :class="tab === 'follow' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'follow'">Follow</button>
     </div>
-    <div class="bg-gray-200 h-[388.484px]">
+    <div class="bg-gray-200 min-h-[400px] max-h-[500px] py-8">
       <TicketList v-if="tab === 'upcoming'" :ticket="upcomingTickets"></TicketList>
       <TicketList v-if="tab === 'history'" :ticket="historyTickets"></TicketList>
       <ConcertList v-if="tab === 'follow'" :concerts="bookmarkConcerts"></ConcertList>

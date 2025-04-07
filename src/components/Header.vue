@@ -25,7 +25,7 @@ const showMobileMenu = ref(false)
           <img src="/logo.png" alt="logo" class="h-6 mt-1 md:mt-0 lg:mt-0 md:h-8 lg:h-8" />
         </router-link>
       </div>
-      <div class="lg:flex space-x-10 hidden">
+      <div class="lg:flex items-center space-x-10 hidden">
         <router-link
           active-class="underline"
           class="font-semibold cursor-pointer"

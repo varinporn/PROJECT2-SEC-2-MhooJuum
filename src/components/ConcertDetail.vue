@@ -392,21 +392,23 @@ const concertUnfollow = async () => {
           </div>
 
           <!-- checkbox -->
-          <div class="ml-4 mt-8 flex items-center space-x-4">
+          <div class="ml-4 mt-8 flex items-start space-x-4">
             <input
               v-model="agree"
               type="checkbox"
               class="w-5 h-5 border-2 border-gray-300 rounded-md bg-gray-100 checked:bg-[#03abef]"
             />
 
-            <span class="text-gray-700"
-              >Please click to accept
-              <span class="text-[#03abef] cursor-pointer"
-                >“Terms and Conditions”</span
-              ></span
-            ><span class="text-[#ff3131]" v-if="agreeText && !agree"
-              >* You must accept the terms and conditions to continue</span
-            >
+            <div class="space-x-4 lg:flex">
+              <p class="text-gray-700"
+                >Please click to accept
+                <span class="text-[#03abef] cursor-pointer"
+                  >“Terms and Conditions”</span
+                ></p
+              ><p class="text-[#ff3131]" v-if="agreeText && !agree"
+                >* You must accept the terms and conditions to continue</p
+              >
+            </div>
           </div>
 
           <!-- button -->
