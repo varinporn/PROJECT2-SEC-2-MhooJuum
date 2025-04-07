@@ -166,16 +166,16 @@ const historyTickets = computed(() => {
       </div>
       <div class="flex gap-4 md:gap-4 lg:gap-[2rem]">
         <button @click="showEditProfile = true"
-          class="bg-purple-600 rounded-[8px] md:rounded-xl text-white font-bold p-[0.3rem] md:p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem] cursor-pointer 
-          duration-300 hover:scale-110 transition-transform hover:bg-purple-400 text-nowrap text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Edit profile</button>
+          class="bg-purple-600 rounded-[8px] md:rounded-xl text-white font-bold p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem] cursor-pointer 
+          duration-300 hover:scale-110 transition-transform hover:bg-purple-400 text-nowrap text-[12px] lg:text-[14px] xl:text-[16px]">Edit profile</button>
 
         <button @click="toggleModal(logout)"
-          class="bg-yellow-400 rounded-[8px] md:rounded-xl text-white font-bold p-[0.4rem] md:p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem]  cursor-pointer 
-          duration-300 hover:scale-110 transition-transform hover:bg-yellow-300 text-nowrap text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Logout</button>
+          class="bg-yellow-400 rounded-[8px] md:rounded-xl text-white font-bold p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem]  cursor-pointer 
+          duration-300 hover:scale-110 transition-transform hover:bg-yellow-300 text-nowrap text-[12px] lg:text-[14px] xl:text-[16px]">Logout</button>
 
         <button @click="toggleModal(deleteAccount)"
-          class="bg-red-600 rounded-[8px] md:rounded-xl text-white font-bold p-[0.3rem] md:p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem] cursor-pointer 
-          duration-300 hover:scale-110 transition-transform hover:bg-red-400 text-nowrap text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Delete profile</button>
+          class="bg-red-600 rounded-[8px] md:rounded-xl text-white font-bold p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem] cursor-pointer 
+          duration-300 hover:scale-110 transition-transform hover:bg-red-400 text-nowrap text-[12px] lg:text-[14px] xl:text-[16px]">Delete profile</button>
       </div>
     </div>
 

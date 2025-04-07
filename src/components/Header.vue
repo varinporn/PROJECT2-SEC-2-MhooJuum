@@ -99,7 +99,7 @@ const showMobileMenu = ref(false)
   </div>
 
   <router-link
-    class="text-black font-bold border-b border-black pb-2"
+    class="text-black font-bold border-b border-black pb-2 "
     :to="{ name: 'Home' }"
     @click="showMobileMenu = false"
   >
@@ -122,20 +122,6 @@ const showMobileMenu = ref(false)
       @click="showMobileMenu = false"
     >
       PROFILE
-    </router-link>
-    <router-link
-      class="text-black font-bold border-b border-black pb-2"
-      :to="{ name: 'UserManager' }"
-      @click="showMobileMenu = false"
-    >
-      HISTORY
-    </router-link>
-    <router-link
-      class="text-black font-bold border-b border-black pb-2"
-      :to="{ name: 'UserManager' }"
-      @click="showMobileMenu = false"
-    >
-      FOLLOW
     </router-link>
   </div>
 
