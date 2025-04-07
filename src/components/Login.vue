@@ -87,12 +87,34 @@
 </script>
  
 <template>
-    <PopupModel @close="() => {switchFeature(true); }, $emit('closeLogin')">
-      <div class="flex shadow-xl items-center rounded-4xl h-[40rem] w-[50rem] bg-white relative">
+    <PopupModel @close="() => { switchFeature(true); }, $emit('closeLogin')">
+      
+      <div class="md:flex shadow-xl items-center rounded-4xl md:h-[40rem] md:w-[40rem] lg:w-[50rem] bg-white relative">
+        <div class="md:hidden flex flex-row-reverse">
+          <button @click="() => {switchFeature(true); }, $emit('closeLogin')"
+            class="cursor-pointer p-8"><img src="/icons/close.png" class="w-[20px]"></button>
+        </div>
+        <div class="md:hidden flex justify-center gap-10">
+          <div class="flex w-[15rem] p-1 bg-gray-200 rounded-lg shadow-md text-sm">
+            <!-- LOGIN -->
+            <div class="flex-1 text-center cursor-pointer rounded-lg py-2" 
+              :class="{'bg-white': showPageLogin}" @click="switchFeature(true)">
+              LOGIN
+            </div>
+
+            <!-- SIGN UP -->
+            <div class="flex-1 text-center cursor-pointer rounded-lg py-2" 
+              :class="{'bg-white': !showPageLogin}" @click="switchFeature(false)">
+              SIGN UP
+            </div>
+          </div>
+        </div>
+
         <!-- Login -->
-        <div class="p-10 w-[25rem]">
-          <button @click="() => {switchFeature(true); }, $emit('closeLogin')" class="relative bottom-[6.5rem] font-black cursor-pointer"><img src="/icons/close.png" class="w-[20px]"></button>
-          <p class="text-center font-bold text-3xl mb-6">Login</p>
+        <div class="p-10 w-[20rem] lg:w-[25rem] max-md:h-[35rem]" :class="{'max-md:block': showPageLogin, 'max-md:hidden': !showPageLogin}">
+          <button @click="() => {switchFeature(true); }, $emit('closeLogin')" 
+            class="relative bottom-[6.5rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
+          <p class="text-center font-bold text-2xl md:text-3xl mb-6">Login</p>
           <div class="flex flex-col space-y-7">
             <div>
                 <p class="flex justify-between items-center">
@@ -155,10 +177,10 @@
         </div>
   
         <!-- Sign Up -->
-        <div class="p-10 w-[25rem]">
+        <div class="p-10 w-[20rem] lg:w-[25rem] max-md:h-[35rem]" :class="{'max-md:hidden': showPageLogin, 'max-md:block': !showPageLogin}">
           <button @click="() => {switchFeature(true); }, $emit('closeLogin')"
-            class="relative bottom-[2rem] font-black left-[19rem] cursor-pointer"><img src="/icons/close.png" class="w-[20px]"></button>
-          <p class="text-center font-bold text-3xl mb-6">Sign up</p>
+            class="relative bottom-[2rem] left-[14rem] lg:left-[19rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
+          <p class="text-center font-bold text-2xl md:text-3xl mb-6">Sign up</p>
           <div class="flex flex-col space-y-7">
             <div>
                 <p class="flex justify-between items-center">
@@ -244,8 +266,8 @@
         </div>
   
         <!-- Switch Feature -->
-        <div class="bg-gray-500 rounded-3xl absolute h-[40rem] w-[25rem] flex justify-center items-center transition-transform duration-500"
-          :class="{ 'translate-x-[25rem]': showPageLogin }">
+        <div class="bg-gray-500 rounded-3xl absolute h-[40rem] w-[20rem] lg:w-[25rem] justify-center items-center transition-transform duration-500 hidden md:flex"
+          :class="{ 'translate-x-[20rem] lg:translate-x-[25rem]': showPageLogin }">
           <div v-if="showPageLogin" class="m-8">
             <p class="text-4xl font-black text-white text-center mb-4">Welcome Back!</p>
             <p class="text-xl font-normal text-white text-center mb-10">Enter your personal details to use all of site features</p>
