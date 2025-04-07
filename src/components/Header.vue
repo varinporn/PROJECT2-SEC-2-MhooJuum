@@ -123,20 +123,6 @@ const showMobileMenu = ref(false)
     >
       PROFILE
     </router-link>
-    <router-link
-      class="text-black font-bold border-b border-black pb-2"
-      :to="{ name: 'UserManager' }"
-      @click="showMobileMenu = false"
-    >
-      HISTORY
-    </router-link>
-    <router-link
-      class="text-black font-bold border-b border-black pb-2"
-      :to="{ name: 'UserManager' }"
-      @click="showMobileMenu = false"
-    >
-      FOLLOW
-    </router-link>
   </div>
 
   <!-- Logout icon positioned at the bottom -->
