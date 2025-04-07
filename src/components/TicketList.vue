@@ -24,7 +24,7 @@ const closePopup = () => {
 </script>
 
 <template>
-  <ListModel :items="ticket" :itemWidth="400" class="mx-20 py-13" >
+  <ListModel :items="ticket" :itemWidth="400" class=" px-6 sm:px-6 md:px-8 lg:px-20 py-8" >
     <template #yourItem="listTicket">
         <button class=" group relative flex rounded-3xl bg-white hover:shadow-lg cursor-pointer" @click="openPopup(listTicket.itemInList)">
           <div class=" w-1/2" >
