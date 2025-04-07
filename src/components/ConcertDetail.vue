@@ -419,14 +419,17 @@ const concertUnfollow = async () => {
           :message="modalMessage"
         >
           <template #content>
-            <div class="grid grid-cols-2 gap-y-4 w-[550px] md:w-[600px] lg:w-[650px]">
+            <div class="grid grid-cols-2 gap-y-4">
               <div class="col-span-2">{{ selectConcert.name }}</div>
-              <div>Price</div>
-              <div class="text-end">{{ selectConcert.price }}</div>
-              <div>Quantity</div>
-              <div class="text-end">{{ quantity }}</div>
-              <div>Total</div>
-              <div class="text-end">{{ quantity * selectConcert.price }}</div>
+
+              <div class="text-start font-medium border-b border-gray-300">Price</div>
+              <div class="text-end border-b border-gray-300">{{ selectConcert.price }}</div>
+
+              <div class="text-start font-medium border-b border-gray-300">Quantity</div>
+              <div class="text-end border-b border-gray-300">{{ quantity }}</div>
+
+              <div class="text-start font-medium border-b border-gray-300">Total</div>
+              <div class="text-end border-b border-gray-300">{{ quantity * selectConcert.price }}</div>
             </div>
           </template>
         </EventPopup>
