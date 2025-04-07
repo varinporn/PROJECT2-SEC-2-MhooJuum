@@ -166,16 +166,16 @@ const historyTickets = computed(() => {
       </div>
       <div class="flex gap-4 md:gap-4 lg:gap-[2rem]">
         <button @click="showEditProfile = true"
-          class="bg-purple-600 rounded-[8px] md:rounded-xl text-white font-bold p-[0.3rem] md:p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem] cursor-pointer 
-          duration-300 hover:scale-110 transition-transform hover:bg-purple-400 text-nowrap text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Edit profile</button>
+          class="bg-purple-600 rounded-[8px] md:rounded-xl text-white font-bold p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem] cursor-pointer 
+          duration-300 hover:scale-110 transition-transform hover:bg-purple-400 text-nowrap text-[12px] lg:text-[14px] xl:text-[16px]">Edit profile</button>
 
         <button @click="toggleModal(logout)"
-          class="bg-yellow-400 rounded-[8px] md:rounded-xl text-white font-bold p-[0.4rem] md:p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem]  cursor-pointer 
-          duration-300 hover:scale-110 transition-transform hover:bg-yellow-300 text-nowrap text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Logout</button>
+          class="bg-yellow-400 rounded-[8px] md:rounded-xl text-white font-bold p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem]  cursor-pointer 
+          duration-300 hover:scale-110 transition-transform hover:bg-yellow-300 text-nowrap text-[12px] lg:text-[14px] xl:text-[16px]">Logout</button>
 
         <button @click="toggleModal(deleteAccount)"
-          class="bg-red-600 rounded-[8px] md:rounded-xl text-white font-bold p-[0.3rem] md:p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem] cursor-pointer 
-          duration-300 hover:scale-110 transition-transform hover:bg-red-400 text-nowrap text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Delete profile</button>
+          class="bg-red-600 rounded-[8px] md:rounded-xl text-white font-bold p-[0.5rem] lg:p-[0.7rem] xl:p-[1rem] cursor-pointer 
+          duration-300 hover:scale-110 transition-transform hover:bg-red-400 text-nowrap text-[12px] lg:text-[14px] xl:text-[16px]">Delete profile</button>
       </div>
     </div>
 
@@ -190,9 +190,9 @@ const historyTickets = computed(() => {
 
 
     <div class="flex ml-6 md:ml-8 gap-15 lg:ml-20 lg:gap-20 mb-5 font-bold">
-      <button class=" cursor-pointer" :class="tab === 'upcoming' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'upcoming'">Upcoming</button>
-      <button class=" cursor-pointer" :class="tab === 'history' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'history'">History</button>
-      <button class=" cursor-pointer" :class="tab === 'follow' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'follow'">follow</button>
+      <button class=" cursor-pointer text-[12px] sm:text-base" :class="tab === 'upcoming' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'upcoming'">Upcoming</button>
+      <button class=" cursor-pointer text-[12px] sm:text-base" :class="tab === 'history' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'history'">History</button>
+      <button class=" cursor-pointer text-[12px] sm:text-base" :class="tab === 'follow' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'follow'">follow</button>
     </div>
     <div class="bg-gray-200 h-[388.484px]">
       <TicketList v-if="tab === 'upcoming'" :ticket="upcomingTickets"></TicketList>
