@@ -208,59 +208,69 @@ const concertUnfollow = async () => {
     <img
       src="/icons/back.png"
       @click="$router.push('/')"
-      class="cursor-pointer absolute w-10 mt-6 ml-8"
+      class="cursor-pointer absolute w-8 lg:w-10 mt-6 ml-6 lg:ml-8"
     />
-    <div  class="bg-[#333333] text-white px-20 py-10">
-      <div class="flex flex-row items-start">
-        <div class="basis-1/3 flex">
+    <!-- Section Poster + Info -->
+    <div class="bg-[#333333] text-white px-4 sm:px-8 md:px-12 lg:px-20 py-10">
+      <div class="flex flex-col lg:flex-row items-start gap-8">
+        <div class="w-full lg:w-1/3 flex justify-center">
           <img
             :src="`/concert/${selectConcert.genre}Poster.png`"
-            class="w-full px-16"
+            class="w-full md:w-2/3 lg:w-full px-16"
           />
         </div>
-        <div class="basis-2/3 p-4 flex flex-col justify-center">
-          <h2 class="text-3xl font-bold border-b-2 pb-2 text-center">
+
+        <div
+          class="w-full lg:w-2/3 p-2 flex flex-col justify-center text-center lg:text-left"
+        >
+          <h2
+            class="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold border-b-2 pb-2 text-center"
+          >
             {{ selectConcert.name }}
           </h2>
-          <div class="mt-8 space-y-4">
-            <div class="flex items-center space-x-2">
-              <img
-                src="/icons/calendar.png"
-                alt="Calendar Icon"
-                class="w-5 h-5"
-              />
-              <span>{{ selectConcert.date }}</span>
+
+          <div class="mt-8 space-y-4 text-sm md:text-lg lg:text-base flex flex-row justify-center space-x-8 md:space-x-16 lg:flex-col">
+            <div class="flex flex-col space-y-4">
+              <div class="flex items-center space-x-2">
+                <img
+                  src="/icons/calendar.png"
+                  alt="Calendar Icon"
+                  class="w-5 h-5"
+                />
+                <span>{{ selectConcert.date }}</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <img src="/icons/time.png" alt="Clock Icon" class="w-5 h-5" />
+                <span>{{ selectConcert.time }}</span>
+              </div>
             </div>
-            <div class="flex items-center space-x-2">
-              <img src="/icons/time.png" alt="Clock Icon" class="w-5 h-5" />
-              <span>{{ selectConcert.time }}</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <img
-                src="/icons/map-pin.png"
-                alt="Map Pin Icon"
-                class="w-5 h-5"
-              />
-              <span>{{ selectConcert.location }}</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <img src="/icons/coin.png" alt="Bitcoin Icon" class="w-5 h-5" />
-              <span>{{ selectConcert.price }}</span>
+            <div class="flex flex-col space-y-4">
+              <div class="flex items-center space-x-2">
+                <img
+                  src="/icons/map-pin.png"
+                  alt="Map Pin Icon"
+                  class="w-5 h-5"
+                />
+                <span>{{ selectConcert.location }}</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <img src="/icons/coin.png" alt="Bitcoin Icon" class="w-5 h-5" />
+                <span>{{ selectConcert.price }}</span>
+              </div>
             </div>
           </div>
 
-          <!-- follow button -->
-          <button
-            class="mt-10 px-5 py-2 border border-white rounded-3xl flex items-center space-x-2 w-fit cursor-pointer active:bg-white/10"
-            @click="toggleFollow"
-          >
-            <img
-              :src="isFollowed ? '/icons/following.png' : '/icons/follow.png'"
-              alt="Bell Icon"
-              class="w-5 h-5"
-            />
-            <span>{{ isFollowed ? 'Following' : 'Follow' }}</span>
-          </button>
+           <!-- Follow Button -->
+      <button
+        class="mt-6 lg:mt-10 px-5 py-2 border border-white rounded-3xl flex items-center space-x-2 w-fit mx-auto lg:mx-0"
+        @click="toggleFollow"
+      >
+        <img
+          :src="isFollowed ? '/icons/following.png' : '/icons/follow.png'"
+          class="w-5 h-5"
+        />
+        <span>{{ isFollowed ? 'Following' : 'Follow' }}</span>
+      </button>
         </div>
       </div>
     </div>
@@ -272,10 +282,11 @@ const concertUnfollow = async () => {
       :message="modalMessage"
     />
 
+    <!-- tab -->
     <div
-      class="flex justify-between items-center py-4 px-12 border-gray-200 border-b-2"
+      class="flex flex-col-reverse md:flex-row lg:flex-row justify-between items-center py-4 px-12 border-gray-200 border-b-2 gap-4"
     >
-      <div class="flex space-x-8">
+      <div class="flex justify-center space-x-8 text-sm md:text-base">
         <p
           class="font-semibold cursor-pointer"
           :class="
@@ -299,13 +310,15 @@ const concertUnfollow = async () => {
           How to Buy Tickets
         </p>
       </div>
-      <div class="space-x-8">
-        <span class="text-lg font-bold">
+
+      <!-- price & get ticket -->
+      <div class="w-full md:w-fit flex justify-between items-center space-y-2 sm:space-y-0 sm:space-x-4 mb-2">
+        <span class="text-base lg:text-lg font-bold self-center">
           Price: {{ selectConcert.price }}
         </span>
         <a href="#bookingTicket">
           <button
-            class="bg-[#03abef] text-white font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-[#5fd1ff]"
+            class="bg-[#03abef] text-white font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-[#5fd1ff] text-sm md:text-base"
             @click="toggleGetTicket"
             v-if="selectConcert.available > 0"
           >
@@ -326,19 +339,18 @@ const concertUnfollow = async () => {
       <!-- detail of concert -->
       <div v-if="selectConcert && selectedTab === 'details'" class="py-8 px-12">
         <div class="text-center flex flex-col">
-          <h3 class="font-bold text-4xl py-6">
+          <h3
+            class="font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl py-4"
+          >
             {{ selectConcert.name }}
           </h3>
           <div>
             <img
-              :src="`../../concert/${selectConcert.genre}Poster.png`"
-              class="w-1/2 px-18 mx-auto"
+              :src="`/concert/${selectConcert.genre}Poster.png`"
+              class="hidden sm:hidden md:hidden lg:block lg:w-1/4 mx-auto"
             />
           </div>
-          <p
-            v-html="formattedDescription"
-            class="pt-10"
-          ></p>
+          <p v-html="formattedDescription" class="text-sm md:text-base lg:text-base pt-2 md:pt-8 lg:pt-10"></p>
         </div>
 
         <!-- booking ticket -->
@@ -460,16 +472,18 @@ const concertUnfollow = async () => {
         v-if="selectConcert && selectedTab === 'howToBuy'"
         class="py-8 px-12"
       >
-        <h2 class="text-xl font-semibold mb-6">How to Buy Tickets</h2>
+        <h2 class="text-base md:text-xl lg:text-xl font-semibold mb-6">How to Buy Tickets</h2>
 
         <div class="space-y-6">
-          <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="font-semibold text-md lg:text-lg">Step 1: Select the Concert</h3>
+          <div class="bg-gray-100 p-4 rounded-lg shadow text-sm lg:text-lg">
+            <h3 class="font-semibold">
+              Step 1: Select the Concert
+            </h3>
             <p>Choose the concert you would like to attend.</p>
           </div>
 
-          <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="font-semibold text-md lg:text-lg">
+          <div class="bg-gray-100 p-4 rounded-lg shadow text-sm lg:text-lg">
+            <h3 class="font-semibold">
               Step 2: Select the Number of Tickets
             </h3>
             <p>
@@ -478,25 +492,31 @@ const concertUnfollow = async () => {
             </p>
           </div>
 
-          <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="font-semibold text-md lg:text-lg">Step 3: Accept the Terms</h3>
+          <div class="bg-gray-100 p-4 rounded-lg shadow text-sm lg:text-lg">
+            <h3 class="font-semibold">
+              Step 3: Accept the Terms
+            </h3>
             <p>Read and agree to the Terms and Conditions before proceeding.</p>
           </div>
 
-          <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="font-semibold text-md lg:text-lg">Step 4: Click "Booking"</h3>
+          <div class="bg-gray-100 p-4 rounded-lg shadow text-sm lg:text-lg">
+            <h3 class="font-semibold">
+              Step 4: Click "Booking"
+            </h3>
             <p>Click the "Booking" button to proceed to payment.</p>
           </div>
 
-          <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="font-semibold text-md lg:text-lg">Step 5: Confirm Payment</h3>
+          <div class="bg-gray-100 p-4 rounded-lg shadow text-sm lg:text-lg">
+            <h3 class="font-semibold">
+              Step 5: Confirm Payment
+            </h3>
             <p>
               Review your order and confirm payment to complete your purchase.
             </p>
           </div>
         </div>
 
-        <p class="text-red-600 italic mt-6 text-sm lg:text-md">
+        <p class="text-red-600 italic mt-6 text-sm lg:text-base">
           * Please ensure all details are correct before confirming your
           payment!
         </p>
