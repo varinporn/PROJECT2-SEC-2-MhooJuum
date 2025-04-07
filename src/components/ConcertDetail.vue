@@ -405,7 +405,7 @@ const concertUnfollow = async () => {
               class="w-5 h-5 border-2 border-gray-300 rounded-md bg-gray-100 checked:bg-[#03abef]"
             />
 
-            <span class="text-gray-700"
+            <span class="text-gray-700 text-sm md:text-base"
               >Please click to accept
               <span class="text-[#03abef] cursor-pointer"
                 >“Terms and Conditions”</span
@@ -416,7 +416,7 @@ const concertUnfollow = async () => {
           </div>
 
           <!-- button -->
-          <div class="flex flex-row justify-center space-x-6 mt-8">
+          <div class="flex flex-row justify-center space-x-6 mt-8 text-sm md:text-base">
             <button
               class="bg-[#909cb3] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#bbc3d4] transition ease-in-out duration-200"
               @click="$router.go(-1)"

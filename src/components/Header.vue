@@ -99,7 +99,7 @@ const showMobileMenu = ref(false)
   </div>
 
   <router-link
-    class="text-black font-bold border-b border-black pb-2"
+    class="text-black font-bold border-b border-black pb-2 "
     :to="{ name: 'Home' }"
     @click="showMobileMenu = false"
   >
