@@ -101,7 +101,7 @@
       "time": "22:00:00",
       "price": 4800,
       "ageRestriction": false,
-      "available": 305,
+      "available": 304,
       "isAvailable": true
     },
     {
@@ -258,6 +258,45 @@
       "price": 6500,
       "ageRestriction": false,
       "available": 280,
+      "isAvailable": true
+    },
+    {
+      "id": "21",
+      "name": "NCT 127 4TH TOUR ‘NEO CITY: BANGKOK – THE MOMENTUM",
+      "description": "NCT 127 is bringing their highly anticipated 4th world tour, \"NEO CITY: THE MOMENTUM,\" to Bangkok!\n\nKnown for their powerful performances, intricate choreography, and signature neo-futuristic sound, the group will deliver an unforgettable show packed with high-energy stages, stunning visuals, and interactive fan moments.\n\nFans can expect a setlist full of hits like Kick It, Sticker, 2 Baddies, and Fact Check, as well as new surprises from their latest album.\n\nWith mind-blowing stage effects, live vocals, and top-tier production, this concert will showcase NCT 127’s evolution as one of the biggest acts in K-pop today.\n\nGet ready, NCTzens in Thailand, for two nights of unstoppable momentum!",
+      "genre": "kpop",
+      "location": "IMPACT Arena",
+      "date": "2026-02-22",
+      "time": "18:00:00",
+      "price": 8500,
+      "ageRestriction": false,
+      "available": 50,
+      "isAvailable": true
+    },
+    {
+      "id": "22",
+      "name": "ENHYPEN 'Walk The Line' World Tour in Bangkok",
+      "description": "Kang Daniel is set to bring his highly anticipated 'ACT' Tour to Bangkok, delivering an electrifying performance filled with passion and charisma.\n\nKnown for his smooth vocals, dynamic stage presence, and impressive choreography, Kang Daniel will treat fans to an unforgettable night featuring hits from his latest album, as well as fan-favorite tracks.\n\nWith stunning visuals, immersive stage effects, and heartfelt interactions, the 'ACT' Tour promises to be a spectacular showcase of Kang Daniel’s growth as an artist.\n\nDon't miss this chance to experience the energy and artistry of Kang Daniel live in Bangkok!",
+      "genre": "kpop",
+      "location": "IMPACT Arena",
+      "date": "2026-07-21",
+      "time": "18:00:00",
+      "price": 5500,
+      "ageRestriction": false,
+      "available": 250,
+      "isAvailable": true
+    },
+    {
+      "id": "23",
+      "name": "Kang Daniel 'ACT' Tour in Bangkok",
+      "description": "Kang Daniel is set to bring his highly anticipated 'ACT' Tour to Bangkok, delivering an electrifying performance filled with passion and charisma.\n\nKnown for his smooth vocals, dynamic stage presence, and impressive choreography, Kang Daniel will treat fans to an unforgettable night featuring hits from his latest album, as well as fan-favorite tracks.\n\nWith stunning visuals, immersive stage effects, and heartfelt interactions, the 'ACT' Tour promises to be a spectacular showcase of Kang Daniel’s growth as an artist.\n\nDon't miss this chance to experience the energy and artistry of Kang Daniel live in Bangkok!",
+      "genre": "kpop",
+      "location": "IMPACT Arena",
+      "date": "2026-07-08",
+      "time": "18:00:00",
+      "price": 4500,
+      "ageRestriction": false,
+      "available": 270,
       "isAvailable": true
     }
   ],
@@ -574,18 +613,28 @@
         "11",
         "17",
         "18",
-        "8",
-        "20",
-        "7"
+        "5",
+        "8"
       ]
     },
     {
-      "id": "5fc1",
-      "username": "test4t",
-      "email": "test4@email.com",
-      "DOB": "2025-04-07",
-      "password": "!asczx2123zxcC",
+      "id": "8d8f",
+      "username": "test2",
+      "email": "test2@mail.com",
+      "DOB": "2006-02-07",
+      "password": "Test2test2#",
       "tickets": [],
+      "bookmarks": []
+    },
+    {
+      "id": "8bb7",
+      "username": "test3333",
+      "email": "test3@mail.com",
+      "DOB": "2025-04-14",
+      "password": "Test3test#",
+      "tickets": [
+        "98e2"
+      ],
       "bookmarks": []
     }
   ]
