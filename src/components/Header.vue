@@ -1,13 +1,44 @@
 <script setup>
 import { CookieUtil } from '@/libs/cookieUtil'
-import { ref, watchEffect } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import LoginManager from './LoginManager.vue'
 import { storeToRefs } from 'pinia';
 import { useAuth } from '@/store/auth';
+
+onMounted(() => {
+  console.log(statusLogin.value);
+  
+  if (statusLogin.value === null) {
+    online.value = false 
+  } else {
+    online.value = true
+  }
+  console.log(online.value);
+  
+})
+
+const emit = defineEmits(['forwardNoti'])
+const forwardNoti = (notiType, textHeader, textContent) => {
+  emit('forwardNoti', notiType, textHeader, textContent)
+}
+
+const online = ref(false)
+
 const authStore = useAuth()
-
 const {statusLogin} = storeToRefs(authStore)
+watch(statusLogin, (value) => {
+  if(value === null) {
+    online.value = false
+    emit('forwardNoti', true, 'Good luck!', '')
+  } else {
+    online.value = true
+  }
+})
 
+const changeOnline = () => {
+  toggleLogin(false)
+  online.value = true
+}
 
 const isLogin = ref(false)
 const toggleLogin = (boolean) => {
@@ -65,10 +96,13 @@ const showMobileMenu = ref(false)
           :to="{ name: 'ConcertView' }"
           >CONCERTS</router-link
         >
+        <div>
+          {{ online }}
+        </div>
       </div>
     </div>
     <div class="lg:flex hidden">
-      <router-link v-if="statusLogin" :to="{ name: 'UserManager' }">
+      <router-link v-if="online" :to="{ name: 'UserManager' }">
         <img
           src="/icons/profile.png"
           alt="profile"
@@ -113,12 +147,12 @@ const showMobileMenu = ref(false)
     <button
       class="border border-[#03abef] rounded-full px-6 py-2 text-[#03abef] font-semibold transition w-fit"
       @click="toggleLogin(true), (showMobileMenu = false)"
-      v-if="!statusLogin"
+      v-if="!online"
     >
       SIGN UP / LOG IN
     </button>
     <div
-      v-if="statusLogin"
+      v-else
       class="border border-[#03abef] rounded-lg px-6 py-2 text-[#03abef] font-semibold transition w-fit"
     >
       <p>username</p>
@@ -164,18 +198,18 @@ const showMobileMenu = ref(false)
     v-if="isLogin"
     @close="toggleLogin(false)"
     @submit="toggleLogin(false)"
-    @notification="callNotification"
+    @notification="forwardNoti"
   />
-
+  <!-- @notification="callNotification" -->
   <!-- Notification -->
-  <NotificationModel v-if="showNotification" :noti-type="notification.notiType">
-      <template #header>
-        {{ notification.textHeader }}
-      </template>
-      <template #content>
-        {{ notification.textContent }}
-      </template>
-    </NotificationModel>
+  <!-- <NotificationModel v-if="showNotification" :noti-type="notification.notiType">
+    <template #header>
+      {{ notification.textHeader }}
+    </template>
+    <template #content>
+      {{ notification.textContent }}
+    </template>
+  </NotificationModel> -->
 </template>
 
 <style scoped></style>

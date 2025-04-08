@@ -32,7 +32,6 @@ const callNotification = (notiType, textHeader, textContent) => {
 </script>
  
 <template>
-    <Header />
     <UserManager @notification="callNotification"></UserManager>
     <Footer></Footer>
     <!-- Notification -->

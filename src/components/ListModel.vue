@@ -23,7 +23,7 @@ defineProps({
 <template>
 <div>
     <div 
-        class=" mt-4 flex gap-8 overflow-x-auto overflow-y-hidden "
+        class=" mt-4 flex gap-8 overflow-x-auto overflow-y-hidden custom-scrollbar "
         :class="isWrap ? 'flex-wrap' : 'flex-nowrap', isCol ? 'max-md:flex-col items-center' : 'flex-row'"    
     >
         <div v-for="(item, index) in items" :key="index" class="flex-shrink-0 pb-4" :class="itemWidth">
@@ -34,5 +34,7 @@ defineProps({
 </template>
  
 <style scoped>
-
+.custom-scrollbar {
+    scrollbar-width: thin;
+}
 </style>

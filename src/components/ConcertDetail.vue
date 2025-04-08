@@ -209,7 +209,6 @@ const concertUnfollow = async () => {
 </script>
 
 <template>
-  <Header />
   <div v-if="selectConcert">
     <img
       src="/icons/back.png"

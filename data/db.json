@@ -69,7 +69,7 @@
       "date": "2025-05-12",
       "time": "21:00:00",
       "price": 1250,
-      "available": 499,
+      "available": 496,
       "isAvailable": true
     },
     {
@@ -81,7 +81,7 @@
       "date": "2025-10-01",
       "time": "19:00:00",
       "price": 5500,
-      "available": 18,
+      "available": 16,
       "isAvailable": true
     },
     {
@@ -617,6 +617,31 @@
       "id": "6695",
       "concertId": "7",
       "userId": "b08c"
+    },
+    {
+      "id": "f9d0",
+      "concertId": "6",
+      "userId": null
+    },
+    {
+      "id": "b789",
+      "concertId": "6",
+      "userId": null
+    },
+    {
+      "id": "0d70",
+      "concertId": "6",
+      "userId": null
+    },
+    {
+      "id": "25f9",
+      "concertId": "7",
+      "userId": null
+    },
+    {
+      "id": "1795",
+      "concertId": "7",
+      "userId": null
     }
   ],
   "users": [
@@ -720,7 +745,9 @@
         "11",
         "17",
         "18",
-        "8"
+        "8",
+        "9",
+        "6"
       ]
     },
     {
@@ -754,12 +781,24 @@
     },
     {
       "id": "aca1",
-      "username": "auiwd",
+      "username": "wdgaidioawGdawda",
       "email": "wahjvda@alkhdw.daw",
       "DOB": "2025-03-27",
       "password": "Aa_1awnkaj",
       "tickets": [],
       "bookmarks": []
+    },
+    {
+      "id": "9ab2",
+      "username": "nu2",
+      "email": "nu2@mail.com",
+      "DOB": "2025-04-07",
+      "password": "123_Ti321",
+      "tickets": [],
+      "bookmarks": [
+        "8",
+        "5"
+      ]
     }
   ]
 }
