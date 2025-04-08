@@ -14,7 +14,6 @@ defineProps({
  
 <template>
 <div>
-    <Header/>
     <Banner/>
     <ConcertManager :showAll="false" :isWrap="false"/>
     <Footer/>

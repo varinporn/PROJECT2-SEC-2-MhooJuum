@@ -69,7 +69,6 @@ const login = async (data) => {
         }
         
         setStatusLogin(dataSelect[0].id)
-            console.log(statusLogin.value);
         dataAccount.value = dataSelect[0]
 
         emit('submit')

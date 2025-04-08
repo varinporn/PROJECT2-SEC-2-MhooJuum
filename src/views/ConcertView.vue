@@ -13,7 +13,6 @@ defineProps({
  
 <template>
 <div>
-    <Header />
     <ConcertManager :showAll="true" :isWrap="true"/>
     <Footer/>
 </div>
