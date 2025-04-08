@@ -17,12 +17,22 @@ const dataAccount = ref(null)
 
 
 watch(statusLogin, async (newValue) => {
-  setStatusLogin(newValue)
-  dataAccount.value = await getItemById(
+  if (!newValue) {
+    dataAccount.value = null
+    isFollowed.value = false
+    return
+  }
+
+  try {
+    const res = await getItemById(
       `${import.meta.env.VITE_APP_URL}/users`,
-      statusLogin.value
+      newValue
     )
-    isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
+    dataAccount.value = res
+    isFollowed.value = res.bookmarks.includes(concertId)
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 const { concertId } = useRoute().params

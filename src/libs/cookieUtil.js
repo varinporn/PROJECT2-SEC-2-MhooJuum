@@ -15,26 +15,24 @@ class CookieUtil {
     return cookieValue
   }
 
-  static set(name, value, expires) {
-    if (CookieUtil.get(name)) {
-      return
-    }
+  static set(name, value, expires, path = '/') {
     let cookieText = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`
     if (expires instanceof Date) {
-      // console.log(expires)
-      cookieText += `;expires=${expires}`
+      cookieText += `;expires=${expires.toUTCString()}`
     }
+    cookieText += `;path=${path}`
     document.cookie = cookieText
-    // console.log(document.cookie)
   }
   //to remove existing cookies, setting the cookie again—with the same path, domain, and secure options—and set its expiration date to some time in the past.
-  static unset(name, path = '/', domain = '') {
-    let cookieText = `${encodeURIComponent(name)}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=${path}`;
-    // Only add domain if it is specified.
-    if (domain) {
-      cookieText += `; domain=${domain}`;
-    }
-    document.cookie = cookieText;
+  static unset(name) {
+    const base = `${encodeURIComponent(name)}=; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+  
+    // Try both with and without path
+    document.cookie = `${base}; path=/`;
+    document.cookie = `${base}; path=`;
+  
+    // Optional: also try domain if applicable (be cautious!)
+    // document.cookie = `${base}; path=/; domain=.example.com`;
   }
 } //ending class
 export { CookieUtil }
