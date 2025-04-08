@@ -11,9 +11,15 @@
   import { useRouter } from "vue-router";
 import EventPopup from "./EventPopup.vue";
 import TicketPopup from "./TicketPopup.vue";
+import { useAuth } from '@/store/auth';
+import { storeToRefs } from 'pinia';
+
+const authStore = useAuth()
+
+const { clearStatusLogin } = authStore;
+const {statusLogin} = storeToRefs(authStore)
   
 
-  const statusLogin = ref(CookieUtil.get('juumId'))
   const showLogin = ref(true)
   const router = useRouter() 
   const showEditProfile = ref(false)
@@ -119,8 +125,7 @@ const historyTickets = computed(() => {
   const logout = () => {
     if (!accept.value) return
     clearDataAccount()
-    CookieUtil.unset('juumId')
-    statusLogin.value = CookieUtil.get('juumId')
+    clearStatusLogin()
     router.push({name: 'Home'})
   }
 

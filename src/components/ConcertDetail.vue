@@ -1,11 +1,29 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { addItem, getItemById, patchItem } from '../libs/fetchUtils'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 import EventPopup from './EventPopup.vue'
 import { CookieUtil } from '@/libs/cookieUtil'
+import { useAuth } from '@/store/auth';
+import { storeToRefs } from 'pinia';
+
+const authStore = useAuth()
+
+const { setStatusLogin } = authStore;
+const {statusLogin} = storeToRefs(authStore)
+const dataAccount = ref(null)
+
+
+watch(statusLogin, async (newValue) => {
+  setStatusLogin(newValue)
+  dataAccount.value = await getItemById(
+      `${import.meta.env.VITE_APP_URL}/users`,
+      statusLogin.value
+    )
+    isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
+}, { immediate: true })
 
 const { concertId } = useRoute().params
 
@@ -47,8 +65,6 @@ const decreaseQuantity = () => {
 }
 
 // booking
-const statusLogin = ref(CookieUtil.get('juumId'))
-const dataAccount = ref(null)
 const ticket = ref({
   concertId,
   userId: statusLogin,

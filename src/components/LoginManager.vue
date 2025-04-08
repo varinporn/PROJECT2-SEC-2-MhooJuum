@@ -5,10 +5,13 @@ import { CookieUtil } from '@/libs/cookieUtil';
 import { ref } from 'vue';
 import EditProfile from './EditProfile.vue';
 import Login from './Login.vue';
-import { useUsers } from '@/store/users';
+import { useAuth } from '@/store/auth';
+import { storeToRefs } from 'pinia';
 
+const authStore = useAuth()
 
-const statusLogin = ref(CookieUtil.get('juumId'));
+const { setStatusLogin } = authStore;
+const {statusLogin} = storeToRefs(authStore)
 
 const showEditProfile = ref(false)
 const dataAccount = ref({
@@ -51,8 +54,9 @@ const login = async (data) => {
                 alert("Incorrect password.")
                 return
             }
-            CookieUtil.set("juumId", dataSelect[0].id)
-            statusLogin.value = CookieUtil.get('juumId')
+            setStatusLogin(dataSelect[0].id)
+            console.log(statusLogin.value);
+            
             dataAccount.value = dataSelect[0]
         } else {
             const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
@@ -71,8 +75,9 @@ const login = async (data) => {
                 return
             }
 
-            CookieUtil.set("juumId", matchedUser.id)
-            statusLogin.value = CookieUtil.get('juumId')
+            setStatusLogin(matchedUser.id)
+            console.log(statusLogin.value);
+
             dataAccount.value = matchedUser
         }
         emit('submit')

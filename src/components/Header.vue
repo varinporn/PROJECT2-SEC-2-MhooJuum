@@ -2,14 +2,16 @@
 import { CookieUtil } from '@/libs/cookieUtil'
 import { ref } from 'vue'
 import LoginManager from './LoginManager.vue'
-import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia';
+import { useAuth } from '@/store/auth';
+const authStore = useAuth()
 
-const statusLogin = ref(CookieUtil.get('juumId'))
+const {statusLogin} = storeToRefs(authStore)
+
 
 const isLogin = ref(false)
 const toggleLogin = (boolean) => {
   isLogin.value = boolean
-  statusLogin.value = CookieUtil.get('juumId')
 }
 
 const showMobileMenu = ref(false)
