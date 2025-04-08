@@ -84,7 +84,7 @@ const savePassword = async (data) => {
         if (checkEmail.length !== 0) {
             checkEmail[0].password = data.password
             const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
-            emit('notification', true, 'Reset password success', `Hey, \"${saveAccount.username}\" don\'t forget to remember your new password.`)
+            emit('notification', true, 'Reset password success', `Hey \"${saveAccount.username}\", don\'t forget to remember your new password.`)
         } else {
             emit('notification', false, 'Can not reset password', `This email \"${data.email}\" is not found.`)
             return
