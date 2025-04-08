@@ -11,7 +11,7 @@ import Footer from '@/components/Footer.vue'
       <p class="text-sm md:text-base lg:text-lg text-gray-400 mb-6">
         Sorry! This page doesn't exist on our system.
       </p>
-      <router-link to="/" class="px-4 py-2 lg:px-6 lg:py-3 bg-[#03abef] hover:bg-[#5fd1ff] text-white rounded-xl transition-all text-sm md:text-base">
+      <router-link to="/" class="text-[#03abef] underline rounded-xl transition-all text-sm md:text-base">
         Home page
       </router-link>
     </div>
@@ -20,5 +20,4 @@ import Footer from '@/components/Footer.vue'
 </template>
 
 <style scoped>
-/* เพิ่มสไตล์เพิ่มเติมได้ที่นี่ถ้าต้องการ */
 </style>
