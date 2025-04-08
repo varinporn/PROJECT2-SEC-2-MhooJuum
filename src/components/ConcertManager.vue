@@ -21,6 +21,12 @@ const tpopConcerts = computed(() =>
   )
 )
 
+const hiphopConcerts = computed(() =>
+  concerts.value.filter(
+    (concert) => concert.genre === 'hiphop' && new Date(concert.date) >= today
+  )
+)
+
 onMounted(async () => {
   try {
     concerts.value = await getItems(`${import.meta.env.VITE_APP_URL}/concerts`)
@@ -60,6 +66,11 @@ defineProps({
       <ConcertList :concerts="tpopConcerts" :isWrap="isWrap">
         <template #header>
           <h1>TPOP</h1>
+        </template>
+      </ConcertList>
+      <ConcertList :concerts="hiphopConcerts" :isWrap="isWrap">
+        <template #header>
+          <h1>HIP-HOP</h1>
         </template>
       </ConcertList>
     </template>

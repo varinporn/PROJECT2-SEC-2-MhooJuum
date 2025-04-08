@@ -108,7 +108,7 @@ const historyTickets = computed(() => {
       modalMessage.accept = 'LOG OUT'
       modalMessage.deny = 'CANCEL'
     } else if (action === deleteAccount) {
-      modalMessage.header = 'Are you sure you want to delete your accout?'
+      modalMessage.header = 'Are you sure you want to delete your account?'
       modalMessage.content = 'This action is permanent and cannot be undone. You will lose all your data.'
       modalMessage.accept = 'DELETE ACCOUNT'
       modalMessage.deny = 'KEEP ACCOUNT'
@@ -123,7 +123,7 @@ const historyTickets = computed(() => {
   // Function logout
   const logout = () => {
     if (!accept.value) return
-    emit('notification', true, 'Logout success', `Bye \"${dataAccount.username}\", See you next time`)
+    emit('notification', true, 'Logout successful', `Bye \"${dataAccount.username}\", See you next time`)
     clearDataAccount()
     clearStatusLogin()
     router.push({name: 'Home'})
@@ -134,7 +134,7 @@ const historyTickets = computed(() => {
       const statusCode = await deleteItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
       if (statusCode === 200) {
         logout()
-        emit('notification', true, 'Delete account success', `Bye \"${dataAccount.username}\", you can always come back anytime`)
+        emit('notification', true, 'Account deleted successfully.', `Bye \"${dataAccount.username}\", you can always come back anytime`)
       }
     } catch (error) {
       console.log(error)
@@ -145,24 +145,27 @@ const historyTickets = computed(() => {
   const saveProfile = async (data) => {
     try {
       // Check username already registered
-      const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
-      if (checkUsername.length !== 0) {
-        emit('notification', false, 'Can not edit profile', `This username \"${data.username}\" is already registered.`)
-        return
+      if (data.username !== dataAccount.value.username) {
+        const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
+        if (checkUsername.length !== 0) {
+          emit('notification', false, 'Unable to edit profile', `This username \"${data.username}\" is already registered.`)
+          return
+        }
       }
+      
 
       const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data)
       let message = null
       if (dataAccount.username !== saveAccount.username) {
-        message = `Hey, \"${saveAccount.username}\" that is a good name.`
+        message = `Hey \"${saveAccount.username}\", that is a good name.`
       } else if (dataAccount.password !== saveAccount.password) {
-        message = `Hey, \"${saveAccount.username}\" don\'t forget to remember your new password.`
+        message = `Hey \"${saveAccount.username}\", don\'t forget to remember your new password.`
       } else {
-        message = `Hey, \"${saveAccount.username}\" that is a good name. Don\'t forget to remember your new password.`
+        message = `Hey \"${saveAccount.username}\", that is a good name. Don\'t forget to remember your new password.`
       }
 
       dataAccount.value = saveAccount
-      emit('notification', true, 'Edit profile success', message)
+      emit('notification', true, 'Profile updated successfully', message)
     } catch (error) {
       console.log(error);
     }

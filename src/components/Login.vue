@@ -20,6 +20,7 @@
         usernameOrEmail.value = ''
         alertTypeEmail.value = false
         alertTypePassword.value = false
+        alertTypeDate.value = false
         alertStatus.value = false
         showPassword.value = false
     }
@@ -36,6 +37,9 @@
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/
         return passwordRegex.test(password)
     }
+
+    const alertTypeDate = ref(false)
+    const isValidDate = (date) => { return new Date() > new Date(date) }
 
     const alertStatus = ref(false)
     const submit = () => {
@@ -77,6 +81,11 @@
             if (!isEasyPassword(data.value.password)) {
                 alertTypePassword.value = true
                 return
+            }
+
+            if (!isValidDate(data.value.DOB)) {
+              alertTypeDate.value = true
+              return
             }
            
             emit('addAccount', data.value)
@@ -200,11 +209,11 @@
   
             <div>
                 <p class="flex justify-between items-center">
-                    <span class="font-bold" :class="alertStatus && !data.DOB ? 'text-red-600' : 'text-gray-400'">Birth day:</span>
-                    <span v-show="alertStatus && !data.DOB" class="text-xs font-medium text-red-400">* Enter birth day</span>
+                    <span class="font-bold" :class="(alertStatus && !data.DOB) || alertTypeDate ? 'text-red-600' : 'text-gray-400'">Date of birth:</span>
+                    <span v-show="(alertStatus && !data.DOB) || alertTypeDate" class="text-xs font-medium text-red-400">{{ alertTypeDate ? '* Invalid date of birth' : '* Enter date of birth' }}</span>
                 </p>
               <input type="date" required v-model="data.DOB"
-                :class="alertStatus && !data.DOB ? 'border-red-500 bg-red-100 rounded-t-xl' : 'border-gray-400 focus:border-blue-500'"
+                :class="(alertStatus && !data.DOB) || alertTypeDate ? 'border-red-500 bg-red-100 rounded-t-xl' : 'border-gray-400 focus:border-blue-500'"
                 class="w-full border-b border-gray-400 focus:outline-none focus:border-blue-500 p-2">
             </div>
   
@@ -262,7 +271,7 @@
               </button>
             </div>
             <p v-show="alertTypePassword" class="text-xs font-medium text-red-400 -mt-[1rem]">
-                Password must be at least 8 characters long and include: one uppercase letter, one lowercase letter, one number, and one special character.</p>
+              Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.</p>
             <input type="submit" value="Sign up" @click="submit"
               class="w-3/5 mx-auto text-white bg-[#03abef] hover:bg-[#5fd1ff] hover:scale-110 transition-transform duration-200 py-3 rounded-full font-bold cursor-pointer">
           </div>
