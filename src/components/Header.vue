@@ -1,12 +1,13 @@
 <script setup>
 import { CookieUtil } from '@/libs/cookieUtil'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import LoginManager from './LoginManager.vue'
 import NotificationModel from './NotificationModel.vue'
 import { useRouter } from 'vue-router'
 
 const emit = defineEmits(['forwardNoti'])
 const statusLogin = ref(CookieUtil.get('juumId'))
+console.log(statusLogin.value);
 
 const isLogin = ref(false)
 const toggleLogin = (boolean) => {
@@ -14,8 +15,29 @@ const toggleLogin = (boolean) => {
   statusLogin.value = CookieUtil.get('juumId')
 }
 
-const forwardNoti = (notiType, textHeader, textContent) => {
-  emit('forwardNoti', notiType, textHeader, textContent)
+// Notification
+const showNotification  = ref(false)
+const notification = ref({
+  notiType: "",
+  textHeader: "",
+  textContent: ""
+})
+
+const callNotification = (notiType, textHeader, textContent) => {
+  notification.value.notiType = notiType
+  notification.value.textHeader = textHeader
+  notification.value.textContent = textContent
+  
+  showNotification.value = true
+  setTimeout(() => {
+    showNotification.value = false
+    // clear notification
+    notification.value = {
+      nontiType: "",
+      textHeader: "",
+      textContent: ""
+    }
+  }, 8000)
 }
 
 const showMobileMenu = ref(false)
@@ -143,8 +165,18 @@ const showMobileMenu = ref(false)
     v-if="isLogin"
     @close="toggleLogin(false)"
     @submit="toggleLogin(false)"
-    @notification="forwardNoti"
+    @notification="callNotification"
   />
+
+  <!-- Notification -->
+  <NotificationModel v-if="showNotification" :noti-type="notification.notiType">
+      <template #header>
+        {{ notification.textHeader }}
+      </template>
+      <template #content>
+        {{ notification.textContent }}
+      </template>
+    </NotificationModel>
 </template>
 
 <style scoped></style>

@@ -56,8 +56,6 @@ const login = async (data) => {
         }
 
         if (dataSelect.length === 0) {
-            console.log('do');
-            
             emit('notification', false, 'Can not login', `${data.email ? 'Email "' + data.email + '"' : 'Username "' + data.username + '"'} not found.`)
             return
         }
@@ -72,7 +70,7 @@ const login = async (data) => {
         dataAccount.value = dataSelect[0]
 
         emit('submit')
-        emit('notification', true, 'Login success', `Hey \"${data.username}\", welcome to the mhoojuum.`)
+        emit('notification', true, 'Login success', `Hey \"${dataSelect[0].username}\", welcome to the mhoojuum.`)
     } catch (error) {
         console.log(error)
     }
