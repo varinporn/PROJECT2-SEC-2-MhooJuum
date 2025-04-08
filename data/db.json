@@ -62,7 +62,7 @@
       "time": "17:00:00",
       "price": 5000,
       "ageRestriction": false,
-      "available": 165,
+      "available": 163,
       "isAvailable": true
     },
     {
@@ -616,6 +616,35 @@
         "5",
         "8"
       ]
+    },
+    {
+      "id": "8d8f",
+      "username": "test2",
+      "email": "test2@mail.com",
+      "DOB": "2006-02-07",
+      "password": "Test2test2#",
+      "tickets": [],
+      "bookmarks": []
+    },
+    {
+      "id": "8bb7",
+      "username": "test3333",
+      "email": "test3@mail.com",
+      "DOB": "2025-04-14",
+      "password": "Test3test#",
+      "tickets": [
+        "98e2"
+      ],
+      "bookmarks": []
+    },
+    {
+      "id": "382d",
+      "username": "pheam",
+      "email": "pheamawas@gmail.com",
+      "DOB": "2007-12-31",
+      "password": "Pheam@1234",
+      "tickets": [],
+      "bookmarks": []
     }
   ]
 }

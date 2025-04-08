@@ -21,7 +21,6 @@ onMounted(async () => {
       `${import.meta.env.VITE_APP_URL}/users`,
       statusLogin.value
     )
-
     isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
   } catch (error) {
     console.log(error)
@@ -49,14 +48,7 @@ const decreaseQuantity = () => {
 
 // booking
 const statusLogin = ref(CookieUtil.get('juumId'))
-const dataAccount = ref({
-  username: '',
-  email: '',
-  DOB: '',
-  password: '',
-  tickets: [],
-  bookmarks: [],
-})
+const dataAccount = ref(null)
 const ticket = ref({
   concertId,
   userId: statusLogin,
@@ -84,7 +76,6 @@ const toggleBooking = () => {
   modalMessage.content = ''
   modalMessage.deny = 'CANCEL'
   modalMessage.accept = 'CONFIRM'
-  console.log(showModal)
 }
 const confirmCancel = () => {
   showCancelConfirm.value = true
@@ -101,6 +92,10 @@ const clearBooking = () => {
 }
 
 const concertBooking = async (ticket) => {
+  if (dataAccount.value === null) {
+    toggleBooking()
+    return
+  }
   try {
     const updatedTickets = [...dataAccount.value.tickets]
     while (quantity.value > 0) {
@@ -138,7 +133,6 @@ const concertBooking = async (ticket) => {
     showSuccess.value = true
   } catch (error) {
     console.log(error)
-    toggleBooking()
   }
 }
 
@@ -398,25 +392,27 @@ const concertUnfollow = async () => {
           </div>
 
           <!-- checkbox -->
-          <div class="ml-4 mt-8 flex items-center space-x-4">
+          <div class="ml-4 mt-8 flex items-start space-x-4">
             <input
               v-model="agree"
               type="checkbox"
               class="w-5 h-5 border-2 border-gray-300 rounded-md bg-gray-100 checked:bg-[#03abef]"
             />
 
-            <span class="text-gray-700"
-              >Please click to accept
-              <span class="text-[#03abef] cursor-pointer"
-                >“Terms and Conditions”</span
-              ></span
-            ><span class="text-[#ff3131]" v-if="agreeText && !agree"
-              >* You must accept the terms and conditions to continue</span
-            >
+            <div class="space-x-4 lg:flex">
+              <p class="text-gray-700 text-sm md:text-base"
+                >Please click to accept
+                <span class="text-[#03abef] cursor-pointer"
+                  >“Terms and Conditions”</span
+                ></p
+              ><p class="text-[#ff3131]" v-if="agreeText && !agree"
+                >* You must accept the terms and conditions to continue</p
+              >
+            </div>
           </div>
 
           <!-- button -->
-          <div class="flex flex-row justify-center space-x-6 mt-8">
+          <div class="flex flex-row justify-center space-x-6 mt-8 text-sm md:text-base">
             <button
               class="bg-[#909cb3] text-white font-semibold py-2 w-28 rounded-full cursor-pointer hover:bg-[#bbc3d4] transition ease-in-out duration-200"
               @click="$router.go(-1)"
@@ -438,14 +434,17 @@ const concertUnfollow = async () => {
           :message="modalMessage"
         >
           <template #content>
-            <div class="grid grid-cols-2 gap-y-4 w-[650px]">
+            <div class="grid grid-cols-2 gap-y-4">
               <div class="col-span-2">{{ selectConcert.name }}</div>
-              <div>Price</div>
-              <div class="text-end">{{ selectConcert.price }}</div>
-              <div>Quantity</div>
-              <div class="text-end">{{ quantity }}</div>
-              <div>Total</div>
-              <div class="text-end">{{ quantity * selectConcert.price }}</div>
+
+              <div class="text-start font-medium border-b border-gray-300">Price</div>
+              <div class="text-end border-b border-gray-300">{{ selectConcert.price }}</div>
+
+              <div class="text-start font-medium border-b border-gray-300">Quantity</div>
+              <div class="text-end border-b border-gray-300">{{ quantity }}</div>
+
+              <div class="text-start font-medium border-b border-gray-300">Total</div>
+              <div class="text-end border-b border-gray-300">{{ quantity * selectConcert.price }}</div>
             </div>
           </template>
         </EventPopup>
@@ -460,7 +459,11 @@ const concertUnfollow = async () => {
           :type="'success'"
           @accept="clearBooking"
           :message="modalMessage"
-        />
+        >
+          <template #icon>
+            <img src="/icons/success.png" alt="" width="100">
+          </template>
+        </EventPopup>
       </div>
 
       <!-- how to buy -->

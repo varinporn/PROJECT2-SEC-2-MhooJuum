@@ -6,7 +6,7 @@
     <div class="pt-8 pb-12 px-6 md:px-18 lg:px-30 flex flex-col md:flex-col lg:flex-row md:justify-between space-y-6 md:space-y-0">
       <div>
         <img src="/logo.png" class="h-6 lg:h-8" />
-        <p class="text-md font-semibold lg:font-bold py-4 text-[#909cb3]">BestPheamMekPierce Co., Ltd.</p>
+        <p class="text-sm font-semibold md:text-base lg:font-bold pt-4 pb-2 text-[#909cb3]">BestPheamMekPierce Co., Ltd.</p>
       </div>
 
       <div>
@@ -18,13 +18,13 @@
             <li class="font-normal cursor-pointer">Terms of use</li>
           </ul>
           <ul class="space-y-3 mb-6 md:mb-0">
-            <li class="cursor-pointer text-base">Help</li>
+            <li class="cursor-pointer">Help</li>
             <li class="font-normal cursor-pointer">Contact Us</li>
             <li class="font-normal cursor-pointer">FAQ</li>
             <li class="font-normal cursor-pointer">Payment Method</li>
           </ul>
           <ul class="space-y-3">
-            <li class="cursor-pointer text-base">Customer Support</li>
+            <li class="cursor-pointer">Customer Support</li>
             <li class="font-normal cursor-pointer">Help Center</li>
             <li class="font-normal cursor-pointer">Payment</li>
           </ul>
