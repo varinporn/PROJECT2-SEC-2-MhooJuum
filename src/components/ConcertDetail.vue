@@ -23,7 +23,7 @@ watch(statusLogin, async (newValue) => {
       statusLogin.value
     )
     isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
-}, { immediate: true })
+})
 
 const { concertId } = useRoute().params
 

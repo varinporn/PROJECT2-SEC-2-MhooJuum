@@ -16,6 +16,9 @@ class CookieUtil {
   }
 
   static set(name, value, expires) {
+    if (CookieUtil.get(name)) {
+      return;
+    }
     let cookieText = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`
     if (expires instanceof Date) {
       // console.log(expires)
