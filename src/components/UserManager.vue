@@ -1,14 +1,14 @@
 <script setup>
-  import TicketList from "./TicketList.vue";
-  import Login from "./Login.vue";
-  import EditProfile from "./EditProfile.vue";
-  import Header from "./Header.vue";
-  import ConcertList from "./ConcertList.vue";
-  import Footer from "./Footer.vue";
-  import { CookieUtil } from "@/libs/cookieUtil";
-  import { onMounted, ref, computed} from "vue";
-  import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
-  import { useRouter } from "vue-router";
+import TicketList from "./TicketList.vue";
+import Login from "./Login.vue";
+import EditProfile from "./EditProfile.vue";
+import Header from "./Header.vue";
+import ConcertList from "./ConcertList.vue";
+import Footer from "./Footer.vue";
+import { CookieUtil } from "@/libs/cookieUtil";
+import { onMounted, ref, computed} from "vue";
+import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
+import { useRouter } from "vue-router";
 import EventPopup from "./EventPopup.vue";
 import TicketPopup from "./TicketPopup.vue";
 import { useAuth } from '@/store/auth';
@@ -18,11 +18,12 @@ const authStore = useAuth()
 
 const { clearStatusLogin } = authStore;
 const {statusLogin} = storeToRefs(authStore)
+
+const emit = defineEmits(['notification'])
   
 
-  const showLogin = ref(true)
-  const router = useRouter() 
-  const showEditProfile = ref(false)
+const router = useRouter() 
+const showEditProfile = ref(false)
 
 const tab = ref('upcoming')
 
@@ -54,7 +55,6 @@ onMounted(async () => {
     )
     
   } catch (error) {
-    clearDataAccount()
     console.log(error)
   }
 
@@ -88,7 +88,6 @@ const historyTickets = computed(() => {
       tickets: [],
       bookmarks: [],
     }
-    showLogin.value = false
   }
 
   const accept = ref(false)
@@ -124,17 +123,18 @@ const historyTickets = computed(() => {
   // Function logout
   const logout = () => {
     if (!accept.value) return
+    emit('notification', true, 'Logout success', `Bye \"${dataAccount.username}\", See you next time`)
     clearDataAccount()
     clearStatusLogin()
     router.push({name: 'Home'})
   }
-
   // Function delete account
   const deleteAccount = async () => {
     try {
       const statusCode = await deleteItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
       if (statusCode === 200) {
         logout()
+        emit('notification', true, 'Delete account success', `Bye \"${dataAccount.username}\", you can always come back anytime`)
       }
     } catch (error) {
       console.log(error)
@@ -144,8 +144,25 @@ const historyTickets = computed(() => {
   // Function edit profile
   const saveProfile = async (data) => {
     try {
+      // Check username already registered
+      const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
+      if (checkUsername.length !== 0) {
+        emit('notification', false, 'Can not edit profile', `This username \"${data.username}\" is already registered.`)
+        return
+      }
+
       const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data)
+      let message = null
+      if (dataAccount.username !== saveAccount.username) {
+        message = `Hey, \"${saveAccount.username}\" that is a good name.`
+      } else if (dataAccount.password !== saveAccount.password) {
+        message = `Hey, \"${saveAccount.username}\" don\'t forget to remember your new password.`
+      } else {
+        message = `Hey, \"${saveAccount.username}\" that is a good name. Don\'t forget to remember your new password.`
+      }
+
       dataAccount.value = saveAccount
+      emit('notification', true, 'Edit profile success', message)
     } catch (error) {
       console.log(error);
     }
