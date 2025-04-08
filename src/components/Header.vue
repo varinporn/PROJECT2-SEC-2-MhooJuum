@@ -2,14 +2,20 @@
 import { CookieUtil } from '@/libs/cookieUtil'
 import { ref } from 'vue'
 import LoginManager from './LoginManager.vue'
+import NotificationModel from './NotificationModel.vue'
 import { useRouter } from 'vue-router'
 
+const emit = defineEmits(['forwardNoti'])
 const statusLogin = ref(CookieUtil.get('juumId'))
 
 const isLogin = ref(false)
 const toggleLogin = (boolean) => {
   isLogin.value = boolean
   statusLogin.value = CookieUtil.get('juumId')
+}
+
+const forwardNoti = (notiType, textHeader, textContent) => {
+  emit('forwardNoti', notiType, textHeader, textContent)
 }
 
 const showMobileMenu = ref(false)
@@ -134,9 +140,10 @@ const showMobileMenu = ref(false)
   </div>
 
   <LoginManager
-    @close="toggleLogin(false)"
     v-if="isLogin"
+    @close="toggleLogin(false)"
     @submit="toggleLogin(false)"
+    @notification="forwardNoti"
   />
 </template>
 

@@ -2,7 +2,6 @@
 import Banner from '@/components/Banner.vue';
 import ConcertManager from '@/components/ConcertManager.vue';
 import Footer from '@/components/Footer.vue';
-import Header from '@/components/Header.vue';
 
 defineProps({
   isWrap: {
@@ -14,7 +13,6 @@ defineProps({
  
 <template>
 <div>
-    <Header />
     <Banner/>
     <ConcertManager :showAll="false" :isWrap="false"/>
     <Footer/>
