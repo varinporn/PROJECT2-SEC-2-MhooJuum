@@ -145,10 +145,6 @@ const historyTickets = computed(() => {
   const saveProfile = async (data) => {
     try {
       // Check username already registered
-      const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
-      if (checkUsername.length !== 0) {
-        emit('notification', false, 'Unable to edit profile', `This username \"${data.username}\" is already registered.`)
-        return
       if (data.username !== dataAccount.value.username) {
         const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
         if (checkUsername.length !== 0) {
