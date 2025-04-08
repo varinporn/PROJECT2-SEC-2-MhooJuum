@@ -87,12 +87,12 @@
 </script>
  
 <template>
-    <PopupModel @close="() => { switchFeature(true); }, $emit('closeLogin')">
+    <PopupModel @close="() => { switchFeature(true); $emit('closeLogin') }">
       
       <div class="md:flex shadow-xl items-center rounded-4xl md:h-[40rem] md:w-[40rem] lg:w-[50rem] bg-white relative">
         <div class="md:hidden flex flex-row-reverse">
-          <button @click="() => {switchFeature(true); }, $emit('closeLogin')"
-            class="cursor-pointer p-8"><img src="/icons/close.png" class="w-[20px]"></button>
+          <button @click="() => {switchFeature(true); $emit('closeLogin') }"
+            class="cursor-pointer p-5 "><img src="/icons/close.png" class="w-[20px]"></button>
         </div>
         <div class="md:hidden flex justify-center gap-10">
           <div class="flex w-[15rem] p-1 bg-gray-200 rounded-lg shadow-md text-sm">
@@ -111,11 +111,11 @@
         </div>
 
         <!-- Login -->
-        <div class="p-10 w-[20rem] lg:w-[25rem] max-md:h-[35rem]" :class="{'max-md:block': showPageLogin, 'max-md:hidden': !showPageLogin}">
-          <button @click="() => {switchFeature(true); }, $emit('closeLogin')" 
-            class="relative bottom-[6.5rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
+        <div class="px-10 py-7 md:p-10 w-[20rem] lg:w-[25rem] max-md:h-[35rem]" :class="{'max-md:block': showPageLogin, 'max-md:hidden': !showPageLogin}">
+          <button @click="() => {switchFeature(true); $emit('closeLogin') }" 
+            class="relative bottom-[0.5rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
           <p class="text-center font-bold text-2xl md:text-3xl mb-6">Login</p>
-          <div class="flex flex-col space-y-7">
+          <div class="flex flex-col space-y-5 md:space-y-7">
             <div>
                 <p class="flex justify-between items-center">
                     <span class="font-bold" :class="alertStatus && !usernameOrEmail ? 'text-red-600' : 'text-gray-400'">Username or email:</span>
@@ -170,18 +170,21 @@
             </div>
   
             <p @click="() => { emit('forgetPassword'); switchFeature(true); }" 
-                class="font-bold text-gray-400 text-xs ml-auto cursor-pointer hover:text-blue-600">Forget Password?</p>
+                class="font-bold text-gray-400 text-xs ml-auto cursor-pointer hover:text-[#03abef]">Forget Password?</p>
             <input type="submit" value="Log in" @click="submit"
-              class="w-3/5 mx-auto text-white bg-blue-900 hover:bg-blue-700 hover:scale-110 transition-transform duration-200 py-3 rounded-full font-bold cursor-pointer">
+              class="w-3/5 mx-auto text-white bg-[#03abef] hover:bg-[#5fd1ff] hover:scale-110 transition-transform duration-200 py-3 rounded-full font-bold cursor-pointer">
+          </div>
+          <div class="w-[12rem] mt-[1rem] mx-auto pl-[1.5rem]">
+            <img src="/icons/pig.png" alt="Pig">
           </div>
         </div>
   
         <!-- Sign Up -->
-        <div class="p-10 w-[20rem] lg:w-[25rem] max-md:h-[35rem]" :class="{'max-md:hidden': showPageLogin, 'max-md:block': !showPageLogin}">
-          <button @click="() => {switchFeature(true); }, $emit('closeLogin')"
+        <div class="px-10 py-7 md:p-10 w-[20rem] lg:w-[25rem] max-md:h-[35rem]" :class="{'max-md:hidden': showPageLogin, 'max-md:block': !showPageLogin}">
+          <button @click="() => {switchFeature(true); $emit('closeLogin') }"
             class="relative bottom-[2rem] left-[14rem] lg:left-[19rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
           <p class="text-center font-bold text-2xl md:text-3xl mb-6">Sign up</p>
-          <div class="flex flex-col space-y-7">
+          <div class="flex flex-col space-y-5 md:space-y-7">
             <div>
                 <p class="flex justify-between items-center">
                     <span class="font-bold" :class="(alertStatus && !data.email) || alertTypeEmail
@@ -259,14 +262,14 @@
               </button>
             </div>
             <p v-show="alertTypePassword" class="text-xs font-medium text-red-400 -mt-[1rem]">
-                Password must be at least 8 characters long and include: one uppercase letter, one lowercase letter, one number, and one special character.</p>
+              Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.</p>
             <input type="submit" value="Sign up" @click="submit"
-              class="w-3/5 mx-auto text-white bg-blue-900 hover:bg-blue-700 hover:scale-110 transition-transform duration-200 py-3 rounded-full font-bold cursor-pointer">
+              class="w-3/5 mx-auto text-white bg-[#03abef] hover:bg-[#5fd1ff] hover:scale-110 transition-transform duration-200 py-3 rounded-full font-bold cursor-pointer">
           </div>
         </div>
   
         <!-- Switch Feature -->
-        <div class="bg-gray-500 rounded-3xl absolute h-[40rem] w-[20rem] lg:w-[25rem] justify-center items-center transition-transform duration-500 hidden md:flex"
+        <div class=" bg-cover rounded-3xl absolute h-[40rem] w-[20rem] lg:w-[25rem] justify-center items-center transition-transform duration-500 hidden md:flex bg-[url('/banner/bg-login.png')]"
           :class="{ 'translate-x-[20rem] lg:translate-x-[25rem]': showPageLogin }">
           <div v-if="showPageLogin" class="m-8">
             <p class="text-4xl font-black text-white text-center mb-4">Welcome Back!</p>

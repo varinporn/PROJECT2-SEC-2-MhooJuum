@@ -1,11 +1,29 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { addItem, getItemById, patchItem } from '../libs/fetchUtils'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 import EventPopup from './EventPopup.vue'
 import { CookieUtil } from '@/libs/cookieUtil'
+import { useAuth } from '@/store/auth';
+import { storeToRefs } from 'pinia';
+
+const authStore = useAuth()
+
+const { setStatusLogin } = authStore;
+const {statusLogin} = storeToRefs(authStore)
+const dataAccount = ref(null)
+
+
+watch(statusLogin, async (newValue) => {
+  setStatusLogin(newValue)
+  dataAccount.value = await getItemById(
+      `${import.meta.env.VITE_APP_URL}/users`,
+      statusLogin.value
+    )
+    isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
+}, { immediate: true })
 
 const { concertId } = useRoute().params
 
@@ -21,7 +39,6 @@ onMounted(async () => {
       `${import.meta.env.VITE_APP_URL}/users`,
       statusLogin.value
     )
-
     isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
   } catch (error) {
     console.log(error)
@@ -48,15 +65,6 @@ const decreaseQuantity = () => {
 }
 
 // booking
-const statusLogin = ref(CookieUtil.get('juumId'))
-const dataAccount = ref({
-  username: '',
-  email: '',
-  DOB: '',
-  password: '',
-  tickets: [],
-  bookmarks: [],
-})
 const ticket = ref({
   concertId,
   userId: statusLogin,
@@ -84,7 +92,6 @@ const toggleBooking = () => {
   modalMessage.content = ''
   modalMessage.deny = 'CANCEL'
   modalMessage.accept = 'CONFIRM'
-  console.log(showModal)
 }
 const confirmCancel = () => {
   showCancelConfirm.value = true
@@ -101,6 +108,10 @@ const clearBooking = () => {
 }
 
 const concertBooking = async (ticket) => {
+  if (dataAccount.value === null) {
+    toggleBooking()
+    return
+  }
   try {
     const updatedTickets = [...dataAccount.value.tickets]
     while (quantity.value > 0) {
@@ -138,7 +149,6 @@ const concertBooking = async (ticket) => {
     showSuccess.value = true
   } catch (error) {
     console.log(error)
-    toggleBooking()
   }
 }
 
@@ -398,21 +408,23 @@ const concertUnfollow = async () => {
           </div>
 
           <!-- checkbox -->
-          <div class="ml-4 mt-8 flex items-center space-x-4">
+          <div class="ml-4 mt-8 flex items-start space-x-4">
             <input
               v-model="agree"
               type="checkbox"
               class="w-5 h-5 border-2 border-gray-300 rounded-md bg-gray-100 checked:bg-[#03abef]"
             />
 
-            <span class="text-gray-700 text-sm md:text-base"
-              >Please click to accept
-              <span class="text-[#03abef] cursor-pointer"
-                >“Terms and Conditions”</span
-              ></span
-            ><span class="text-[#ff3131]" v-if="agreeText && !agree"
-              >* You must accept the terms and conditions to continue</span
-            >
+            <div class="space-x-4 lg:flex">
+              <p class="text-gray-700 text-sm md:text-base"
+                >Please click to accept
+                <span class="text-[#03abef] cursor-pointer"
+                  >“Terms and Conditions”</span
+                ></p
+              ><p class="text-[#ff3131]" v-if="agreeText && !agree"
+                >* You must accept the terms and conditions to continue</p
+              >
+            </div>
           </div>
 
           <!-- button -->
@@ -438,14 +450,17 @@ const concertUnfollow = async () => {
           :message="modalMessage"
         >
           <template #content>
-            <div class="grid grid-cols-2 gap-y-4 w-[650px]">
+            <div class="grid grid-cols-2 gap-y-4">
               <div class="col-span-2">{{ selectConcert.name }}</div>
-              <div>Price</div>
-              <div class="text-end">{{ selectConcert.price }}</div>
-              <div>Quantity</div>
-              <div class="text-end">{{ quantity }}</div>
-              <div>Total</div>
-              <div class="text-end">{{ quantity * selectConcert.price }}</div>
+
+              <div class="text-start font-medium border-b border-gray-300">Price</div>
+              <div class="text-end border-b border-gray-300">{{ selectConcert.price }}</div>
+
+              <div class="text-start font-medium border-b border-gray-300">Quantity</div>
+              <div class="text-end border-b border-gray-300">{{ quantity }}</div>
+
+              <div class="text-start font-medium border-b border-gray-300">Total</div>
+              <div class="text-end border-b border-gray-300">{{ quantity * selectConcert.price }}</div>
             </div>
           </template>
         </EventPopup>
@@ -460,7 +475,11 @@ const concertUnfollow = async () => {
           :type="'success'"
           @accept="clearBooking"
           :message="modalMessage"
-        />
+        >
+          <template #icon>
+            <img src="/icons/success.png" alt="" width="100">
+          </template>
+        </EventPopup>
       </div>
 
       <!-- how to buy -->

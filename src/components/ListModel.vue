@@ -9,8 +9,12 @@ defineProps({
         default: false
     },
     itemWidth: {
-        type: Number,
+        type: String,
         require: true
+    },
+    isCol: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -19,9 +23,10 @@ defineProps({
 <template>
 <div>
     <div 
-        class="mt-4 flex space-x-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
-        :class="isWrap ? 'flex-wrap justify-start' : 'flex-nowrap'">
-        <div v-for="(item, index) in items" :key="index" class="flex-shrink-0" :style="{ width: `${itemWidth}px` }">
+        class=" mt-4 flex gap-8 overflow-x-auto overflow-y-hidden "
+        :class="isWrap ? 'flex-wrap' : 'flex-nowrap', isCol ? 'max-md:flex-col items-center' : 'flex-row'"    
+    >
+        <div v-for="(item, index) in items" :key="index" class="flex-shrink-0 pb-4" :class="itemWidth">
             <slot name="yourItem" :itemInList="item"></slot>
         </div>
     </div>

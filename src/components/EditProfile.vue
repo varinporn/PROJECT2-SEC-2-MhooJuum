@@ -82,7 +82,7 @@
 <template>
     <PopupModel @close="closePopup">
         <div>
-            <div class="flex flex-col items-center p-8 bg-white shadow-xl rounded-lg w-[20rem] md:w-[25rem]">
+            <div class="flex flex-col items-center p-8 bg-white shadow-xl rounded-2xl w-[20rem] md:w-[25rem]">
                 <button @click="closePopup" class="font-black cursor-pointer self-end"><img src="/icons/close.png" class="w-[20px]"></button>
                 <h2 class="text-2xl font-bold mb-4">{{ status ? 'Edit Profile' : 'Reset Password' }}</h2>
                 <p class="text-gray-500 mb-6 text-center">{{ status ? data.email : 'Enter the email associated with your account' }}</p>
@@ -154,7 +154,7 @@
 
                     <input type="submit" value="Save" 
                         @click="submit"
-                        class="w-full bg-blue-600 text-white py-2 rounded-md font-bold hover:bg-blue-500 transition duration-300 cursor-pointer">
+                        class="w-full bg-[#03abef] hover:bg-[#5fd1ff] text-white py-2 rounded-md font-bold transition duration-300 cursor-pointer">
                 </div>
             </div>
         </div>

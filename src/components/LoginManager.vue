@@ -1,14 +1,17 @@
 <script setup>
-const emit = defineEmits(['close', 'submit'])
+const emit = defineEmits(['close', 'submit', 'notification'])
 import { getItemByKey, editItem, addItem } from '@/libs/fetchUtils';
 import { CookieUtil } from '@/libs/cookieUtil';
 import { ref } from 'vue';
 import EditProfile from './EditProfile.vue';
 import Login from './Login.vue';
-import { useUsers } from '@/store/users';
+import { useAuth } from '@/store/auth';
+import { storeToRefs } from 'pinia';
 
+const authStore = useAuth()
 
-const statusLogin = ref(CookieUtil.get('juumId'));
+const { setStatusLogin } = authStore;
+const {statusLogin} = storeToRefs(authStore)
 
 const showEditProfile = ref(false)
 const dataAccount = ref({
@@ -23,16 +26,23 @@ const dataAccount = ref({
 // Function sign up
 const addAccount = async (data) => {
     try {
-        const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
-
         // Check email already registered
-        if (checkEmail.length === 0) {
-            const addAccount = await addItem(`${import.meta.env.VITE_APP_URL}/users`, data)
-            login(addAccount)
-        } else {
-            alert(`This email \"${data.email}\" is already registered.`)
+        const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
+        if (checkEmail.length !== 0) {
+            emit('notification', false, 'Sign-up unsuccessful', `This email \"${data.email}\" is already registered.`)
+            return
+        } 
+
+        // Check username already registered
+        const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
+        if (checkUsername.length !== 0) {
+            emit('notification', false, 'Sign-up unsuccessful', `This username \"${data.username}\" is already registered.`)
             return
         }
+
+        const addAccount = await addItem(`${import.meta.env.VITE_APP_URL}/users`, data)
+        login(addAccount)
+        emit('notification', true, 'Account created and login successful.', `Hey \"${data.username}\", welcome to the mhoojuum.`)
     } catch (error) {
         console.log(error);
     }
@@ -41,41 +51,29 @@ const addAccount = async (data) => {
 // Function Login
 const login = async (data) => {
     try {
+        let dataSelect = null
         if (data.email) {
-            const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
-            if (dataSelect.length === 0) {
-                alert("User not found.")
-                return
-            }
-            if (!dataSelect[0].password === data.password) {
-                alert("Incorrect password.")
-                return
-            }
-            CookieUtil.set("juumId", dataSelect[0].id)
-            statusLogin.value = CookieUtil.get('juumId')
-            dataAccount.value = dataSelect[0]
+            dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
         } else {
-            const dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
-
-            if (dataSelect.length === 0) {
-                alert("User not found.")
-                return
-            }
-
-            // Check password match
-            const matchedUser = dataSelect.find(
-                (user) => user.password === data.password
-            )
-            if (!matchedUser) {
-                alert("Incorrect password.")
-                return
-            }
-
-            CookieUtil.set("juumId", matchedUser.id)
-            statusLogin.value = CookieUtil.get('juumId')
-            dataAccount.value = matchedUser
+            dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
         }
+
+        if (dataSelect.length === 0) {
+            emit('notification', false, 'Login unsuccessful', `${data.email ? 'Email "' + data.email + '"' : 'Username "' + data.username + '"'} not found.`)
+            return
+        }
+        
+        if (dataSelect[0].password !== data.password) {
+            emit('notification', false, 'Login unsuccessful', 'Incorrect password.')
+            return
+        }
+        
+        setStatusLogin(dataSelect[0].id)
+            console.log(statusLogin.value);
+        dataAccount.value = dataSelect[0]
+
         emit('submit')
+        emit('notification', true, 'Login successful', `Hey \"${dataSelect[0].username}\", welcome to the mhoojuum.`)
     } catch (error) {
         console.log(error)
     }
@@ -89,8 +87,9 @@ const savePassword = async (data) => {
         if (checkEmail.length !== 0) {
             checkEmail[0].password = data.password
             const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, checkEmail[0].id, checkEmail[0])
+            emit('notification', true, 'Password reset successful', `Hey, \"${saveAccount.username}\" don\'t forget to remember your new password.`)
         } else {
-            alert(`This email \"${data.email}\" is not found.`)
+            emit('notification', false, 'Unable to reset password', `This email \"${data.email}\" is not found.`)
             return
         }
     } catch (error) {

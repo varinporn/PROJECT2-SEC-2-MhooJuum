@@ -1,15 +1,42 @@
 <script setup>
 import { CookieUtil } from '@/libs/cookieUtil'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import LoginManager from './LoginManager.vue'
-import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia';
+import { useAuth } from '@/store/auth';
+const authStore = useAuth()
 
-const statusLogin = ref(CookieUtil.get('juumId'))
+const {statusLogin} = storeToRefs(authStore)
+
 
 const isLogin = ref(false)
 const toggleLogin = (boolean) => {
   isLogin.value = boolean
-  statusLogin.value = CookieUtil.get('juumId')
+}
+
+// Notification
+const showNotification  = ref(false)
+const notification = ref({
+  notiType: "",
+  textHeader: "",
+  textContent: ""
+})
+
+const callNotification = (notiType, textHeader, textContent) => {
+  notification.value.notiType = notiType
+  notification.value.textHeader = textHeader
+  notification.value.textContent = textContent
+  
+  showNotification.value = true
+  setTimeout(() => {
+    showNotification.value = false
+    // clear notification
+    notification.value = {
+      nontiType: "",
+      textHeader: "",
+      textContent: ""
+    }
+  }, 8000)
 }
 
 const showMobileMenu = ref(false)
@@ -25,7 +52,7 @@ const showMobileMenu = ref(false)
           <img src="/logo.png" alt="logo" class="h-6 mt-1 md:mt-0 lg:mt-0 md:h-8 lg:h-8" />
         </router-link>
       </div>
-      <div class="lg:flex space-x-10 hidden">
+      <div class="lg:flex items-center space-x-10 hidden">
         <router-link
           active-class="underline"
           class="font-semibold cursor-pointer"
@@ -134,10 +161,21 @@ const showMobileMenu = ref(false)
   </div>
 
   <LoginManager
-    @close="toggleLogin(false)"
     v-if="isLogin"
+    @close="toggleLogin(false)"
     @submit="toggleLogin(false)"
+    @notification="callNotification"
   />
+
+  <!-- Notification -->
+  <NotificationModel v-if="showNotification" :noti-type="notification.notiType">
+      <template #header>
+        {{ notification.textHeader }}
+      </template>
+      <template #content>
+        {{ notification.textContent }}
+      </template>
+    </NotificationModel>
 </template>
 
 <style scoped></style>

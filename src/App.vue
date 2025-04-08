@@ -4,6 +4,7 @@ import UserManager from './components/UserManager.vue'
 import Header from './components/Header.vue'
 import PopupModel from './components/PopupModel.vue'
 import Login from './components/Login.vue'
+import NotificationModel from './components/NotificationModel.vue'
 import { ref } from 'vue'
 
 const showModal = ref(false)
@@ -11,16 +12,17 @@ const showModal = ref(false)
 const toggleModal = () => {
   showModal.value = !showModal.value
 }
+
 </script>
 
 <template>
   <div class="font-poppins">
     <div>
-      <!-- <UserManager /> -->
     </div>
     <div>
       <router-view />
     </div>
+
 
     <!-- <button @click="toggleModal">hey</button>
     <PopupModel v-if="showModal" @close="toggleModal">

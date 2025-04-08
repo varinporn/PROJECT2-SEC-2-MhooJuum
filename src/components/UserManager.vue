@@ -1,22 +1,29 @@
 <script setup>
-  import TicketList from "./TicketList.vue";
-  import Login from "./Login.vue";
-  import EditProfile from "./EditProfile.vue";
-  import Header from "./Header.vue";
-  import ConcertList from "./ConcertList.vue";
-  import Footer from "./Footer.vue";
-  import { CookieUtil } from "@/libs/cookieUtil";
-  import { onMounted, ref, computed} from "vue";
-  import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
-  import { useRouter } from "vue-router";
+import TicketList from "./TicketList.vue";
+import Login from "./Login.vue";
+import EditProfile from "./EditProfile.vue";
+import Header from "./Header.vue";
+import ConcertList from "./ConcertList.vue";
+import Footer from "./Footer.vue";
+import { CookieUtil } from "@/libs/cookieUtil";
+import { onMounted, ref, computed} from "vue";
+import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
+import { useRouter } from "vue-router";
 import EventPopup from "./EventPopup.vue";
 import TicketPopup from "./TicketPopup.vue";
+import { useAuth } from '@/store/auth';
+import { storeToRefs } from 'pinia';
+
+const authStore = useAuth()
+
+const { clearStatusLogin } = authStore;
+const {statusLogin} = storeToRefs(authStore)
+
+const emit = defineEmits(['notification'])
   
 
-  const statusLogin = ref(CookieUtil.get('juumId'))
-  const showLogin = ref(true)
-  const router = useRouter() 
-  const showEditProfile = ref(false)
+const router = useRouter() 
+const showEditProfile = ref(false)
 
 const tab = ref('upcoming')
 
@@ -48,7 +55,6 @@ onMounted(async () => {
     )
     
   } catch (error) {
-    clearDataAccount()
     console.log(error)
   }
 
@@ -82,7 +88,6 @@ const historyTickets = computed(() => {
       tickets: [],
       bookmarks: [],
     }
-    showLogin.value = false
   }
 
   const accept = ref(false)
@@ -103,7 +108,7 @@ const historyTickets = computed(() => {
       modalMessage.accept = 'LOG OUT'
       modalMessage.deny = 'CANCEL'
     } else if (action === deleteAccount) {
-      modalMessage.header = 'Are you sure you want to delete your accout?'
+      modalMessage.header = 'Are you sure you want to delete your account?'
       modalMessage.content = 'This action is permanent and cannot be undone. You will lose all your data.'
       modalMessage.accept = 'DELETE ACCOUNT'
       modalMessage.deny = 'KEEP ACCOUNT'
@@ -118,18 +123,18 @@ const historyTickets = computed(() => {
   // Function logout
   const logout = () => {
     if (!accept.value) return
+    emit('notification', true, 'Logout successful', `Bye \"${dataAccount.username}\", See you next time`)
     clearDataAccount()
-    CookieUtil.unset('juumId')
-    statusLogin.value = CookieUtil.get('juumId')
+    clearStatusLogin()
     router.push({name: 'Home'})
   }
-
   // Function delete account
   const deleteAccount = async () => {
     try {
       const statusCode = await deleteItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
       if (statusCode === 200) {
         logout()
+        emit('notification', true, 'Account deleted successfully.', `Bye \"${dataAccount.username}\", you can always come back anytime`)
       }
     } catch (error) {
       console.log(error)
@@ -139,8 +144,25 @@ const historyTickets = computed(() => {
   // Function edit profile
   const saveProfile = async (data) => {
     try {
+      // Check username already registered
+      const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
+      if (checkUsername.length !== 0) {
+        emit('notification', false, 'Unable to edit profile', `This username \"${data.username}\" is already registered.`)
+        return
+      }
+
       const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data)
+      let message = null
+      if (dataAccount.username !== saveAccount.username) {
+        message = `Hey, \"${saveAccount.username}\" that is a good name.`
+      } else if (dataAccount.password !== saveAccount.password) {
+        message = `Hey, \"${saveAccount.username}\" don\'t forget to remember your new password.`
+      } else {
+        message = `Hey, \"${saveAccount.username}\" that is a good name. Don\'t forget to remember your new password.`
+      }
+
       dataAccount.value = saveAccount
+      emit('notification', true, 'Profile updated successfully', message)
     } catch (error) {
       console.log(error);
     }
@@ -189,12 +211,12 @@ const historyTickets = computed(() => {
             @save-profile="saveProfile" />
 
 
-    <div class="flex ml-6 md:ml-8 gap-15 lg:ml-20 lg:gap-20 mb-5 font-bold">
-      <button class=" cursor-pointer text-[12px] sm:text-base" :class="tab === 'upcoming' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'upcoming'">Upcoming</button>
-      <button class=" cursor-pointer text-[12px] sm:text-base" :class="tab === 'history' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'history'">History</button>
-      <button class=" cursor-pointer text-[12px] sm:text-base" :class="tab === 'follow' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'follow'">follow</button>
+    <div class="flex max-md:justify-center md:ml-8 gap-15 lg:ml-20 lg:gap-20 mb-5 font-bold">
+      <button class=" cursor-pointer" :class="tab === 'upcoming' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'upcoming'">Upcoming</button>
+      <button class=" cursor-pointer" :class="tab === 'history' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'history'">History</button>
+      <button class=" cursor-pointer" :class="tab === 'follow' ? 'border-b-1 md:border-b-3 pb-2 text-black transition-all duration-200' : 'text-gray-500'" @click="tab = 'follow'">Follow</button>
     </div>
-    <div class="bg-gray-200 h-[388.484px]">
+    <div class="bg-gray-200 min-h-[400px] max-h-[500px] py-8">
       <TicketList v-if="tab === 'upcoming'" :ticket="upcomingTickets"></TicketList>
       <TicketList v-if="tab === 'history'" :ticket="historyTickets"></TicketList>
       <ConcertList v-if="tab === 'follow'" :concerts="bookmarkConcerts"></ConcertList>
