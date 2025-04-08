@@ -87,11 +87,11 @@
 </script>
  
 <template>
-    <PopupModel @close="() => { switchFeature(true); }, $emit('closeLogin')">
+    <PopupModel @close="() => { switchFeature(true); $emit('closeLogin') }">
       
       <div class="md:flex shadow-xl items-center rounded-4xl md:h-[40rem] md:w-[40rem] lg:w-[50rem] bg-white relative">
         <div class="md:hidden flex flex-row-reverse">
-          <button @click="() => {switchFeature(true); }, $emit('closeLogin')"
+          <button @click="() => {switchFeature(true); $emit('closeLogin') }"
             class="cursor-pointer p-8"><img src="/icons/close.png" class="w-[20px]"></button>
         </div>
         <div class="md:hidden flex justify-center gap-10">
@@ -112,7 +112,7 @@
 
         <!-- Login -->
         <div class="p-10 w-[20rem] lg:w-[25rem] max-md:h-[35rem]" :class="{'max-md:block': showPageLogin, 'max-md:hidden': !showPageLogin}">
-          <button @click="() => {switchFeature(true); }, $emit('closeLogin')" 
+          <button @click="() => {switchFeature(true); $emit('closeLogin') }" 
             class="relative bottom-[6.5rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
           <p class="text-center font-bold text-2xl md:text-3xl mb-6">Login</p>
           <div class="flex flex-col space-y-7">
@@ -178,7 +178,7 @@
   
         <!-- Sign Up -->
         <div class="p-10 w-[20rem] lg:w-[25rem] max-md:h-[35rem]" :class="{'max-md:hidden': showPageLogin, 'max-md:block': !showPageLogin}">
-          <button @click="() => {switchFeature(true); }, $emit('closeLogin')"
+          <button @click="() => {switchFeature(true); $emit('closeLogin') }"
             class="relative bottom-[2rem] left-[14rem] lg:left-[19rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
           <p class="text-center font-bold text-2xl md:text-3xl mb-6">Sign up</p>
           <div class="flex flex-col space-y-7">

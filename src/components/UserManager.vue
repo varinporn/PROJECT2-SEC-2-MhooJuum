@@ -14,7 +14,6 @@ import TicketPopup from "./TicketPopup.vue";
   
 
   const statusLogin = ref(CookieUtil.get('juumId'))
-  const showLogin = ref(true)
   const router = useRouter() 
   const showEditProfile = ref(false)
 
@@ -48,7 +47,6 @@ onMounted(async () => {
     )
     
   } catch (error) {
-    clearDataAccount()
     console.log(error)
   }
 
@@ -82,7 +80,6 @@ const historyTickets = computed(() => {
       tickets: [],
       bookmarks: [],
     }
-    showLogin.value = false
   }
 
   const accept = ref(false)
@@ -139,6 +136,13 @@ const historyTickets = computed(() => {
   // Function edit profile
   const saveProfile = async (data) => {
     try {
+      // Check username already registered
+      const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
+      if (checkUsername.length !== 0) {
+        alert(`This username \"${data.username}\" is already registered.`)
+        return
+      }
+
       const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data)
       dataAccount.value = saveAccount
     } catch (error) {

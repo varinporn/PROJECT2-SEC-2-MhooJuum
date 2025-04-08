@@ -23,18 +23,24 @@ const dataAccount = ref({
 // Function sign up
 const addAccount = async (data) => {
     try {
-        const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
-
         // Check email already registered
-        if (checkEmail.length === 0) {
-            const addAccount = await addItem(`${import.meta.env.VITE_APP_URL}/users`, data)
-            login(addAccount)
-        } else {
+        const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
+        if (checkEmail.length !== 0) {
             alert(`This email \"${data.email}\" is already registered.`)
             return
+        } 
+
+        // Check username already registered
+        const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
+        if (checkUsername.length !== 0) {
+            alert(`This username \"${data.username}\" is already registered.`)
+            return
         }
+
+        const addAccount = await addItem(`${import.meta.env.VITE_APP_URL}/users`, data)
+        login(addAccount)
     } catch (error) {
-        console.log(error);
+        console.log(error);r
     }
 }
 
