@@ -17,7 +17,7 @@ class CookieUtil {
 
   static set(name, value, expires) {
     if (CookieUtil.get(name)) {
-      return;
+      return
     }
     let cookieText = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`
     if (expires instanceof Date) {
@@ -28,9 +28,13 @@ class CookieUtil {
     // console.log(document.cookie)
   }
   //to remove existing cookies, setting the cookie again—with the same path, domain, and secure options—and set its expiration date to some time in the past.
-  static unset(name) {
-    //set to a blank string and the expiration date set to January 1, 1970 (the value of a Date object initialized to 0 milliseconds).
-    CookieUtil.set(name, '', new Date(0)) //or max-age=0
+  static unset(name, path = '/', domain = '') {
+    let cookieText = `${encodeURIComponent(name)}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=${path}`;
+    // Only add domain if it is specified.
+    if (domain) {
+      cookieText += `; domain=${domain}`;
+    }
+    document.cookie = cookieText;
   }
 } //ending class
 export { CookieUtil }

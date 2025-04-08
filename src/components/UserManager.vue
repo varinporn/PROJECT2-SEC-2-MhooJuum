@@ -5,7 +5,7 @@ import EditProfile from "./EditProfile.vue";
 import Header from "./Header.vue";
 import ConcertList from "./ConcertList.vue";
 import Footer from "./Footer.vue";
-import { CookieUtil } from "@/libs/cookieUtil";
+import {CookieUtil} from "@/libs/cookieUtil";
 import { onMounted, ref, computed} from "vue";
 import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
 import { useRouter } from "vue-router";
@@ -123,10 +123,13 @@ const historyTickets = computed(() => {
   // Function logout
   const logout = () => {
     if (!accept.value) return
-    emit('notification', true, 'Logout successful', `Bye \"${dataAccount.username}\", See you next time`)
+    emit('notification', true, 'Logout successful', `Bye "${dataAccount.value.username}", See you next time`)
+    console.log('logout')
+    
     clearDataAccount()
     clearStatusLogin()
-    router.push({name: 'Home'})
+    
+    router.push({ name: 'Home' })
   }
   // Function delete account
   const deleteAccount = async () => {
@@ -170,8 +173,6 @@ const historyTickets = computed(() => {
       console.log(error);
     }
   }
-
-  
 </script>
 
 <template>
