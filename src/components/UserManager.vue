@@ -149,16 +149,23 @@ const historyTickets = computed(() => {
       if (checkUsername.length !== 0) {
         emit('notification', false, 'Unable to edit profile', `This username \"${data.username}\" is already registered.`)
         return
+      if (data.username !== dataAccount.value.username) {
+        const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
+        if (checkUsername.length !== 0) {
+          emit('notification', false, 'Unable to edit profile', `This username \"${data.username}\" is already registered.`)
+          return
+        }
       }
+      
 
       const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data)
       let message = null
       if (dataAccount.username !== saveAccount.username) {
-        message = `Hey, \"${saveAccount.username}\" that is a good name.`
+        message = `Hey \"${saveAccount.username}\", that is a good name.`
       } else if (dataAccount.password !== saveAccount.password) {
-        message = `Hey, \"${saveAccount.username}\" don\'t forget to remember your new password.`
+        message = `Hey \"${saveAccount.username}\", don\'t forget to remember your new password.`
       } else {
-        message = `Hey, \"${saveAccount.username}\" that is a good name. Don\'t forget to remember your new password.`
+        message = `Hey \"${saveAccount.username}\", that is a good name. Don\'t forget to remember your new password.`
       }
 
       dataAccount.value = saveAccount
