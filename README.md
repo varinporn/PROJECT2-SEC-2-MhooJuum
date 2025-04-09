@@ -35,6 +35,17 @@ A concert ticket booking website developed using Vue.js.
 ## 🏅 Responsibilities
 1. 068
     - User Management System
+        - Cereate account
+        - Update account (Edit profile, Forget password)
+        - Delete account
+        - Read account (Show profile)
+    - Notification
+        - NotificationModel.vue
+        - Function use model
+    - Validate
+        - Login.vue (Login, Sign Up)
+        - EditProfile.vue (Edit profile, Forget password)
+    - Responsive design
 2. 076
      - Display a list of concerts
       - Categorized by K-pop, T-pop, and Hip-hop, and complete list
@@ -49,12 +60,14 @@ A concert ticket booking website developed using Vue.js.
     - Create Base Model for list and popup
     - Create Auth store for state management
     - Code review
+    - Responsive design
 4. 123
     - Display a list of tickets
         - Automatically checks each ticket's date:
             - Show tickets for upcoming events.
             - Show tickets for past concerts in history.
     - Display a list of concerts that a user follows.
+    - Responsive design
 
 ## 💫 Inspiration
 - [eventpop](https://www.eventpop.me/)
