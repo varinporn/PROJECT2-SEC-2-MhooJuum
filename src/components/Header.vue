@@ -6,14 +6,11 @@ import { storeToRefs } from 'pinia';
 import { useAuth } from '@/store/auth';
 
 onMounted(() => {
-  console.log(statusLogin.value);
-  
   if (statusLogin.value === null) {
     online.value = false 
   } else {
     online.value = true
   }
-  console.log(online.value);
   
 })
 
@@ -23,26 +20,25 @@ const forwardNoti = (notiType, textHeader, textContent) => {
 }
 
 const online = ref(false)
-
 const authStore = useAuth()
 const {statusLogin} = storeToRefs(authStore)
 watch(statusLogin, (value) => {
   if(value === null) {
     online.value = false
     emit('forwardNoti', true, 'Good luck!', '')
-  } else {
-    online.value = true
   }
 })
 
-const changeOnline = () => {
+const username = ref('')
+const isLogin = (name) => {
   toggleLogin(false)
   online.value = true
+  username.value = name
 }
 
-const isLogin = ref(false)
+const showPopupLogin = ref(false)
 const toggleLogin = (boolean) => {
-  isLogin.value = boolean
+  showPopupLogin.value = boolean
 }
 
 // Notification
@@ -96,9 +92,6 @@ const showMobileMenu = ref(false)
           :to="{ name: 'ConcertView' }"
           >CONCERTS</router-link
         >
-        <div>
-          {{ online }}
-        </div>
       </div>
     </div>
     <div class="lg:flex hidden">
@@ -155,7 +148,7 @@ const showMobileMenu = ref(false)
       v-else
       class="border border-[#03abef] rounded-lg px-6 py-2 text-[#03abef] font-semibold transition w-fit"
     >
-      <p>username</p>
+      <p>{{ username }}</p>
     </div>
   </div>
 
@@ -185,19 +178,14 @@ const showMobileMenu = ref(false)
       PROFILE
     </router-link>
   </div>
-
-  <!-- Logout icon positioned at the bottom -->
-  <div class="flex justify-end mt-auto" v-if="statusLogin">
-    <img src="/icons/logout.png" alt="log-out" class="w-8 h-8 cursor-pointer" />
-  </div>
 </div>
 
   </div>
 
   <LoginManager
-    v-if="isLogin"
+    v-if="showPopupLogin"
     @close="toggleLogin(false)"
-    @submit="toggleLogin(false)"
+    @submit="isLogin"
     @notification="forwardNoti"
   />
   <!-- @notification="callNotification" -->
