@@ -797,8 +797,7 @@
         "18",
         "8",
         "9",
-        "6",
-        "12"
+        "6"
       ]
     },
     {
@@ -852,35 +851,11 @@
       ]
     },
     {
-      "id": "1e62",
-      "username": "best076",
-      "email": "best076@mail.com",
-      "DOB": "2025-04-07",
-      "password": "Int203_076",
-      "tickets": [],
-      "bookmarks": [
-        "8"
-      ]
-    },
-    {
-      "id": "d42b",
-      "username": "mekeiei1234",
-      "email": "meknoey@mail.com",
-      "DOB": "2025-04-07",
-      "password": "Int203_mek",
-      "tickets": [],
-      "bookmarks": [
-        "15",
-        "11",
-        "7"
-      ]
-    },
-    {
-      "id": "a371",
-      "username": "mekmek",
-      "email": "mekmek@mail.com",
-      "DOB": "2025-04-02",
-      "password": "Int203_001",
+      "id": "8908",
+      "username": "a",
+      "email": "a@a.a",
+      "DOB": "2025-04-01",
+      "password": "Aa_1aaaa",
       "tickets": [],
       "bookmarks": []
     }
