@@ -1,17 +1,26 @@
 <script setup>
 import { CookieUtil } from '@/libs/cookieUtil'
 import { ref, watch, onMounted } from 'vue'
+import { getItemById } from '@/libs/fetchUtils';
 import LoginManager from './LoginManager.vue'
 import { storeToRefs } from 'pinia';
 import { useAuth } from '@/store/auth';
 
-onMounted(() => {
+onMounted(async () => {
   if (statusLogin.value === null) {
     online.value = false 
   } else {
     online.value = true
+    try {
+      const res = await getItemById(
+        `${import.meta.env.VITE_APP_URL}/users`,
+        statusLogin.value
+      )
+      username.value = res.username
+    } catch (err) {
+      console.error(err)
+    }
   }
-  
 })
 
 const emit = defineEmits(['forwardNoti'])
@@ -22,10 +31,13 @@ const forwardNoti = (notiType, textHeader, textContent) => {
 const online = ref(false)
 const authStore = useAuth()
 const {statusLogin} = storeToRefs(authStore)
+const dataAccount = ref(null)
 watch(statusLogin, (value) => {
   if(value === null) {
     online.value = false
     emit('forwardNoti', true, 'Good luck!', '')
+  } else {
+    online.value = true
   }
 })
 
@@ -39,31 +51,6 @@ const isLogin = (name) => {
 const showPopupLogin = ref(false)
 const toggleLogin = (boolean) => {
   showPopupLogin.value = boolean
-}
-
-// Notification
-const showNotification  = ref(false)
-const notification = ref({
-  notiType: "",
-  textHeader: "",
-  textContent: ""
-})
-
-const callNotification = (notiType, textHeader, textContent) => {
-  notification.value.notiType = notiType
-  notification.value.textHeader = textHeader
-  notification.value.textContent = textContent
-  
-  showNotification.value = true
-  setTimeout(() => {
-    showNotification.value = false
-    // clear notification
-    notification.value = {
-      nontiType: "",
-      textHeader: "",
-      textContent: ""
-    }
-  }, 8000)
 }
 
 const showMobileMenu = ref(false)
@@ -188,16 +175,6 @@ const showMobileMenu = ref(false)
     @submit="isLogin"
     @notification="forwardNoti"
   />
-  <!-- @notification="callNotification" -->
-  <!-- Notification -->
-  <!-- <NotificationModel v-if="showNotification" :noti-type="notification.notiType">
-    <template #header>
-      {{ notification.textHeader }}
-    </template>
-    <template #content>
-      {{ notification.textContent }}
-    </template>
-  </NotificationModel> -->
 </template>
 
 <style scoped></style>
