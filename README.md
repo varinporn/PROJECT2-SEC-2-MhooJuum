@@ -45,7 +45,11 @@ A concert ticket booking website developed using Vue.js.
 3. 104
     - Concert Ticket Management System
 4. 123
-    - Concert Ticket Management System
+    - Display a list of tickets
+        - Automatically checks each ticket's date:
+            - Show tickets for upcoming events.
+            - Show tickets for past concerts in history.
+    - Display a list of concerts that a user followห.
 
 ## 💫 Inspiration
 - [eventpop](https://www.eventpop.me/)
