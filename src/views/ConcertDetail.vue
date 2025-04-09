@@ -46,12 +46,17 @@ onMounted(async () => {
       concertId
     )
     
-    dataAccount.value = await getItemById(
-      `${import.meta.env.VITE_APP_URL}/users`,
-      statusLogin.value
-    )
+    if (statusLogin.value) {
+      dataAccount.value = await getItemById(
+        `${import.meta.env.VITE_APP_URL}/users`,
+        statusLogin.value
+      )
 
-    isFollowed.value = dataAccount.value.bookmarks.includes(concertId) 
+      isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
+    } else {
+      dataAccount.value = null
+      isFollowed.value = false
+    }
 
   } catch (error) {
     console.log(error)
@@ -164,7 +169,7 @@ const showUnfollowConfirm = ref(false)
 
 const toggleFollow = async () => {
   try {
-    checkLogin('Please log in to follow', 'You must log in to follow this concert')
+    if (!checkLogin('Please log in to follow', 'You must log in to follow this concert')) return
     if (!isFollowed.value) {
       dataAccount.value.bookmarks.push(concertId)
     } else {
@@ -216,8 +221,11 @@ const concertUnfollow = async () => {
 }
 
 const checkLogin = (header, content) => {
-  if (statusLogin.value === null) callNotification(false, header, content)
-  else return
+  if (statusLogin.value === null) { 
+    callNotification(false, header, content) 
+    return false
+  }
+  else return true
 }
 
 // Notification

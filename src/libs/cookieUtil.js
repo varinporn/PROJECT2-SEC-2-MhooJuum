@@ -20,8 +20,7 @@ class CookieUtil {
   }
 
   static unset(name) {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
   }
 } //ending class
 export { CookieUtil }
