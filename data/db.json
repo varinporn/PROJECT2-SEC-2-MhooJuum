@@ -803,15 +803,6 @@
       ]
     },
     {
-      "id": "8d8f",
-      "username": "test2",
-      "email": "test2@mail.com",
-      "DOB": "2006-02-07",
-      "password": "Aa_1aaaa",
-      "tickets": [],
-      "bookmarks": []
-    },
-    {
       "id": "f674",
       "username": "kornmekk",
       "email": "kornmek@mail.com",
@@ -853,24 +844,20 @@
       ]
     },
     {
-      "id": "d42b",
-      "username": "mekeiei1234",
-      "email": "meknoey@mail.com",
-      "DOB": "2025-04-07",
-      "password": "Int203_mek",
-      "tickets": [],
-      "bookmarks": [
-        "15",
-        "11",
-        "7"
-      ]
-    },
-    {
       "id": "a371",
       "username": "mekmek",
       "email": "mekmek@mail.com",
       "DOB": "2025-04-02",
       "password": "Int203_001",
+      "tickets": [],
+      "bookmarks": []
+    },
+    {
+      "id": "bddb",
+      "username": "phe",
+      "email": "3@f.c",
+      "DOB": "2025-04-01",
+      "password": "Test_123",
       "tickets": [],
       "bookmarks": []
     }

@@ -150,14 +150,15 @@ const historyTickets = computed(() => {
       }
       
 
-      const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data)
+      const saveAccount = await editItem(`${import.meta.env.VITE_APP_URL}/users`, data.id, data) 
+      
       let message = null
-      if (dataAccount.username !== saveAccount.username) {
-        message = `Hey \"${saveAccount.username}\", that is a good name.`
-      } else if (dataAccount.password !== saveAccount.password) {
+      if (dataAccount.value.username !== saveAccount.username && dataAccount.value.password !== saveAccount.password) {
+        message = `Hey \"${saveAccount.username}\", that is a good name. Don\'t forget to remember your new password.`
+      } else if (dataAccount.value.password !== saveAccount.password) {
         message = `Hey \"${saveAccount.username}\", don\'t forget to remember your new password.`
       } else {
-        message = `Hey \"${saveAccount.username}\", that is a good name. Don\'t forget to remember your new password.`
+        message = `Hey \"${saveAccount.username}\", that is a good name.`
       }
 
       dataAccount.value = saveAccount
@@ -201,7 +202,7 @@ const historyTickets = computed(() => {
     <EventPopup v-if="showModal" @close="toggleModal" @accept="confirm" :message="modalMessage">
     </EventPopup>
 
-    <EditProfile v-if="dataAccount.id" v-show="showEditProfile"
+    <EditProfile v-if="dataAccount.id && showEditProfile" 
             :dataAccount="dataAccount" 
             :statusLogin="true"
             @close-edit-profile="showEditProfile = false"
