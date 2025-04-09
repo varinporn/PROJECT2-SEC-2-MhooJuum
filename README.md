@@ -16,6 +16,7 @@ A concert ticket booking website developed using Vue.js.
     - Display number of tickets remaining for each concert
 2. User Management System
     - User registration to access the system
+        - Check username and email already registered
     - Displaying the booking history of each user
     - Updating user profile information
 3. Concert Management System
@@ -45,6 +46,7 @@ A concert ticket booking website developed using Vue.js.
     - Validate
         - Login.vue (Login, Sign Up)
         - EditProfile.vue (Edit profile, Forget password)
+        - Check username and email already registered
     - Responsive design
 2. 076
      - Display a list of concerts
