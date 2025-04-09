@@ -59,12 +59,13 @@ A concert ticket booking website developed using Vue.js.
     - Concert Ticket Management System (Booking Ticket)
     - Create Base Model for list and popup
     - Create Auth store for state management
+    - Popup for confirmation and notification
     - Code review
     - Responsive design
 4. 123
     - Display a list of tickets
         - Automatically checks each ticket's date:
-            - Show tickets for upcoming events.
+            - Show tickets for upcoming concerts.
             - Show tickets for past concerts in history.
     - Display a list of concerts that a user follows.
     - Responsive design
