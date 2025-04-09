@@ -28,7 +28,7 @@ const closePopup = () => {
     <template #yourItem="listTicket">
         <button class=" group relative flex rounded-3xl bg-white hover:shadow-lg cursor-pointer" @click="openPopup(listTicket.itemInList)">
           <div class=" w-1/2" >
-            <img src="/concert/kpopPoster.png" />
+            <img :src="`/concert/${listTicket.itemInList.concert.genre}Poster.png`" />
           </div>
           <div class=" w-1/2 px-3 py-5 space-y-2 text-start">
             <p class=" font-bold">#{{ listTicket.itemInList.id }}</p>

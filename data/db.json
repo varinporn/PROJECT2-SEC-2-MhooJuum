@@ -57,7 +57,7 @@
       "date": "2025-08-05",
       "time": "17:00:00",
       "price": 5000,
-      "available": 127,
+      "available": 165,
       "isAvailable": true
     },
     {
@@ -105,7 +105,7 @@
       "date": "2025-05-05",
       "time": "16:00:00",
       "price": 1300,
-      "available": 300,
+      "available": 296,
       "isAvailable": true
     },
     {
@@ -285,7 +285,7 @@
       "date": "2025-11-14",
       "time": "17:00:00",
       "price": 6900,
-      "available": 5000,
+      "available": 4995,
       "isAvailable": true
     },
     {
@@ -644,99 +644,49 @@
       "userId": null
     },
     {
-      "id": "499a",
-      "concertId": "7",
+      "id": "833f",
+      "concertId": "9",
       "userId": null
     },
     {
-      "id": "fd7e",
-      "concertId": "7",
+      "id": "8fb0",
+      "concertId": "9",
       "userId": null
     },
     {
-      "id": "61ef",
-      "concertId": "7",
+      "id": "afd6",
+      "concertId": "9",
       "userId": null
     },
     {
-      "id": "a4a4",
-      "concertId": "11",
-      "userId": "a822"
-    },
-    {
-      "id": "ab2d",
-      "concertId": "11",
-      "userId": "a822"
-    },
-    {
-      "id": "1747",
-      "concertId": "15",
+      "id": "8d4c",
+      "concertId": "9",
       "userId": null
     },
     {
-      "id": "d6ab",
+      "id": "b2f4",
       "concertId": "24",
-      "userId": null
-    },
-    {
-      "id": "3a86",
-      "concertId": "11",
       "userId": "7c1e"
     },
     {
-      "id": "1293",
-      "concertId": "15",
-      "userId": null
-    },
-    {
-      "id": "ea62",
-      "concertId": "29",
+      "id": "0274",
+      "concertId": "24",
       "userId": "7c1e"
     },
     {
-      "id": "aa2d",
-      "concertId": "5",
+      "id": "6cc9",
+      "concertId": "24",
       "userId": "7c1e"
     },
     {
-      "id": "e112",
-      "concertId": "5",
-      "userId": "fae7"
+      "id": "b2c2",
+      "concertId": "24",
+      "userId": "7c1e"
     },
     {
-      "id": "e9c2",
-      "concertId": "5",
-      "userId": "fae7"
-    },
-    {
-      "id": "5bfa",
-      "concertId": "5",
-      "userId": "fae7"
-    },
-    {
-      "id": "8f45",
-      "concertId": "5",
-      "userId": "fae7"
-    },
-    {
-      "id": "2953",
-      "concertId": "5",
-      "userId": "fae7"
-    },
-    {
-      "id": "b5fc",
-      "concertId": "5",
-      "userId": "fae7"
-    },
-    {
-      "id": "e2a6",
-      "concertId": "5",
-      "userId": "fae7"
-    },
-    {
-      "id": "dbe1",
-      "concertId": "5",
-      "userId": "fae7"
+      "id": "0e08",
+      "concertId": "24",
+      "userId": "7c1e"
     }
   ],
   "users": [
@@ -835,7 +785,11 @@
         "da08",
         "6034",
         "f84c",
-        "aa2d"
+        "b2f4",
+        "0274",
+        "6cc9",
+        "b2c2",
+        "0e08"
       ],
       "bookmarks": [
         "11",
@@ -843,7 +797,8 @@
         "18",
         "8",
         "9",
-        "6"
+        "6",
+        "12"
       ]
     },
     {
@@ -851,7 +806,7 @@
       "username": "test2",
       "email": "test2@mail.com",
       "DOB": "2006-02-07",
-      "password": "Test2test2#",
+      "password": "Aa_1aaaa",
       "tickets": [],
       "bookmarks": []
     },
@@ -915,44 +870,6 @@
       "email": "mekmek@mail.com",
       "DOB": "2025-04-02",
       "password": "Int203_001",
-      "tickets": [],
-      "bookmarks": []
-    },
-    {
-      "id": "fae7",
-      "username": "hu",
-      "email": "adsf@gmail.com",
-      "DOB": "2011-02-09",
-      "password": "Test_123",
-      "tickets": [
-        "e112",
-        "e9c2",
-        "5bfa",
-        "8f45",
-        "2953",
-        "b5fc",
-        "e2a6",
-        "dbe1"
-      ],
-      "bookmarks": [
-        "5"
-      ]
-    },
-    {
-      "id": "865c",
-      "username": "pheam",
-      "email": "pheam@gmail.conm",
-      "DOB": "2019-01-29",
-      "password": "Test_123",
-      "tickets": [],
-      "bookmarks": []
-    },
-    {
-      "id": "0a76",
-      "username": "kfds",
-      "email": "f@fds.d",
-      "DOB": "2025-04-01",
-      "password": "Test_123",
       "tickets": [],
       "bookmarks": []
     }

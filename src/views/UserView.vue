@@ -25,7 +25,7 @@ const callNotification = (notiType, textHeader, textContent) => {
       textHeader: "",
       textContent: ""
     }
-  }, 8000)
+  }, 5000)
 }
 </script>
  
