@@ -1,6 +1,6 @@
 <script setup>
     import PopupModel from "./PopupModel.vue"
-    import { ref, defineEmits } from "vue"
+    import { ref, defineEmits, onMounted } from "vue"
 
     const emit = defineEmits(['closeEditProfile', 'saveProfile', 'saveNewPassword'])
     const props = defineProps({
@@ -11,6 +11,11 @@
             type: Boolean
         }
     })
+
+    onMounted(() => {
+        isValidPassword(data.value.password)
+    })
+
     const data = ref({ ...props.dataAccount })
     const status = ref(props.statusLogin)
 
@@ -19,21 +24,30 @@
         data.value = { ...props.dataAccount }
         showPassword.value = false
         alertStatus.value = false
-        alertTypePassword.value = false
         alertTypeEmail.value = false
+        alertTypePassword.value = false
+        isValidPassword(data.value.password)
         emit('closeEditProfile')
     }
 
-    const alertTypePassword = ref(false)
-    const isEasyPassword = (password) => {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/
-        return passwordRegex.test(password)
-    }
 
     const alertTypeEmail = ref(false)
     const isValidEmail = (email) => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/
         return emailRegex.test(email)
+    }
+
+    const alertTypePassword = ref(false)
+    const alertEasyPassword = ref({})
+    const isValidPassword = (password) => {
+        alertEasyPassword.value = {
+            lowercase: /[a-z]/.test(password),
+            uppercase: /[A-Z]/.test(password),
+            digit: /\d/.test(password),
+            specialChar: /[\W_]/.test(password),
+            passwordLength: password.length >= 8
+        }
+        return Object.values(alertEasyPassword.value).every(Boolean);
     }
 
     const alertStatus = ref(false)
@@ -50,9 +64,11 @@
                 return
             }
 
-            if (!isEasyPassword(data.value.password)) {
+            if (!isValidPassword(data.value.password)) {
                 alertTypePassword.value = true
                 return
+            } else {
+                alertTypePassword.value = false
             }
 
             emit('saveProfile', data.value)
@@ -66,11 +82,15 @@
             if (!isValidEmail(data.value.email)) {
                 alertTypeEmail.value = true
                 return
-            } 
+            } else {
+                alertTypeEmail.value = false
+            }
 
-            if (!isEasyPassword(data.value.password)) {
+            if (!isValidPassword(data.value.password)) {
                 alertTypePassword.value = true
                 return
+            } else {
+                alertTypePassword.value = false
             }
 
             emit('saveNewPassword', data.value)
@@ -109,11 +129,11 @@
 
                     <div class="mb-6 relative">
                         <p class="flex justify-between items-center mb-2">
-                            <span class="font-semibold" :class="alertStatus && !data.password ? 'text-red-600' : 'text-gray-700'">{{ status ? 'Password:' : 'New password:' }}</span>
-                            <span v-show="alertStatus && !data.password" class="text-xs font-medium text-red-400">* Enter password</span>
+                            <span class="font-semibold" :class="(alertStatus && !data.password) || alertTypePassword ? 'text-red-600' : 'text-gray-700'">{{ status ? 'Password:' : 'New password:' }}</span>
+                            <span v-show="(alertStatus && !data.password) || alertTypePassword " class="text-xs font-medium text-red-400">* Enter password</span>
                         </p>
-                        <input :type="showPassword ? 'text' : 'password'" v-model="data.password" 
-                            :class="alertStatus && !data.password ? 'border-red-500 bg-red-100 focus:outline-none' : 'border-gray-400 focus:ring-blue-500'"
+                        <input :type="showPassword ? 'text' : 'password'" v-model="data.password" @input="isValidPassword(data.password)"
+                            :class="(alertStatus && !data.password) || alertTypePassword ? 'border-red-500 bg-red-100 focus:outline-none' : 'border-gray-400 focus:ring-blue-500'"
                             class="w-full p-2 border rounded-md">
                         
                         <!-- Show password -->
@@ -149,9 +169,28 @@
                             </svg>
                         </button>
                     </div>
-                    <p v-show="alertTypePassword" class="text-xs font-medium text-red-400 -mt-[1rem] mb-6">
-                        Password must be at least 8 characters long and include: one uppercase letter, one lowercase letter, one number, and one special character.</p>
-
+                    <ul class="text-xs font-medium mb-[1rem] -mt-[1rem] pl-[1.5rem] space-y-1">
+                        <li class="flex space-x-3">
+                            <img :src="alertEasyPassword.lowercase ? '/icons/success.png' : '/icons/unsuccess.png'" alt="" width="15" >
+                            <p :class="alertEasyPassword.lowercase ? 'text-green-400' : 'text-red-400'">Lowercase letter required.</p>
+                        </li>
+                        <li class="flex space-x-3">
+                            <img :src="alertEasyPassword.uppercase ? '/icons/success.png' : '/icons/unsuccess.png'" alt="" width="15" >
+                            <p :class="alertEasyPassword.uppercase ? 'text-green-400' : 'text-red-400'">Uppercase letter required.</p>
+                        </li>
+                        <li class="flex space-x-3">
+                            <img :src="alertEasyPassword.digit ? '/icons/success.png' : '/icons/unsuccess.png'" alt="" width="15" >
+                            <p :class="alertEasyPassword.digit ? 'text-green-400' : 'text-red-400'">Number required.</p>
+                        </li>
+                        <li class="flex space-x-3">
+                            <img :src="alertEasyPassword.specialChar ? '/icons/success.png' : '/icons/unsuccess.png'" alt="" width="15" >
+                            <p :class="alertEasyPassword.specialChar ? 'text-green-400' : 'text-red-400'">Special character required.</p>
+                        </li>
+                        <li class="flex space-x-3">
+                            <img :src="alertEasyPassword.passwordLength ? '/icons/success.png' : '/icons/unsuccess.png'" alt="" width="15" >
+                            <p :class="alertEasyPassword.passwordLength ? 'text-green-400' : 'text-red-400'">Minimum 8 characters.</p>
+                        </li>
+                    </ul>
                     <input type="submit" value="Save" 
                         @click="submit"
                         class="w-full bg-[#03abef] hover:bg-[#5fd1ff] text-white py-2 rounded-md font-bold transition duration-300 cursor-pointer">
