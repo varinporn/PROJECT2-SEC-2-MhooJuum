@@ -45,31 +45,6 @@ const toggleLogin = (boolean) => {
   isLogin.value = boolean
 }
 
-// Notification
-const showNotification  = ref(false)
-const notification = ref({
-  notiType: "",
-  textHeader: "",
-  textContent: ""
-})
-
-const callNotification = (notiType, textHeader, textContent) => {
-  notification.value.notiType = notiType
-  notification.value.textHeader = textHeader
-  notification.value.textContent = textContent
-  
-  showNotification.value = true
-  setTimeout(() => {
-    showNotification.value = false
-    // clear notification
-    notification.value = {
-      nontiType: "",
-      textHeader: "",
-      textContent: ""
-    }
-  }, 8000)
-}
-
 const showMobileMenu = ref(false)
 </script>
 

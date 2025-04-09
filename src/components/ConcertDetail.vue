@@ -5,9 +5,12 @@ import { addItem, getItemById, patchItem } from '../libs/fetchUtils'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 import EventPopup from './EventPopup.vue'
+import NotificationModel from './NotificationModel.vue'
 import { CookieUtil } from '@/libs/cookieUtil'
 import { useAuth } from '@/store/auth';
 import { storeToRefs } from 'pinia';
+
+const emit = defineEmits(['notification'])
 
 const authStore = useAuth()
 
@@ -168,6 +171,7 @@ const showUnfollowConfirm = ref(false)
 
 const toggleFollow = async () => {
   try {
+    checkLogin('Please log in to follow', 'You must log in to follow this concert')
     if (!isFollowed.value) {
       dataAccount.value.bookmarks.push(concertId)
     } else {
@@ -215,6 +219,36 @@ const concertUnfollow = async () => {
   } catch (error) {
     console.error(error)
   }
+}
+
+const checkLogin = (header, content) => {
+  if (statusLogin.value === null) callNotification(false, header, content)
+  else return
+}
+
+// Notification
+const showNotification  = ref(false)
+const notification = ref({
+  notiType: "",
+  textHeader: "",
+  textContent: ""
+})
+
+const callNotification = (notiType, textHeader, textContent) => {
+  notification.value.notiType = notiType
+  notification.value.textHeader = textHeader
+  notification.value.textContent = textContent
+  
+  showNotification.value = true
+  setTimeout(() => {
+    showNotification.value = false
+    // clear notification
+    notification.value = {
+      nontiType: "",
+      textHeader: "",
+      textContent: ""
+    }
+  }, 5000)
 }
 </script>
 
@@ -331,10 +365,10 @@ const concertUnfollow = async () => {
         <span class="text-base lg:text-lg font-bold self-center">
           Price: {{ selectConcert.price }}
         </span>
-        <a href="#bookingTicket">
+        <a :href="statusLogin ? '#bookingTicket' : '#'">
           <button
             class="bg-[#03abef] text-white font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-[#5fd1ff] text-sm md:text-base"
-            @click="toggleGetTicket"
+            @click="checkLogin('Please log in to book tickets', 'You must log in to book tickets')"
             v-if="selectConcert.available > 0"
           >
             GET TICKET
@@ -489,6 +523,15 @@ const concertUnfollow = async () => {
             <img src="/icons/success.png" alt="" width="100">
           </template>
         </EventPopup>
+
+        <NotificationModel v-if="showNotification" :noti-type="notification.notiType">
+          <template #header>
+            {{ notification.textHeader }}
+          </template>
+          <template #content>
+            {{ notification.textContent }}
+          </template>
+        </NotificationModel>
       </div>
 
       <!-- how to buy -->
