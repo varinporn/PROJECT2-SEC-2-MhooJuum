@@ -43,13 +43,16 @@ A concert ticket booking website developed using Vue.js.
     - Follow concert function
       - Add followed concerts to the user's data.
 3. 104
-    - Concert Ticket Management System
+    - Concert Ticket Management System (Booking Ticket)
+    - Create Base Model for list and popup
+    - Create Auth store for state management
+    - Code review
 4. 123
     - Display a list of tickets
         - Automatically checks each ticket's date:
             - Show tickets for upcoming events.
             - Show tickets for past concerts in history.
-    - Display a list of concerts that a user followห.
+    - Display a list of concerts that a user follows.
 
 ## 💫 Inspiration
 - [eventpop](https://www.eventpop.me/)
