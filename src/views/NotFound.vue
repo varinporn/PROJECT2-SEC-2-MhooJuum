@@ -1,5 +1,4 @@
 <script setup>
-import Footer from '@/components/Footer.vue'
 </script>
 
 <template>
@@ -13,7 +12,6 @@ import Footer from '@/components/Footer.vue'
         Home page
       </router-link>
     </div>
-    <Footer />
   </div>
 </template>
 

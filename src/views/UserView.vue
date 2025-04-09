@@ -1,7 +1,5 @@
 <script setup>
-import Footer from '@/components/Footer.vue';
 import UserManager from '@/components/UserManager.vue';
-import Header from '@/components/Header.vue';
 import NotificationModel from '@/components/NotificationModel.vue';
 import { ref } from 'vue';
 
@@ -33,7 +31,6 @@ const callNotification = (notiType, textHeader, textContent) => {
  
 <template>
     <UserManager @notification="callNotification"></UserManager>
-    <Footer></Footer>
     <!-- Notification -->
     <NotificationModel v-if="showNotification" :noti-type="notification.notiType">
       <template #header>

@@ -1,10 +1,7 @@
 <script setup>
-import TicketList from './components/TicketList.vue'
-import UserManager from './components/UserManager.vue'
 import Header from './components/Header.vue'
-import PopupModel from './components/PopupModel.vue'
-import Login from './components/Login.vue'
 import NotificationModel from './components/NotificationModel.vue'
+import Footer from './components/Footer.vue'
 import { ref } from 'vue'
 
 const showModal = ref(false)
@@ -58,12 +55,9 @@ const callNotification = (notiType, textHeader, textContent) => {
         {{ notification.textContent }}
       </template>
     </NotificationModel>
-
-    <!-- <button @click="toggleModal">hey</button>
-    <PopupModel v-if="showModal" @close="toggleModal">
-      <template #header> Your Ticket </template>
-      <template #content> fdsfa </template>
-    </PopupModel> -->
+    <div>
+      <Footer />
+    </div>
   </div>
 </template>
 

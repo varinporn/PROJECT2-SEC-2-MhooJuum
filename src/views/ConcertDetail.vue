@@ -2,11 +2,8 @@
 import { onMounted, ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { addItem, getItemById, patchItem } from '../libs/fetchUtils'
-import Header from './Header.vue'
-import Footer from './Footer.vue'
-import EventPopup from './EventPopup.vue'
-import NotificationModel from './NotificationModel.vue'
-import { CookieUtil } from '@/libs/cookieUtil'
+import EventPopup from '@/components/EventPopup.vue'
+import NotificationModel from '@/components/NotificationModel.vue'
 import { useAuth } from '@/store/auth';
 import { storeToRefs } from 'pinia';
 
@@ -32,6 +29,7 @@ watch(statusLogin, async (newValue) => {
       newValue
     )
     dataAccount.value = res
+    console.log(dataAccount.value)
     isFollowed.value = res.bookmarks.includes(concertId)
   } catch (err) {
     console.error(err)
@@ -49,15 +47,14 @@ onMounted(async () => {
       concertId
     )
     
-    isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
-
     dataAccount.value = await getItemById(
       `${import.meta.env.VITE_APP_URL}/users`,
       statusLogin.value
     )
 
-  } catch (error) {
+    isFollowed.value = dataAccount.value.bookmarks.includes(concertId) 
 
+  } catch (error) {
     console.log(error)
   }
 })
@@ -125,38 +122,31 @@ const clearBooking = () => {
 }
 
 const concertBooking = async (ticket) => {
-  if (dataAccount.value === null) {
-    toggleBooking()
-    return
-  }
   try {
     const updatedTickets = [...dataAccount.value.tickets]
-    while (quantity.value > 0) {
+    const ticketIds = []
+    
+    for (let i = 0; i < quantity.value; i++) {
       const addedTicket = await addItem(
         `${import.meta.env.VITE_APP_URL}/tickets`,
         ticket
       )
-      updatedTickets.push(addedTicket.id)
-
-      selectConcert.value.available--
-
-      await patchItem(
-        `${import.meta.env.VITE_APP_URL}/users`,
-        statusLogin.value,
-        {
-          tickets: updatedTickets,
-        }
-      )
-
-      await patchItem(
-        `${import.meta.env.VITE_APP_URL}/concerts`,
-        selectConcert.value.id,
-        {
-          available: selectConcert.value.available,
-        }
-      )
-      quantity.value--
+      ticketIds.push(addedTicket.id)
     }
+    updatedTickets.push(...ticketIds)
+    await patchItem(
+      `${import.meta.env.VITE_APP_URL}/users`,
+      statusLogin.value,
+      { tickets: updatedTickets }
+    )
+
+    const newAvailable = selectConcert.value.available - quantity.value
+    await patchItem(
+      `${import.meta.env.VITE_APP_URL}/concerts`,
+      selectConcert.value.id,
+      { available: newAvailable }
+    )
+    selectConcert.value.available = newAvailable
 
     modalMessage.header = 'Booking Successful!'
     modalMessage.content =
@@ -367,6 +357,9 @@ const callNotification = (notiType, textHeader, textContent) => {
 
       <!-- price & get ticket -->
       <div class="w-full md:w-fit flex justify-between items-center space-y-2 sm:space-y-0 sm:space-x-4 mb-2">
+        <span class="text-base md:text-base lg:text-lg font-bold self-center">
+          Available: {{ selectConcert.available }}
+        </span>
         <span class="text-base lg:text-lg font-bold self-center">
           Price: {{ selectConcert.price }}
         </span>
@@ -404,7 +397,7 @@ const callNotification = (notiType, textHeader, textContent) => {
               class="hidden sm:hidden md:hidden lg:block lg:w-1/4 mx-auto"
             />
           </div>
-          <p v-html="formattedDescription" class="text-sm md:text-base lg:text-base pt-2 md:pt-8 lg:pt-10"></p>
+          <p v-html="formattedDescription" class="text-sm md:text-base lg:text-base pt-2 px-8 lg:px-56 md:pt-8 lg:pt-10"></p>
         </div>
 
         <!-- booking ticket -->
@@ -595,7 +588,7 @@ const callNotification = (notiType, textHeader, textContent) => {
       </div>
     </div>
   </div>
-  <Footer />
+  
 </template>
 
 <style scoped></style>

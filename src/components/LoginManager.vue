@@ -1,18 +1,14 @@
 <script setup>
 const emit = defineEmits(['close', 'submit', 'notification'])
-import { getItemByKey, editItem, addItem } from '@/libs/fetchUtils';
-import { CookieUtil } from '@/libs/cookieUtil';
-import { ref } from 'vue';
-import EditProfile from './EditProfile.vue';
-import Login from './Login.vue';
-import { useAuth } from '@/store/auth';
-import { storeToRefs } from 'pinia';
+import { getItemByKey, editItem, addItem } from '@/libs/fetchUtils'
+import { ref } from 'vue'
+import EditProfile from './EditProfile.vue'
+import Login from './Login.vue'
+import { useAuth } from '@/store/auth'
 
 const authStore = useAuth()
 
-const { setStatusLogin } = authStore;
-const {statusLogin} = storeToRefs(authStore)
-
+const { setStatusLogin } = authStore
 const showEditProfile = ref(false)
 const dataAccount = ref({
     username: "",
@@ -43,6 +39,7 @@ const addAccount = async (data) => {
         }
 
         const addAccount = await addItem(`${import.meta.env.VITE_APP_URL}/users`, data)
+        console.log(addAccount)
         login(addAccount)
         emit('notification', true, 'Account created and login successful.', `Hey \"${data.username}\", welcome to the mhoojuum.`)
     } catch (error) {
@@ -53,6 +50,7 @@ const addAccount = async (data) => {
 // Function Login
 const login = async (data) => {
     try {
+        console.log("data", data)
         let dataSelect = null
         if (data.email) {
             dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
@@ -72,7 +70,6 @@ const login = async (data) => {
         
         setStatusLogin(dataSelect[0].id)
         dataAccount.value = dataSelect[0]
-
         emit('submit', dataSelect[0].username)
         emit('notification', true, 'Login successful', `Hey \"${dataSelect[0].username}\", welcome to the mhoojuum.`)
     } catch (error) {

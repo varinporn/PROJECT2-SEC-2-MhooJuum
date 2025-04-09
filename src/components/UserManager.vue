@@ -1,16 +1,11 @@
 <script setup>
 import TicketList from "./TicketList.vue";
-import Login from "./Login.vue";
 import EditProfile from "./EditProfile.vue";
-import Header from "./Header.vue";
 import ConcertList from "./ConcertList.vue";
-import Footer from "./Footer.vue";
-import {CookieUtil} from "@/libs/cookieUtil";
 import { onMounted, ref, computed} from "vue";
-import { getItems, getItemById, getItemByKey, addItem, deleteItemById, editItem } from "@/libs/fetchUtils";
+import { getItemById, getItemByKey, deleteItemById, editItem } from "@/libs/fetchUtils";
 import { useRouter } from "vue-router";
 import EventPopup from "./EventPopup.vue";
-import TicketPopup from "./TicketPopup.vue";
 import { useAuth } from '@/store/auth';
 import { storeToRefs } from 'pinia';
 

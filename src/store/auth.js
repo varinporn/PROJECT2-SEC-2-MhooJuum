@@ -1,6 +1,5 @@
-// stores/useAuth.js
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import{ CookieUtil }from '@/libs/cookieUtil'
 
 export const useAuth = defineStore('auth', () => {

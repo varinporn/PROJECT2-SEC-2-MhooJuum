@@ -1,5 +1,4 @@
 <script setup>
-import { CookieUtil } from '@/libs/cookieUtil'
 import { ref, watch, onMounted } from 'vue'
 import { getItemById } from '@/libs/fetchUtils';
 import LoginManager from './LoginManager.vue'
