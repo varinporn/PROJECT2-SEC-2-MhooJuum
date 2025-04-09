@@ -54,8 +54,7 @@
         digit: /\d/.test(password),
         specialChar: /[\W_]/.test(password),
         passwordLength: password.length >= 8
-    }
-
+      }
       return Object.values(alertEasyPassword.value).every(Boolean);
     }
 
