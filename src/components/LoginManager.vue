@@ -30,6 +30,7 @@ const addAccount = async (data) => {
         const checkEmail = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)
         if (checkEmail.length !== 0) {
             emit('notification', false, 'Sign-up unsuccessful', `This email \"${data.email}\" is already registered.`)
+            emit('close')
             return
         } 
 
@@ -37,6 +38,7 @@ const addAccount = async (data) => {
         const checkUsername = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "username", data.username)
         if (checkUsername.length !== 0) {
             emit('notification', false, 'Sign-up unsuccessful', `This username \"${data.username}\" is already registered.`)
+            emit('close')
             return
         }
 
@@ -71,7 +73,7 @@ const login = async (data) => {
         setStatusLogin(dataSelect[0].id)
         dataAccount.value = dataSelect[0]
 
-        emit('submit')
+        emit('submit', dataSelect[0].username)
         emit('notification', true, 'Login successful', `Hey \"${dataSelect[0].username}\", welcome to the mhoojuum.`)
     } catch (error) {
         console.log(error)

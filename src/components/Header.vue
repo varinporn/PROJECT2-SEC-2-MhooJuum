@@ -1,20 +1,26 @@
 <script setup>
 import { CookieUtil } from '@/libs/cookieUtil'
 import { ref, watch, onMounted } from 'vue'
+import { getItemById } from '@/libs/fetchUtils';
 import LoginManager from './LoginManager.vue'
 import { storeToRefs } from 'pinia';
 import { useAuth } from '@/store/auth';
 
-onMounted(() => {
-  console.log(statusLogin.value);
-  
+onMounted(async () => {
   if (statusLogin.value === null) {
     online.value = false 
   } else {
     online.value = true
+    try {
+      const res = await getItemById(
+        `${import.meta.env.VITE_APP_URL}/users`,
+        statusLogin.value
+      )
+      username.value = res.username
+    } catch (err) {
+      console.error(err)
+    }
   }
-  console.log(online.value);
-  
 })
 
 const emit = defineEmits(['forwardNoti'])
@@ -23,9 +29,9 @@ const forwardNoti = (notiType, textHeader, textContent) => {
 }
 
 const online = ref(false)
-
 const authStore = useAuth()
 const {statusLogin} = storeToRefs(authStore)
+const dataAccount = ref(null)
 watch(statusLogin, (value) => {
   if(value === null) {
     online.value = false
@@ -35,14 +41,16 @@ watch(statusLogin, (value) => {
   }
 })
 
-const changeOnline = () => {
+const username = ref('')
+const isLogin = (name) => {
   toggleLogin(false)
   online.value = true
+  username.value = name
 }
 
-const isLogin = ref(false)
+const showPopupLogin = ref(false)
 const toggleLogin = (boolean) => {
-  isLogin.value = boolean
+  showPopupLogin.value = boolean
 }
 
 const showMobileMenu = ref(false)
@@ -71,9 +79,6 @@ const showMobileMenu = ref(false)
           :to="{ name: 'ConcertView' }"
           >CONCERTS</router-link
         >
-        <div>
-          {{ online }}
-        </div>
       </div>
     </div>
     <div class="lg:flex hidden">
@@ -130,7 +135,7 @@ const showMobileMenu = ref(false)
       v-else
       class="border border-[#03abef] rounded-lg px-6 py-2 text-[#03abef] font-semibold transition w-fit"
     >
-      <p>username</p>
+      <p>{{ username }}</p>
     </div>
   </div>
 
@@ -160,31 +165,16 @@ const showMobileMenu = ref(false)
       PROFILE
     </router-link>
   </div>
-
-  <!-- Logout icon positioned at the bottom -->
-  <div class="flex justify-end mt-auto" v-if="statusLogin">
-    <img src="/icons/logout.png" alt="log-out" class="w-8 h-8 cursor-pointer" />
-  </div>
 </div>
 
   </div>
 
   <LoginManager
-    v-if="isLogin"
+    v-if="showPopupLogin"
     @close="toggleLogin(false)"
-    @submit="toggleLogin(false)"
+    @submit="isLogin"
     @notification="forwardNoti"
   />
-  <!-- @notification="callNotification" -->
-  <!-- Notification -->
-  <!-- <NotificationModel v-if="showNotification" :noti-type="notification.notiType">
-    <template #header>
-      {{ notification.textHeader }}
-    </template>
-    <template #content>
-      {{ notification.textContent }}
-    </template>
-  </NotificationModel> -->
 </template>
 
 <style scoped></style>

@@ -35,7 +35,6 @@ onMounted(async () => {
   try {
     dataAccount.value = await getItemById(`${import.meta.env.VITE_APP_URL}/users`, statusLogin.value)
 
-
     tickets.value = await Promise.all(
       dataAccount.value.tickets.map(async (ticketId) => {
       return await getItemById(`${import.meta.env.VITE_APP_URL}/tickets`, ticketId);

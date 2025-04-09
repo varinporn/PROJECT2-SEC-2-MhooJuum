@@ -48,12 +48,16 @@ onMounted(async () => {
       `${import.meta.env.VITE_APP_URL}/concerts`,
       concertId
     )
+    
+    isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
+
     dataAccount.value = await getItemById(
       `${import.meta.env.VITE_APP_URL}/users`,
       statusLogin.value
     )
-    isFollowed.value = dataAccount.value.bookmarks.includes(concertId)
+
   } catch (error) {
+
     console.log(error)
   }
 })
@@ -180,6 +184,7 @@ const toggleFollow = async () => {
       return
     }
 
+    
     await patchItem(
       `${import.meta.env.VITE_APP_URL}/users`,
       statusLogin.value,
