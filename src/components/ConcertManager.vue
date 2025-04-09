@@ -31,7 +31,7 @@ onMounted(async () => {
   try {
     concerts.value = await getItems(`${import.meta.env.VITE_APP_URL}/concerts`)
   } catch (error) {
-    console.error('Error fetching concerts:', error)
+    console.error(error)
   }
 })
 

@@ -39,7 +39,6 @@ const addAccount = async (data) => {
         }
 
         const addAccount = await addItem(`${import.meta.env.VITE_APP_URL}/users`, data)
-        console.log(addAccount)
         login(addAccount)
         emit('notification', true, 'Account created and login successful.', `Hey \"${data.username}\", welcome to the mhoojuum.`)
     } catch (error) {
@@ -50,7 +49,6 @@ const addAccount = async (data) => {
 // Function Login
 const login = async (data) => {
     try {
-        console.log("data", data)
         let dataSelect = null
         if (data.email) {
             dataSelect = await getItemByKey(`${import.meta.env.VITE_APP_URL}/users`, "email", data.email)

@@ -4,12 +4,6 @@ import NotificationModel from './components/NotificationModel.vue'
 import Footer from './components/Footer.vue'
 import { ref } from 'vue'
 
-const showModal = ref(false)
-
-const toggleModal = () => {
-  showModal.value = !showModal.value
-}
-
 // Notification
 const showNotification  = ref(false)
 const notification = ref({

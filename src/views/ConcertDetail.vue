@@ -29,7 +29,6 @@ watch(statusLogin, async (newValue) => {
       newValue
     )
     dataAccount.value = res
-    console.log(dataAccount.value)
     isFollowed.value = res.bookmarks.includes(concertId)
   } catch (err) {
     console.error(err)

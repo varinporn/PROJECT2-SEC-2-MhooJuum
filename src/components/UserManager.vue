@@ -118,8 +118,7 @@ const historyTickets = computed(() => {
   const logout = () => {
     if (!accept.value) return
     emit('notification', true, 'Logout successful', `Bye "${dataAccount.value.username}", See you next time`)
-    console.log('logout')
-    
+  
     clearDataAccount()
     clearStatusLogin()
     
