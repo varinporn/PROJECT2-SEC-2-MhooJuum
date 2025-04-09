@@ -36,12 +36,14 @@ A concert ticket booking website developed using Vue.js.
 1. 068
     - User Management System
 2. 076
-    - Display a list of concerts
-      - Categorized by K-pop, T-pop, and Hip-hop, and complete list.
-      - Show only upcoming concerts.
+     - Display a list of concerts
+      - Categorized by K-pop, T-pop, and Hip-hop, and complete list
+      - Show only upcoming concerts
     - Shows details of each concert
-    - Follow concert function
-      - Add followed concerts to the user's data.
+    - Follow concert functionality
+      - Add followed concerts to the user's data
+      - Remove unfollowed concerts from the user's data
+    - Responsive design
 3. 104
     - Concert Ticket Management System (Booking Ticket)
     - Create Base Model for list and popup
