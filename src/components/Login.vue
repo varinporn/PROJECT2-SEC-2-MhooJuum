@@ -1,6 +1,6 @@
 <script setup>
     import PopupModel from "./PopupModel.vue"
-    import { ref, defineEmits } from "vue"
+    import { ref, defineEmits, watch } from "vue"
 
     const emit = defineEmits(['closeLogin', 'login', 'addAccount', 'forgetPassword'])
     const props = defineProps({
@@ -20,6 +20,13 @@
         usernameOrEmail.value = ''
         alertTypeEmail.value = false
         alertTypePassword.value = false
+        alertEasyPassword.value ={
+          lowercase: false,
+          uppercase: false,
+          digit: false,
+          specialChar: false,
+          passwordLength: false
+        }
         alertTypeDate.value = false
         alertStatus.value = false
         showPassword.value = false
@@ -33,9 +40,23 @@
     }
 
     const alertTypePassword = ref(false)
-    const isEasyPassword = (password) => {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/
-        return passwordRegex.test(password)
+    const alertEasyPassword = ref({
+        lowercase: false,
+        uppercase: false,
+        digit: false,
+        specialChar: false,
+        passwordLength: false
+    })
+    const isValidPassword = (password) => {
+      alertEasyPassword.value = {
+        lowercase: /[a-z]/.test(password),
+        uppercase: /[A-Z]/.test(password),
+        digit: /\d/.test(password),
+        specialChar: /[\W_]/.test(password),
+        passwordLength: password.length >= 8
+    }
+
+      return Object.values(alertEasyPassword.value).every(Boolean);
     }
 
     const alertTypeDate = ref(false)
@@ -45,51 +66,59 @@
     const submit = () => {
         // trim data
         for (const key in data.value) {
-            if (typeof data.value[key] === "string") {
-                data.value[key] = data.value[key].trim();
-            }
+          if (typeof data.value[key] === "string") {
+            data.value[key] = data.value[key].trim();
+          }
         }
 
         if (showPageLogin.value) {
-            // login
-            if (!usernameOrEmail.value.trim() || !data.value.password) {
-                alertStatus.value = true
-                return
-            }
-
-            // Check username or email
-            if (!isValidEmail(usernameOrEmail.value.trim())) {
-                data.value.username = usernameOrEmail.value.trim()
-            } else {
-                data.value.email = usernameOrEmail.value.trim()
-            }
-
-            emit('login', data.value)
-            switchFeature(true)
-        } else {
-            //sign up
-            if (!data.value.username || !data.value.email || !data.value.DOB || !data.value.password) {
-                alertStatus.value = true
-                return
-            }
-            
-            if (!isValidEmail(data.value.email)) {
-                alertTypeEmail.value = true
-                return
-            }   
-            
-            if (!isEasyPassword(data.value.password)) {
-                alertTypePassword.value = true
-                return
-            }
-
-            if (!isValidDate(data.value.DOB)) {
-              alertTypeDate.value = true
-              return
-            }
+          // login
+          if (!usernameOrEmail.value.trim() || !data.value.password) {
+            alertStatus.value = true
+            return
+          }
            
-            emit('addAccount', data.value)
-            switchFeature(true)
+          // Check username or email
+          if (!isValidEmail(usernameOrEmail.value.trim())) {
+            data.value.username = usernameOrEmail.value.trim()
+          } else {
+            data.value.email = usernameOrEmail.value.trim()
+          }
+
+          emit('login', data.value)
+          switchFeature(true)
+        } else {
+          //sign up
+          if (!data.value.username || !data.value.email || !data.value.DOB || !data.value.password) {
+            alertStatus.value = true
+            return
+          } else {
+            alertStatus.value = true
+          }
+            
+          if (!isValidEmail(data.value.email)) {
+            alertTypeEmail.value = true
+            return
+          } else {
+            alertTypeEmail.value = false
+          }
+            
+          if (!isValidPassword(data.value.password)) {
+            alertTypePassword.value = true
+            return
+          } else {
+            alertTypePassword.value = false
+          }
+
+          if (!isValidDate(data.value.DOB)) {
+            alertTypeDate.value = true
+            return
+          } else {
+            alertTypeDate.value = false
+          }
+           
+          emit('addAccount', data.value)
+          switchFeature(true)
         }
     }
 
@@ -122,9 +151,9 @@
         <!-- Login -->
         <div class="px-10 py-7 md:p-10 w-[20rem] lg:w-[25rem] max-md:h-[35rem]" :class="{'max-md:block': showPageLogin, 'max-md:hidden': !showPageLogin}">
           <button @click="() => {switchFeature(true); $emit('closeLogin') }" 
-            class="relative bottom-[0.5rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
-          <p class="text-center font-bold text-2xl md:text-3xl mb-6">Login</p>
-          <div class="flex flex-col space-y-5 md:space-y-7">
+            class="relative bottom-[1.5rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
+          <p class="text-center font-bold text-2xl md:text-3xl mb-3 md:mb-6">Login</p>
+          <div class="flex flex-col space-y-3 md:space-y-5">
             <div>
                 <p class="flex justify-between items-center">
                     <span class="font-bold" :class="alertStatus && !usernameOrEmail ? 'text-red-600' : 'text-gray-400'">Username or email:</span>
@@ -181,7 +210,7 @@
             <p @click="() => { emit('forgetPassword'); switchFeature(true); }" 
                 class="font-bold text-gray-400 text-xs ml-auto cursor-pointer hover:text-[#03abef]">Forget Password?</p>
             <input type="submit" value="Log in" @click="submit"
-              class="w-3/5 mx-auto text-white bg-[#03abef] hover:bg-[#5fd1ff] hover:scale-110 transition-transform duration-200 py-3 rounded-full font-bold cursor-pointer">
+              class="w-3/5 mx-auto text-white bg-[#03abef] hover:bg-[#5fd1ff] hover:scale-110 transition-transform duration-200 py-3 rounded-full font-bold cursor-pointer mt-6">
           </div>
           <div class="w-[12rem] mt-[1rem] mx-auto pl-[1.5rem]">
             <img src="/icons/pig.png" alt="Pig">
@@ -191,9 +220,9 @@
         <!-- Sign Up -->
         <div class="px-10 py-7 md:p-10 w-[20rem] lg:w-[25rem] max-md:h-[35rem]" :class="{'max-md:hidden': showPageLogin, 'max-md:block': !showPageLogin}">
           <button @click="() => {switchFeature(true); $emit('closeLogin') }"
-            class="relative bottom-[2rem] left-[14rem] lg:left-[19rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
-          <p class="text-center font-bold text-2xl md:text-3xl mb-6">Sign up</p>
-          <div class="flex flex-col space-y-5 md:space-y-7">
+            class="relative bottom-[0rem] left-[14rem] lg:left-[19rem] cursor-pointer max-md:hidden"><img src="/icons/close.png" class="w-[20px]"></button>
+          <p class="text-center font-bold text-2xl md:text-3xl mb-3 md:mb-6">Sign up</p>
+          <div class="flex flex-col space-y-3 md:space-y-5">
             <div>
                 <p class="flex justify-between items-center">
                     <span class="font-bold" :class="(alertStatus && !data.email) || alertTypeEmail
@@ -230,10 +259,10 @@
             <div class="relative">
                 <p class="flex justify-between items-center">
                     <span class="font-bold" :class="(alertStatus && !data.password) || alertTypePassword ? 'text-red-600' : 'text-gray-400'">Password:</span>
-                    <span v-show="alertStatus && !data.password" class="text-xs font-medium text-red-400">* Enter password</span>  
+                    <span v-show="(alertStatus && !data.password) || alertTypePassword" class="text-xs font-medium text-red-400">* Enter password</span>  
                 </p>
                
-              <input :type="showPassword ? 'text' : 'password'" required v-model="data.password"
+              <input :type="showPassword ? 'text' : 'password'" required v-model="data.password" @input="isValidPassword(data.password)"
                 :class="(alertStatus && !data.password) || alertTypePassword ? 'border-red-500 bg-red-100 rounded-t-xl' : 'border-gray-400 focus:border-blue-500'"
                 class="w-full border-b border-gray-400 focus:outline-none focus:border-blue-500 p-2 pr-10">
               
@@ -270,8 +299,28 @@
                 </svg>
               </button>
             </div>
-            <p v-show="alertTypePassword" class="text-xs font-medium text-red-400 -mt-[1rem]">
-              Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.</p>
+            <ul class="text-xs font-medium md:-mt-[0.5rem] pl-[1.5rem] space-y-1">
+              <li class="flex space-x-3">
+                <img :src="alertEasyPassword.lowercase ? '/icons/success.png' : '/icons/unsuccess.png'" alt="" width="15" >
+                <p :class="alertEasyPassword.lowercase ? 'text-green-400' : 'text-red-400'">Lowercase letter required.</p>
+              </li>
+              <li class="flex space-x-3">
+                <img :src="alertEasyPassword.uppercase ? '/icons/success.png' : '/icons/unsuccess.png'" alt="" width="15" >
+                <p :class="alertEasyPassword.uppercase ? 'text-green-400' : 'text-red-400'">Uppercase letter required.</p>
+              </li>
+              <li class="flex space-x-3">
+                <img :src="alertEasyPassword.digit ? '/icons/success.png' : '/icons/unsuccess.png'" alt="" width="15" >
+                <p :class="alertEasyPassword.digit ? 'text-green-400' : 'text-red-400'">Number required.</p>
+              </li>
+              <li class="flex space-x-3">
+                <img :src="alertEasyPassword.specialChar ? '/icons/success.png' : '/icons/unsuccess.png'" alt="" width="15" >
+                <p :class="alertEasyPassword.specialChar ? 'text-green-400' : 'text-red-400'">Special character required.</p>
+              </li>
+              <li class="flex space-x-3">
+                <img :src="alertEasyPassword.passwordLength ? '/icons/success.png' : '/icons/unsuccess.png'" alt="" width="15" >
+                <p :class="alertEasyPassword.passwordLength ? 'text-green-400' : 'text-red-400'">Minimum 8 characters.</p>
+              </li>
+            </ul>
             <input type="submit" value="Sign up" @click="submit"
               class="w-3/5 mx-auto text-white bg-[#03abef] hover:bg-[#5fd1ff] hover:scale-110 transition-transform duration-200 py-3 rounded-full font-bold cursor-pointer">
           </div>
