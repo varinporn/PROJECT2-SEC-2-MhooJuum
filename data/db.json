@@ -743,9 +743,9 @@
     {
       "id": "7c1e",
       "username": "test",
-      "email": "test@example",
+      "email": "test@mail.com",
       "DOB": "2005-02-22",
-      "password": "test",
+      "password": "Int203_test",
       "tickets": [
         "7db7",
         "c14e",
